@@ -12,19 +12,22 @@ class FirstPageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
 
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
-    */
+    
+
+
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//         if let reg_delegate = (segue.destination as! UINavigationController).topViewController as? RegisterViewController {
+//            reg_delegate.log_delegate = self
+//        }
+//    }
+    
 
 }

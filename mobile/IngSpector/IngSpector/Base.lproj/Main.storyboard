@@ -16,36 +16,36 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="log1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="6SR-Ms-TIO">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="140" width="414" height="722"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ingspectorfulllogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="JFU-Wg-P6C">
-                                <rect key="frame" x="157.5" y="118" width="100" height="100"/>
+                                <rect key="frame" x="157.5" y="170" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="BYY-m3-RFi"/>
                                     <constraint firstAttribute="width" constant="100" id="aEl-ak-IPc"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Food Ingredient Inspector" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OIf-Zi-DNe">
-                                <rect key="frame" x="68.5" y="253" width="278.5" height="26"/>
+                                <rect key="frame" x="68.5" y="305" width="278.5" height="26"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email or user name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t6d-hi-Gcw">
-                                <rect key="frame" x="60" y="349" width="294" height="34"/>
+                                <rect key="frame" x="60" y="401" width="294" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zbm-B3-VWh">
-                                <rect key="frame" x="60" y="403" width="294" height="34"/>
+                                <rect key="frame" x="60" y="455" width="294" height="34"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rzV-5M-PUr">
-                                <rect key="frame" x="60" y="457" width="294" height="36"/>
+                                <rect key="frame" x="60" y="509" width="294" height="36"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <state key="normal" title="Login">
@@ -64,7 +64,16 @@
                                 <state key="normal" title="Sign Up">
                                     <color key="titleColor" red="0.062745098040000002" green="0.14666128549999999" blue="0.68087621669999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="ECb-9F-mBJ" kind="show" id="oiC-Oo-OXp"/>
+                                </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D4N-Il-ou5">
+                                <rect key="frame" x="60" y="565" width="117.5" height="24"/>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -80,6 +89,7 @@
                             <constraint firstItem="6SR-Ms-TIO" firstAttribute="leading" secondItem="e49-qe-cnR" secondAttribute="leading" id="UZO-xf-HU7"/>
                             <constraint firstItem="e49-qe-cnR" firstAttribute="trailing" secondItem="zbm-B3-VWh" secondAttribute="trailing" constant="60" id="Uat-eA-iim"/>
                             <constraint firstItem="zbm-B3-VWh" firstAttribute="leading" secondItem="e49-qe-cnR" secondAttribute="leading" constant="60" id="XjH-Jl-dVE"/>
+                            <constraint firstItem="D4N-Il-ou5" firstAttribute="leading" secondItem="e49-qe-cnR" secondAttribute="leading" constant="60" id="dfy-6t-h43"/>
                             <constraint firstItem="OIf-Zi-DNe" firstAttribute="centerX" secondItem="sGv-6H-f2K" secondAttribute="centerX" constant="0.5" id="eXT-hk-BbX"/>
                             <constraint firstItem="rzV-5M-PUr" firstAttribute="leading" secondItem="e49-qe-cnR" secondAttribute="leading" constant="60" id="f79-IB-boj"/>
                             <constraint firstItem="e49-qe-cnR" firstAttribute="trailing" secondItem="t6d-hi-Gcw" secondAttribute="trailing" constant="60" id="fza-4b-IJT"/>
@@ -87,6 +97,7 @@
                             <constraint firstItem="t6d-hi-Gcw" firstAttribute="leading" secondItem="e49-qe-cnR" secondAttribute="leading" constant="60" id="hGl-7T-rGW"/>
                             <constraint firstItem="e49-qe-cnR" firstAttribute="bottom" secondItem="Za4-Kp-zQn" secondAttribute="bottom" constant="10" id="hIV-nZ-t1v"/>
                             <constraint firstItem="rzV-5M-PUr" firstAttribute="top" secondItem="zbm-B3-VWh" secondAttribute="bottom" constant="20" id="lKf-Z9-R8w"/>
+                            <constraint firstItem="D4N-Il-ou5" firstAttribute="top" secondItem="rzV-5M-PUr" secondAttribute="bottom" constant="20" id="xd6-Tq-MzB"/>
                             <constraint firstItem="JFU-Wg-P6C" firstAttribute="centerX" secondItem="sGv-6H-f2K" secondAttribute="centerX" constant="0.5" id="zJp-Nm-kTC"/>
                             <constraint firstItem="6SR-Ms-TIO" firstAttribute="top" secondItem="e49-qe-cnR" secondAttribute="top" id="zeU-9R-l5J"/>
                         </constraints>
@@ -98,13 +109,49 @@
             </objects>
             <point key="canvasLocation" x="489.85507246376818" y="60.9375"/>
         </scene>
+        <!--Register-->
+        <scene sceneID="faw-bn-E6Y">
+            <objects>
+                <viewController id="ECb-9F-mBJ" customClass="RegisterViewController" customModule="IngSpector" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cn2-Eg-cf9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="IwI-iF-V9r">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="912"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="eRY-Qe-pBn" firstAttribute="bottom" secondItem="IwI-iF-V9r" secondAttribute="bottom" constant="-50" id="Nmr-q8-Cyh"/>
+                            <constraint firstItem="IwI-iF-V9r" firstAttribute="leading" secondItem="eRY-Qe-pBn" secondAttribute="leading" id="RZm-i8-qq5"/>
+                            <constraint firstItem="IwI-iF-V9r" firstAttribute="top" secondItem="eRY-Qe-pBn" secondAttribute="top" constant="-140" id="fzz-iw-LKP"/>
+                            <constraint firstItem="eRY-Qe-pBn" firstAttribute="trailing" secondItem="IwI-iF-V9r" secondAttribute="trailing" id="rgU-3f-kDo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eRY-Qe-pBn"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Register" id="y5x-F1-giu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FDP-Na-N10" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1513" y="486"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="eiV-qG-9Y5">
             <objects>
                 <navigationController id="Iql-LE-2nh" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pf4-we-Xfg">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="pf4-we-Xfg">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="36"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="PuA-QJ-SMN" kind="relationship" relationship="rootViewController" id="0hd-pI-J7m"/>
@@ -116,7 +163,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="background.png" width="1357" height="1920"/>
         <image name="ingspectorfulllogo.png" width="544" height="515"/>
         <image name="log1.jpg" width="2045.52001953125" height="1363.6800537109375"/>
     </resources>
+    <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
 </document>
