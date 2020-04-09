@@ -19,6 +19,7 @@ class UserProfileViewController: UIViewController {
     @IBOutlet weak var tf_ht: UITextField!
     @IBOutlet weak var tf_wt: UITextField!
     
+    @IBOutlet weak var addAllergensBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,10 +36,15 @@ class UserProfileViewController: UIViewController {
             tf_email.isUserInteractionEnabled = true
             tf_ht.isUserInteractionEnabled = true
             tf_wt.isUserInteractionEnabled = true
+            addAllergensBtn.isUserInteractionEnabled = true
+            //addAllergensBtn.isHidden = false
+    
         } else {
             tf_email.isUserInteractionEnabled = false
             tf_ht.isUserInteractionEnabled = false
             tf_wt.isUserInteractionEnabled = false
+            addAllergensBtn.isUserInteractionEnabled = false
+            //addAllergensBtn.isHidden = true
         }
     }
     
@@ -54,6 +60,7 @@ class UserProfileViewController: UIViewController {
         profileBtn.tintColor = UIColor.systemTeal
         
         viewListBtn.layer.cornerRadius = 10
+        addAllergensBtn.layer.cornerRadius = 10
         
         
         // Email
