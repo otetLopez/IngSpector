@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		F5316620243EC953000F7375 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = F531661F243EC953000F7375 /* plus.png */; };
+		F5316623243ED8B4000F7375 /* camera-2.png in Resources */ = {isa = PBXBuildFile; fileRef = F5316621243ED8B4000F7375 /* camera-2.png */; };
+		F5316624243ED8B4000F7375 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = F5316622243ED8B4000F7375 /* search.png */; };
+		F5316626243EDDB3000F7375 /* FoodListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5316625243EDDB3000F7375 /* FoodListTableViewController.swift */; };
+		F5316629243EE19E000F7375 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5316628243EE19E000F7375 /* UserProfileViewController.swift */; };
 		F538AC04243E731200A75BD4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F538AC03243E731200A75BD4 /* HomeViewController.swift */; };
 		F5AB9F82243D174800DF0BE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AB9F81243D174800DF0BE9 /* AppDelegate.swift */; };
 		F5AB9F84243D174800DF0BE9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AB9F83243D174800DF0BE9 /* SceneDelegate.swift */; };
-		F5AB9F86243D174800DF0BE9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AB9F85243D174800DF0BE9 /* ViewController.swift */; };
 		F5AB9F89243D174800DF0BE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5AB9F87243D174800DF0BE9 /* Main.storyboard */; };
 		F5AB9F8C243D174800DF0BE9 /* IngSpector.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F5AB9F8A243D174800DF0BE9 /* IngSpector.xcdatamodeld */; };
 		F5AB9F8E243D174D00DF0BE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5AB9F8D243D174D00DF0BE9 /* Assets.xcassets */; };
@@ -27,11 +30,14 @@
 
 /* Begin PBXFileReference section */
 		F531661F243EC953000F7375 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
+		F5316621243ED8B4000F7375 /* camera-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-2.png"; sourceTree = "<group>"; };
+		F5316622243ED8B4000F7375 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
+		F5316625243EDDB3000F7375 /* FoodListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListTableViewController.swift; sourceTree = "<group>"; };
+		F5316628243EE19E000F7375 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		F538AC03243E731200A75BD4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F5AB9F7E243D174800DF0BE9 /* IngSpector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IngSpector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5AB9F81243D174800DF0BE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5AB9F83243D174800DF0BE9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F5AB9F85243D174800DF0BE9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F5AB9F88243D174800DF0BE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F5AB9F8B243D174800DF0BE9 /* IngSpector.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IngSpector.xcdatamodel; sourceTree = "<group>"; };
 		F5AB9F8D243D174D00DF0BE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -57,6 +63,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F5316627243EE142000F7375 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F5AB9F9D243D2E9700DF0BE9 /* FirstPageViewController.swift */,
+				F5316625243EDDB3000F7375 /* FoodListTableViewController.swift */,
+				F5AB9FA7243D5D4A00DF0BE9 /* RegisterViewController.swift */,
+				F538AC03243E731200A75BD4 /* HomeViewController.swift */,
+				F5316628243EE19E000F7375 /* UserProfileViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		F5AB9F75243D174800DF0BE9 = {
 			isa = PBXGroup;
 			children = (
@@ -76,18 +94,15 @@
 		F5AB9F80243D174800DF0BE9 /* IngSpector */ = {
 			isa = PBXGroup;
 			children = (
+				F5316627243EE142000F7375 /* Controllers */,
 				F5AB9F9A243D2C2D00DF0BE9 /* Images */,
 				F5AB9F81243D174800DF0BE9 /* AppDelegate.swift */,
 				F5AB9F83243D174800DF0BE9 /* SceneDelegate.swift */,
-				F5AB9F85243D174800DF0BE9 /* ViewController.swift */,
 				F5AB9F87243D174800DF0BE9 /* Main.storyboard */,
 				F5AB9F8D243D174D00DF0BE9 /* Assets.xcassets */,
 				F5AB9F8F243D174D00DF0BE9 /* LaunchScreen.storyboard */,
 				F5AB9F92243D174D00DF0BE9 /* Info.plist */,
 				F5AB9F8A243D174800DF0BE9 /* IngSpector.xcdatamodeld */,
-				F5AB9F9D243D2E9700DF0BE9 /* FirstPageViewController.swift */,
-				F5AB9FA7243D5D4A00DF0BE9 /* RegisterViewController.swift */,
-				F538AC03243E731200A75BD4 /* HomeViewController.swift */,
 			);
 			path = IngSpector;
 			sourceTree = "<group>";
@@ -99,6 +114,8 @@
 				F5AB9FA1243D407E00DF0BE9 /* log1.jpg */,
 				F531661F243EC953000F7375 /* plus.png */,
 				F5AB9FA5243D53FB00DF0BE9 /* ingspectorfulllogo.png */,
+				F5316621243ED8B4000F7375 /* camera-2.png */,
+				F5316622243ED8B4000F7375 /* search.png */,
 				F5AB9FA3243D421500DF0BE9 /* llogoappingspector.png */,
 				F5AB9F9F243D3DE900DF0BE9 /* splash.jpg */,
 			);
@@ -164,11 +181,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5AB9FA0243D3DE900DF0BE9 /* splash.jpg in Resources */,
+				F5316623243ED8B4000F7375 /* camera-2.png in Resources */,
 				F5AB9F91243D174D00DF0BE9 /* LaunchScreen.storyboard in Resources */,
 				F5316620243EC953000F7375 /* plus.png in Resources */,
 				F5AB9FA4243D421500DF0BE9 /* llogoappingspector.png in Resources */,
 				F5AB9FA6243D53FB00DF0BE9 /* ingspectorfulllogo.png in Resources */,
 				F5AB9F99243D2C2400DF0BE9 /* background.png in Resources */,
+				F5316624243ED8B4000F7375 /* search.png in Resources */,
 				F5AB9F8E243D174D00DF0BE9 /* Assets.xcassets in Resources */,
 				F5AB9FA2243D407E00DF0BE9 /* log1.jpg in Resources */,
 				F5AB9F89243D174800DF0BE9 /* Main.storyboard in Resources */,
@@ -182,11 +201,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5AB9F86243D174800DF0BE9 /* ViewController.swift in Sources */,
 				F5AB9F8C243D174800DF0BE9 /* IngSpector.xcdatamodeld in Sources */,
+				F5316629243EE19E000F7375 /* UserProfileViewController.swift in Sources */,
 				F5AB9F9E243D2E9700DF0BE9 /* FirstPageViewController.swift in Sources */,
 				F5AB9FA8243D5D4A00DF0BE9 /* RegisterViewController.swift in Sources */,
 				F5AB9F82243D174800DF0BE9 /* AppDelegate.swift in Sources */,
+				F5316626243EDDB3000F7375 /* FoodListTableViewController.swift in Sources */,
 				F538AC04243E731200A75BD4 /* HomeViewController.swift in Sources */,
 				F5AB9F84243D174800DF0BE9 /* SceneDelegate.swift in Sources */,
 			);

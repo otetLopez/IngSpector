@@ -73,6 +73,7 @@ class HomeViewController: UIViewController {
     
     func configureView() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationItem.hidesBackButton = true
         self.navigationController?.setToolbarHidden(false, animated: true)
     }
 
