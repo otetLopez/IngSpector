@@ -11,6 +11,9 @@ import UIKit
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var analyzeFoodBtn: UIButton!
+    @IBOutlet weak var homeBtn: UIBarButtonItem!
+    @IBOutlet weak var listBtn: UIBarButtonItem!
+    @IBOutlet weak var profileBtn: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -75,6 +78,11 @@ class HomeViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.hidesBackButton = true
         self.navigationController?.setToolbarHidden(false, animated: true)
+        
+        //Highlight navigation button for current view
+        homeBtn.tintColor = UIColor.systemTeal
+        listBtn.tintColor = UIColor.white
+        profileBtn.tintColor = UIColor.white
     }
 
     /*

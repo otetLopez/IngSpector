@@ -10,9 +10,16 @@ import UIKit
 
 class UserProfileViewController: UIViewController {
 
+    @IBOutlet weak var homeBtn: UIBarButtonItem!
+    @IBOutlet weak var listBtn: UIBarButtonItem!
+    @IBOutlet weak var profileBtn: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         configureView()
     }
     
@@ -20,6 +27,11 @@ class UserProfileViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.hidesBackButton = true
         self.navigationController?.setToolbarHidden(false, animated: true)
+        
+        //Highlight navigation button for current view
+        homeBtn.tintColor = UIColor.white
+        listBtn.tintColor = UIColor.white
+        profileBtn.tintColor = UIColor.systemTeal
     }
 
     /*

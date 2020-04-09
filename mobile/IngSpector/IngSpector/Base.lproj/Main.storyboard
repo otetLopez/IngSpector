@@ -195,6 +195,9 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="analyzeFoodBtn" destination="Nww-0Q-gYr" id="6eu-G7-0yF"/>
+                        <outlet property="homeBtn" destination="CvD-TI-SjG" id="ziG-d9-h9M"/>
+                        <outlet property="listBtn" destination="gEX-b4-Npn" id="TRx-nX-aHZ"/>
+                        <outlet property="profileBtn" destination="N0C-7L-as5" id="3Bz-wm-Xdt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="64R-ea-PPo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -243,6 +246,11 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Food List" id="Hgi-id-Lre"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="homeBtn" destination="Ox2-B0-QPT" id="bBa-Xy-FEu"/>
+                        <outlet property="listBtn" destination="Xig-0J-Jkb" id="aBu-16-wzP"/>
+                        <outlet property="profileBtn" destination="AuX-SL-eEY" id="PsP-lo-8HF"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fwc-Zv-VpQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -288,6 +296,11 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="User Profile" id="zu4-Ev-Ev5"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="homeBtn" destination="6cI-7w-S3K" id="ODC-SY-xSh"/>
+                        <outlet property="listBtn" destination="n3x-xL-Q6P" id="Tgd-R9-Csd"/>
+                        <outlet property="profileBtn" destination="X5J-zh-0g5" id="Gob-LH-I0d"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Nk-zg-gXD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

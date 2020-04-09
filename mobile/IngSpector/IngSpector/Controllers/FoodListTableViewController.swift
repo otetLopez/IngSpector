@@ -10,6 +10,9 @@ import UIKit
 
 class FoodListTableViewController: UITableViewController {
 
+    @IBOutlet weak var homeBtn: UIBarButtonItem!
+    @IBOutlet weak var listBtn: UIBarButtonItem!
+    @IBOutlet weak var profileBtn: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -97,6 +100,11 @@ class FoodListTableViewController: UITableViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.hidesBackButton = true
         self.navigationController?.setToolbarHidden(false, animated: true)
+        
+        //Highlight navigation button for current view
+        homeBtn.tintColor = UIColor.white
+        listBtn.tintColor = UIColor.systemTeal
+        profileBtn.tintColor = UIColor.white
     }
 
 }
