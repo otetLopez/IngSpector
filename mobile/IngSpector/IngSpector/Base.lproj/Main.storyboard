@@ -12,11 +12,11 @@
             <objects>
                 <viewController id="PuA-QJ-SMN" customClass="FirstPageViewController" customModule="IngSpector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sGv-6H-f2K">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="log1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="6SR-Ms-TIO">
-                                <rect key="frame" x="0.0" y="140" width="414" height="722"/>
+                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ingspectorfulllogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="JFU-Wg-P6C">
                                 <rect key="frame" x="157.5" y="170" width="100" height="100"/>
@@ -52,15 +52,18 @@
                                 <state key="normal" title="Login">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <segue destination="zh6-GA-KEq" kind="show" id="fFK-NB-bs2"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LLc-XF-Krt">
-                                <rect key="frame" x="116.5" y="802" width="182" height="20"/>
+                                <rect key="frame" x="116.5" y="753" width="182" height="20"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Za4-Kp-zQn">
-                                <rect key="frame" x="177" y="816" width="61" height="36"/>
+                                <rect key="frame" x="177" y="767" width="61" height="36"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <state key="normal" title="Sign Up">
                                     <color key="titleColor" red="0.062745098040000002" green="0.14666128549999999" blue="0.68087621669999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -110,21 +113,58 @@
             </objects>
             <point key="canvasLocation" x="489.85507246376818" y="60.9375"/>
         </scene>
+        <!--Home-->
+        <scene sceneID="yM4-O3-yeT">
+            <objects>
+                <viewController id="zh6-GA-KEq" customClass="HomeViewController" customModule="IngSpector" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4xi-Dr-AZc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="O8O-ac-F70">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="A8Y-io-6iD" firstAttribute="trailing" secondItem="O8O-ac-F70" secondAttribute="trailing" id="CQK-JN-a1d"/>
+                            <constraint firstItem="O8O-ac-F70" firstAttribute="leading" secondItem="A8Y-io-6iD" secondAttribute="leading" id="NUG-Nj-g2c"/>
+                            <constraint firstItem="O8O-ac-F70" firstAttribute="top" secondItem="A8Y-io-6iD" secondAttribute="top" constant="-140" id="XmC-do-uaR"/>
+                            <constraint firstItem="A8Y-io-6iD" firstAttribute="bottom" secondItem="O8O-ac-F70" secondAttribute="bottom" id="u4U-HN-G9x"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="A8Y-io-6iD"/>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Xu4-VP-r36"/>
+                        <barButtonItem image="house" catalog="system" id="CvD-TI-SjG"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Cmg-s2-Y72"/>
+                        <barButtonItem image="list.number" catalog="system" id="gEX-b4-Npn"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="9cE-US-gI1"/>
+                        <barButtonItem image="person" catalog="system" id="N0C-7L-as5"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="mIX-y9-fLq"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Home" id="FGE-Wa-57b"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="64R-ea-PPo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1511.5942028985507" y="-206.25"/>
+        </scene>
         <!--Register-->
         <scene sceneID="faw-bn-E6Y">
             <objects>
                 <viewController id="ECb-9F-mBJ" customClass="RegisterViewController" customModule="IngSpector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cn2-Eg-cf9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="IwI-iF-V9r">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="912"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="863"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Weight (kg)" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="sLe-U9-W0E">
-                                <rect key="frame" x="229" y="355" width="110" height="20"/>
+                                <rect key="frame" x="229" y="345" width="110" height="20"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.01538420377" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="110" id="gl9-Ej-eu0"/>
@@ -134,7 +174,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Height (m)" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hQU-S8-Q9p">
-                                <rect key="frame" x="75" y="355" width="110" height="20"/>
+                                <rect key="frame" x="75" y="345" width="110" height="20"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.01538420377" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="110" id="Tnd-4W-Ipt"/>
@@ -144,21 +184,21 @@
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="RRa-9v-Cb3">
-                                <rect key="frame" x="75" y="175" width="264" height="20"/>
+                                <rect key="frame" x="75" y="165" width="264" height="20"/>
                                 <color key="backgroundColor" red="0.96436786167512689" green="0.96436786167512689" blue="0.96436786167512689" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" textContentType="name"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email Address" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="NAx-3Q-Mu6">
-                                <rect key="frame" x="75" y="220" width="264" height="20"/>
+                                <rect key="frame" x="75" y="210" width="264" height="20"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" textContentType="email"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List of Allergens: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mN3-fF-y3j">
-                                <rect key="frame" x="75" y="400" width="110" height="19.5"/>
+                                <rect key="frame" x="75" y="390" width="110" height="19.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="110" id="S7o-vr-LyT"/>
                                 </constraints>
@@ -167,7 +207,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QUm-q4-fzy">
-                                <rect key="frame" x="229" y="400" width="110" height="21"/>
+                                <rect key="frame" x="229" y="390" width="110" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="110" id="cAn-cH-2Yz"/>
                                 </constraints>
@@ -177,25 +217,26 @@
                                 </state>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4UF-FI-nUn">
-                                <rect key="frame" x="75" y="265" width="264" height="20"/>
+                                <rect key="frame" x="75" y="255" width="264" height="20"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="M1Q-yt-dIM">
-                                <rect key="frame" x="75" y="310" width="264" height="20"/>
+                                <rect key="frame" x="75" y="300" width="264" height="20"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CZE-Vl-LRa">
-                                <rect key="frame" x="75" y="446" width="264" height="341"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <rect key="frame" x="75" y="421" width="264" height="317"/>
+                                <color key="backgroundColor" white="1" alpha="0.12398330479452055" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" white="0.7735445205479452" alpha="0.19798801369863014" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ri0-kk-R3q">
-                                <rect key="frame" x="75" y="812" width="100" height="36"/>
+                                <rect key="frame" x="75" y="763" width="100" height="36"/>
                                 <color key="backgroundColor" red="0.82793771404109584" green="0.12352281232876715" blue="0.15298587328767124" alpha="0.33572345890410948" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="SIE-ws-G11"/>
@@ -204,7 +245,7 @@
                                 <state key="normal" title="Cancel"/>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wMS-CW-gdg">
-                                <rect key="frame" x="239" y="812" width="100" height="36"/>
+                                <rect key="frame" x="239" y="763" width="100" height="36"/>
                                 <color key="backgroundColor" red="0.0" green="0.48808830890410959" blue="0.44362692636986301" alpha="0.33572345890410948" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="G72-IL-Cwi"/>
@@ -229,8 +270,8 @@
                             <constraint firstItem="eRY-Qe-pBn" firstAttribute="bottom" secondItem="CZE-Vl-LRa" secondAttribute="bottom" constant="75" id="SbX-fQ-fRg"/>
                             <constraint firstItem="mN3-fF-y3j" firstAttribute="leading" secondItem="eRY-Qe-pBn" secondAttribute="leading" constant="75" id="Szk-Sb-yYC"/>
                             <constraint firstItem="eRY-Qe-pBn" firstAttribute="trailing" secondItem="RRa-9v-Cb3" secondAttribute="trailing" constant="75" id="V8b-AS-yWr"/>
-                            <constraint firstItem="RRa-9v-Cb3" firstAttribute="top" secondItem="eRY-Qe-pBn" secondAttribute="top" constant="35" id="Vlt-j7-gvL"/>
-                            <constraint firstItem="CZE-Vl-LRa" firstAttribute="top" secondItem="QUm-q4-fzy" secondAttribute="bottom" constant="25" id="WRo-E2-7iW"/>
+                            <constraint firstItem="RRa-9v-Cb3" firstAttribute="top" secondItem="eRY-Qe-pBn" secondAttribute="top" constant="25" id="Vlt-j7-gvL"/>
+                            <constraint firstItem="CZE-Vl-LRa" firstAttribute="top" secondItem="QUm-q4-fzy" secondAttribute="bottom" constant="10" id="WRo-E2-7iW"/>
                             <constraint firstItem="eRY-Qe-pBn" firstAttribute="trailing" secondItem="wMS-CW-gdg" secondAttribute="trailing" constant="75" id="X3D-UB-BCe"/>
                             <constraint firstItem="eRY-Qe-pBn" firstAttribute="trailing" secondItem="CZE-Vl-LRa" secondAttribute="trailing" constant="75" id="ZF5-8o-L26"/>
                             <constraint firstItem="NAx-3Q-Mu6" firstAttribute="top" secondItem="RRa-9v-Cb3" secondAttribute="bottom" constant="25" id="crT-dC-4eN"/>
@@ -267,7 +308,7 @@
         <!--Navigation Controller-->
         <scene sceneID="eiV-qG-9Y5">
             <objects>
-                <navigationController id="Iql-LE-2nh" sceneMemberID="viewController">
+                <navigationController toolbarHidden="NO" id="Iql-LE-2nh" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="pf4-we-Xfg">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -280,6 +321,12 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="Rvg-Ji-h4G">
+                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </toolbar>
                     <connections>
                         <segue destination="PuA-QJ-SMN" kind="relationship" relationship="rootViewController" id="0hd-pI-J7m"/>
                     </connections>
@@ -291,9 +338,12 @@
     </scenes>
     <resources>
         <image name="background.png" width="1357" height="1920"/>
+        <image name="house" catalog="system" width="64" height="54"/>
         <image name="ingspectorfulllogo.png" width="544" height="515"/>
+        <image name="list.number" catalog="system" width="64" height="48"/>
         <image name="log1.jpg" width="2045.52001953125" height="1363.6800537109375"/>
+        <image name="person" catalog="system" width="64" height="58"/>
         <image name="plus.app" catalog="system" width="64" height="56"/>
     </resources>
-    <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
+    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

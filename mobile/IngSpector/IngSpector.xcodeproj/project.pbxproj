@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F538AC04243E731200A75BD4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F538AC03243E731200A75BD4 /* HomeViewController.swift */; };
 		F5AB9F82243D174800DF0BE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AB9F81243D174800DF0BE9 /* AppDelegate.swift */; };
 		F5AB9F84243D174800DF0BE9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AB9F83243D174800DF0BE9 /* SceneDelegate.swift */; };
 		F5AB9F86243D174800DF0BE9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AB9F85243D174800DF0BE9 /* ViewController.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F538AC03243E731200A75BD4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F5AB9F7E243D174800DF0BE9 /* IngSpector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IngSpector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5AB9F81243D174800DF0BE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5AB9F83243D174800DF0BE9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				F5AB9F8A243D174800DF0BE9 /* IngSpector.xcdatamodeld */,
 				F5AB9F9D243D2E9700DF0BE9 /* FirstPageViewController.swift */,
 				F5AB9FA7243D5D4A00DF0BE9 /* RegisterViewController.swift */,
+				F538AC03243E731200A75BD4 /* HomeViewController.swift */,
 			);
 			path = IngSpector;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				F5AB9F9E243D2E9700DF0BE9 /* FirstPageViewController.swift in Sources */,
 				F5AB9FA8243D5D4A00DF0BE9 /* RegisterViewController.swift in Sources */,
 				F5AB9F82243D174800DF0BE9 /* AppDelegate.swift in Sources */,
+				F538AC04243E731200A75BD4 /* HomeViewController.swift in Sources */,
 				F5AB9F84243D174800DF0BE9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

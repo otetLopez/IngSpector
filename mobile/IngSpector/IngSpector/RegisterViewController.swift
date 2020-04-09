@@ -20,13 +20,13 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var tf_weight: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        
-        // Configure Text Fields View
+
         configureView()
     }
     
     func configureView() {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
         // Name
         let l_name = CALayer()
         l_name.frame = CGRect(x: 0.0, y: tf_name.frame.height - 1, width: tf_name.frame.width, height: 1.0)

@@ -12,15 +12,17 @@ class FirstPageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-
-        // Do any additional setup after loading the view.
+        configureView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        configureView()
     }
     
+    func configureView() {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.setToolbarHidden(true, animated: true)
+    }
 
 
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
