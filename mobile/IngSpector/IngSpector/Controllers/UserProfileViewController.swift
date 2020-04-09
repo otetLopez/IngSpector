@@ -13,6 +13,7 @@ class UserProfileViewController: UIViewController {
     @IBOutlet weak var homeBtn: UIBarButtonItem!
     @IBOutlet weak var listBtn: UIBarButtonItem!
     @IBOutlet weak var profileBtn: UIBarButtonItem!
+    @IBOutlet weak var viewListBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,6 +25,7 @@ class UserProfileViewController: UIViewController {
     }
     
     func configureView() {
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.hidesBackButton = true
         self.navigationController?.setToolbarHidden(false, animated: true)
@@ -32,6 +34,8 @@ class UserProfileViewController: UIViewController {
         homeBtn.tintColor = UIColor.white
         listBtn.tintColor = UIColor.white
         profileBtn.tintColor = UIColor.systemTeal
+        
+        viewListBtn.layer.cornerRadius = 10
     }
 
     /*
