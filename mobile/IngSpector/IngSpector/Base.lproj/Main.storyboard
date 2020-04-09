@@ -132,6 +132,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                 <state key="normal" image="plus.png"/>
+                                <connections>
+                                    <action selector="analyzeBtnPressed:" destination="zh6-GA-KEq" eventType="touchUpInside" id="K3v-HJ-Ri0"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start IngSpecting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Xn-WN-uvK">
                                 <rect key="frame" x="153.5" y="354" width="108.5" height="19.5"/>
