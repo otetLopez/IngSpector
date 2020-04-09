@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F5316620243EC953000F7375 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = F531661F243EC953000F7375 /* plus.png */; };
 		F538AC04243E731200A75BD4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F538AC03243E731200A75BD4 /* HomeViewController.swift */; };
 		F5AB9F82243D174800DF0BE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AB9F81243D174800DF0BE9 /* AppDelegate.swift */; };
 		F5AB9F84243D174800DF0BE9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AB9F83243D174800DF0BE9 /* SceneDelegate.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F531661F243EC953000F7375 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		F538AC03243E731200A75BD4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F5AB9F7E243D174800DF0BE9 /* IngSpector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IngSpector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5AB9F81243D174800DF0BE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			children = (
 				F5AB9F98243D2C2400DF0BE9 /* background.png */,
 				F5AB9FA1243D407E00DF0BE9 /* log1.jpg */,
+				F531661F243EC953000F7375 /* plus.png */,
 				F5AB9FA5243D53FB00DF0BE9 /* ingspectorfulllogo.png */,
 				F5AB9FA3243D421500DF0BE9 /* llogoappingspector.png */,
 				F5AB9F9F243D3DE900DF0BE9 /* splash.jpg */,
@@ -162,6 +165,7 @@
 			files = (
 				F5AB9FA0243D3DE900DF0BE9 /* splash.jpg in Resources */,
 				F5AB9F91243D174D00DF0BE9 /* LaunchScreen.storyboard in Resources */,
+				F5316620243EC953000F7375 /* plus.png in Resources */,
 				F5AB9FA4243D421500DF0BE9 /* llogoappingspector.png in Resources */,
 				F5AB9FA6243D53FB00DF0BE9 /* ingspectorfulllogo.png in Resources */,
 				F5AB9F99243D2C2400DF0BE9 /* background.png in Resources */,

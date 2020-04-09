@@ -20,9 +20,14 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var tf_weight: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        /* OTET: configureView() functions configure the view controller views every time it will appear on screen */
         configureView()
     }
+    
+    @IBAction func cancelButtonPressed(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+
     
     func configureView() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)

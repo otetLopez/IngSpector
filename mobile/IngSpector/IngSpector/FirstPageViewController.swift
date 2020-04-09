@@ -12,6 +12,11 @@ class FirstPageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        /* TODO*/
+        /* OTET: We need to check if the user is logged in, if so, there is no need to display this page
+                 and we will proceed to Home Page*/
+        
+        /* OTET: configureView() functions configure the view controller views every time it will appear on screen */
         configureView()
     }
     

@@ -10,9 +10,11 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    @IBOutlet weak var analyzeFoodBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        /* OTET: configureView() functions configure the view controller views every time it will appear on screen */
         configureView()
     }
     
@@ -24,6 +26,9 @@ class HomeViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.setToolbarHidden(false, animated: true)
       
+//        analyzeFoodBtn.imageEdgeInsets = UIEdgeInsets(top: 100,left: 100, bottom: 100,right: 100)
+        
+        //mageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
     }
 
     /*

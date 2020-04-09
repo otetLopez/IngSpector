@@ -124,12 +124,31 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="O8O-ac-F70">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nww-0Q-gYr">
+                                <rect key="frame" x="157.5" y="398.5" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="ede-N5-YKA"/>
+                                    <constraint firstAttribute="height" constant="100" id="flr-Mn-wlv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                <state key="normal" image="plus.png"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start IngSpecting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Xn-WN-uvK">
+                                <rect key="frame" x="153.5" y="354" width="108.5" height="19.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Nww-0Q-gYr" firstAttribute="centerY" secondItem="4xi-Dr-AZc" secondAttribute="centerY" constant="0.5" id="51U-ue-i9A"/>
                             <constraint firstItem="A8Y-io-6iD" firstAttribute="trailing" secondItem="O8O-ac-F70" secondAttribute="trailing" id="CQK-JN-a1d"/>
                             <constraint firstItem="O8O-ac-F70" firstAttribute="leading" secondItem="A8Y-io-6iD" secondAttribute="leading" id="NUG-Nj-g2c"/>
                             <constraint firstItem="O8O-ac-F70" firstAttribute="top" secondItem="A8Y-io-6iD" secondAttribute="top" constant="-140" id="XmC-do-uaR"/>
+                            <constraint firstItem="Nww-0Q-gYr" firstAttribute="top" secondItem="8Xn-WN-uvK" secondAttribute="bottom" constant="25" id="hKG-8v-OPv"/>
+                            <constraint firstItem="8Xn-WN-uvK" firstAttribute="centerX" secondItem="4xi-Dr-AZc" secondAttribute="centerX" constant="0.5" id="hz2-mY-06C"/>
+                            <constraint firstItem="Nww-0Q-gYr" firstAttribute="centerX" secondItem="4xi-Dr-AZc" secondAttribute="centerX" constant="0.5" id="mCk-Vf-eyZ"/>
                             <constraint firstItem="A8Y-io-6iD" firstAttribute="bottom" secondItem="O8O-ac-F70" secondAttribute="bottom" id="u4U-HN-G9x"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="A8Y-io-6iD"/>
@@ -145,6 +164,9 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Home" id="FGE-Wa-57b"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="analyzeFoodBtn" destination="Nww-0Q-gYr" id="6eu-G7-0yF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="64R-ea-PPo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -243,6 +265,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                 <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelButtonPressed:" destination="ECb-9F-mBJ" eventType="touchUpInside" id="dyE-jv-zyM"/>
+                                </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wMS-CW-gdg">
                                 <rect key="frame" x="239" y="763" width="100" height="36"/>
@@ -344,6 +369,7 @@
         <image name="log1.jpg" width="2045.52001953125" height="1363.6800537109375"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="plus.app" catalog="system" width="64" height="56"/>
+        <image name="plus.png" width="384" height="384"/>
     </resources>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
