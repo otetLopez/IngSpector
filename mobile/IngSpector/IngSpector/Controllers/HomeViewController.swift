@@ -14,6 +14,10 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var homeBtn: UIBarButtonItem!
     @IBOutlet weak var listBtn: UIBarButtonItem!
     @IBOutlet weak var profileBtn: UIBarButtonItem!
+    
+    @IBOutlet weak var cameraBtn: UIButton!
+    @IBOutlet weak var searchBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,18 +29,20 @@ class HomeViewController: UIViewController {
         configureView()
     }
     
-    @IBAction func analyzeBtnPressed(_ sender: UIButton) {
-        promptAnalyzeOptions()
+    @IBAction func takePhotoBtnPressed(_ sender: UIButton) {
     }
     
+    @IBAction func searchBtnPressed(_ sender: UIButton) {
+        promptFoodName()
+    }
     func promptAnalyzeOptions() {
-        let alertController = UIAlertController(title: "Analyze Food", message: "Input food from the following options", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Analyze Food", message: "Analyze food from the following options", preferredStyle: .alert)
     
         let cameraAction = UIAlertAction(title: "Take Photo of Food Label", style: .default) { (action) in
         
         }
         
-        let nameAction = UIAlertAction(title: "Input Food Name", style: .default) { (action) in
+        let nameAction = UIAlertAction(title: "Photo Gallery", style: .default) { (action) in
             self.promptFoodName()
         }
         
@@ -65,9 +71,7 @@ class HomeViewController: UIViewController {
             print("DEBUG: Searching for food  \(textField.text!)")
         }
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
-            self.promptAnalyzeOptions()
-        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         alertController.addAction(searchFoodAction)
         alertController.addAction(cancelAction)
@@ -84,6 +88,9 @@ class HomeViewController: UIViewController {
         homeBtn.tintColor = UIColor.systemTeal
         listBtn.tintColor = UIColor.white
         profileBtn.tintColor = UIColor.white
+        
+        cameraBtn.layer.cornerRadius = 10
+        searchBtn.layer.cornerRadius = 10
     }
 
     /*
