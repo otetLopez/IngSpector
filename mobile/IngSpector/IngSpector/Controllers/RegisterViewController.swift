@@ -11,7 +11,7 @@ import UIKit
 
 class RegisterViewController: UIViewController {
 
-    weak var log_delegate: FirstPageViewController?
+    weak var log_delegate: LogInViewController?
     @IBOutlet weak var tf_name: UITextField!
     @IBOutlet weak var tf_eadd: UITextField!
     @IBOutlet weak var tf_pwd: UITextField!

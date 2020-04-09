@@ -101,6 +101,8 @@ class FoodListTableViewController: UITableViewController {
         self.navigationItem.hidesBackButton = true
         self.navigationController?.setToolbarHidden(false, animated: true)
         
+        tableView.backgroundView = UIImageView(image: UIImage(named: "background.png"))
+        
         //Highlight navigation button for current view
         homeBtn.tintColor = UIColor.white
         listBtn.tintColor = UIColor.systemTeal

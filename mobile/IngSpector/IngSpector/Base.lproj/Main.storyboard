@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--First Page View Controller-->
+        <!--Log In View Controller-->
         <scene sceneID="U00-lm-8g5">
             <objects>
-                <viewController id="PuA-QJ-SMN" customClass="FirstPageViewController" customModule="IngSpector" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="PuA-QJ-SMN" customClass="LogInViewController" customModule="IngSpector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sGv-6H-f2K">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -511,7 +511,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="RFB-CK-OTd"/>
         <segue reference="j9z-Q5-IpZ"/>
-        <segue reference="pSU-NQ-PE0"/>
+        <segue reference="fFK-NB-bs2"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
