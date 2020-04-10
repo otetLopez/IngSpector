@@ -91,7 +91,7 @@ class LogInViewController: UIViewController {
         userList.append(newUser)
         
         for idx in userList {
-            print("\(index)")
+            print("\(idx)")
         }
     }
     

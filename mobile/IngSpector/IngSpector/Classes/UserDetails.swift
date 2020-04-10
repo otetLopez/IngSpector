@@ -18,7 +18,7 @@ class UserDetails : CustomStringConvertible {
     private var allergens : [String]
     private var food : [String]
     
-    internal init(name: String, eadd: String, height: Double, weight: Double, passwd: String, allergens: [String], food: [String]) {
+    init(name: String, eadd: String, height: Double, weight: Double, passwd: String, allergens: [String], food: [String]) {
         self.name = name
         self.eadd = eadd
         self.height = height

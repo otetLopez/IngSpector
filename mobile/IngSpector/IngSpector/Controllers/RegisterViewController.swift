@@ -90,7 +90,11 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func createUser() {
-        
+        let ht : Double = Double(tf_height.text!)!
+        let wt : Double = Double(tf_weight.text!)!
+        print("DEBUG: \(ht)\(wt)")
+        let newUser = UserDetails(name: tf_name.text!, eadd: tf_eadd.text!, height: Double(tf_height.text!)!, weight: Double(tf_weight.text!)!, passwd: tf_pwd.text!, allergens: allergenList, food: [String]())
+        log_delegate?.addUserFromRegister(newUser: newUser)
     }
     
     func checkFields() {
@@ -279,14 +283,6 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
     func configure_tf() {
         
     }
-    
-
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let mapDelegate = segue.destination as? MapViewController {
-//                   mapDelegate.delegate = self
-//               }
-//    }
-    
     
     /* Here are the table view functions */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
