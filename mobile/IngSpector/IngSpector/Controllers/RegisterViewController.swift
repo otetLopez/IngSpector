@@ -9,19 +9,26 @@
 import UIKit
 
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     weak var log_delegate: LogInViewController?
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tf_name: UITextField!
     @IBOutlet weak var tf_eadd: UITextField!
     @IBOutlet weak var tf_pwd: UITextField!
     @IBOutlet weak var tf_cpwd: UITextField!
     @IBOutlet weak var tf_height: UITextField!
     @IBOutlet weak var tf_weight: UITextField!
+    
+    var allergenList = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
         /* OTET: configureView() functions configure the view controller views every time it will appear on screen */
         configureView()
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
             self.view.addGestureRecognizer(tapGesture)
     }
@@ -41,6 +48,28 @@ class RegisterViewController: UIViewController {
     
     @IBAction func registerButtonPressed(_ sender: UIButton) {
         checkFields()
+    }
+    
+    @IBAction func addAllergenList(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Add Allergens", message: "Enter an ingredient you are allergic to", preferredStyle: .alert)
+        var nAllergen : UITextField?
+        
+        alertController.addTextField { (nAllergen) in
+            nAllergen.placeholder = "e.g. Peanut"
+        }
+            
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        cancelAction.setValue(UIColor.orange, forKey: "titleTextColor")
+        
+        let addItemAction = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            let textField = alertController.textFields![0]
+            print("DEBUG: RegisterViewController::addAllergenList(): Will be adding folder \(textField.text!)")
+            self.addAllergen(allergen: "\(textField.text!)")
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(addItemAction)
+            
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func cancelRegistration() {
@@ -92,7 +121,7 @@ class RegisterViewController: UIViewController {
         if tf_weight.text!.isEmpty {
         }
         
-      
+    
         if(isIncomplete == true) {
             alertErrors(msg: "Missing fields")
         } else {
@@ -135,6 +164,14 @@ class RegisterViewController: UIViewController {
         }
         
         return isPwdValid
+    }
+    
+    func addAllergen(allergen : String) {
+        allergenList.append(allergen)
+    }
+    
+    func removeAllergen(allergen : String) {
+        
     }
     
     func alertErrors(msg: String) {
@@ -212,6 +249,17 @@ class RegisterViewController: UIViewController {
 //                   mapDelegate.delegate = self
 //               }
 //    }
+    
+    
+    /* Here are the table view functions */
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return allergenList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //<#code#>
+        return UITableViewCell()
+    }
     
 
 }
