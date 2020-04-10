@@ -14,7 +14,9 @@ class UserProfileViewController: UIViewController {
     @IBOutlet weak var listBtn: UIBarButtonItem!
     @IBOutlet weak var profileBtn: UIBarButtonItem!
     @IBOutlet weak var viewListBtn: UIButton!
+    @IBOutlet weak var signoutBtn: UIButton!
     
+    @IBOutlet weak var tf_name: UITextField!
     @IBOutlet weak var tf_email: UITextField!
     @IBOutlet weak var tf_ht: UITextField!
     @IBOutlet weak var tf_wt: UITextField!
@@ -33,14 +35,16 @@ class UserProfileViewController: UIViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         if editing == true {
-            tf_email.isUserInteractionEnabled = true
+            //tf_email.isUserInteractionEnabled = true
+            tf_name.isUserInteractionEnabled = true
             tf_ht.isUserInteractionEnabled = true
             tf_wt.isUserInteractionEnabled = true
             addAllergensBtn.isUserInteractionEnabled = true
             //addAllergensBtn.isHidden = false
     
         } else {
-            tf_email.isUserInteractionEnabled = false
+            tf_name.isUserInteractionEnabled = false
+            //tf_email.isUserInteractionEnabled = false
             tf_ht.isUserInteractionEnabled = false
             tf_wt.isUserInteractionEnabled = false
             addAllergensBtn.isUserInteractionEnabled = false
@@ -61,6 +65,14 @@ class UserProfileViewController: UIViewController {
         
         viewListBtn.layer.cornerRadius = 10
         addAllergensBtn.layer.cornerRadius = 10
+        signoutBtn.layer.cornerRadius = 10
+        
+        
+        // Name
+        let l_name = CALayer()
+        l_name.frame = CGRect(x: 0.0, y: tf_name.frame.height - 1, width: tf_name.frame.width, height: 1.0)
+        l_name.backgroundColor = UIColor.white.cgColor
+        tf_name.layer.addSublayer(l_name)
         
         
         // Email
@@ -74,14 +86,14 @@ class UserProfileViewController: UIViewController {
         l_ht.frame = CGRect(x: 0.0, y: tf_ht.frame.height - 1, width: tf_ht.frame.width, height: 1.0)
         l_ht.backgroundColor = UIColor.white.cgColor
         tf_ht.layer.addSublayer(l_ht)
-//        tf_height.attributedPlaceholder = NSAttributedString(string: "Height (m)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+
         
         // Weight
         let l_wt = CALayer()
         l_wt.frame = CGRect(x: 0.0, y: tf_wt.frame.height - 1, width: tf_wt.frame.width, height: 1.0)
         l_wt.backgroundColor = UIColor.white.cgColor
         tf_wt.layer.addSublayer(l_wt)
-//        tf_wt.attributedPlaceholder = NSAttributedString(string: "Weight (kg)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+
     }
 
     /*

@@ -33,7 +33,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func searchBtnPressed(_ sender: UIButton) {
-        promptFoodName()
+
     }
     func promptAnalyzeOptions() {
         let alertController = UIAlertController(title: "Analyze Food", message: "Analyze food from the following options", preferredStyle: .alert)
