@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 class LogInViewController: UIViewController {
 
@@ -33,6 +34,35 @@ class LogInViewController: UIViewController {
     @objc func viewTapped() {
         tf_uname.resignFirstResponder()
         tf_pwd.resignFirstResponder()
+    }
+    
+    @IBAction func logBtnPressed(_ sender: UIButton) {
+        if tf_uname.text!.isEmpty || tf_pwd.text!.isEmpty {
+            if tf_uname.text!.isEmpty {
+                tf_uname.layer.borderWidth = 1
+                tf_uname.layer.borderColor = UIColor.red.cgColor
+            } else {
+                tf_uname.layer.borderWidth = 0
+            }
+            
+            if tf_pwd.text!.isEmpty {
+                tf_pwd.layer.borderWidth = 1
+                tf_pwd.layer.borderColor = UIColor.red.cgColor
+            } else {
+                tf_pwd.layer.borderWidth = 0
+            }
+            alert(title: "Error: ", msg: "Missing mandatory fields")
+        } else {
+            // Check user
+        }
+    }
+    
+    func alert(title: String, msg : String) {
+        let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+    
+        alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func configureView() {
