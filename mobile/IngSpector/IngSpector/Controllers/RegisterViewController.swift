@@ -36,10 +36,36 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+      alertCancel(title: "Cancelling Registration", msg: "Are you sure?")
+    }
+    
+    @IBAction func registerButtonPressed(_ sender: UIButton) {
+    }
+    
+    func cancelRegistration() {
+        clearFields()
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    func clearFields() {
+        tf_name.text = ""
+        tf_eadd.text = ""
+        tf_pwd.text = ""
+        tf_cpwd.text = ""
+        tf_height.text = ""
+        tf_weight.text = ""
+    }
+    
+    func alertCancel(title: String, msg: String) {
+        let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+    
+        alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
+            action in
+            self.cancelRegistration()
+        }))
+        self.present(alertController, animated: true, completion: nil)
     }
 
-    
     func configureView() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
