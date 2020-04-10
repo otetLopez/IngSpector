@@ -10,6 +10,8 @@ import UIKit
 
 class LogInViewController: UIViewController {
 
+    @IBOutlet weak var tf_uname: UITextField!
+    @IBOutlet weak var tf_pwd: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         /* TODO*/
@@ -18,10 +20,19 @@ class LogInViewController: UIViewController {
         
         /* OTET: configureView() functions configure the view controller views every time it will appear on screen */
         configureView()
+        
+        // Make sure keyboard hides after typing
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+        self.view.addGestureRecognizer(tapGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         configureView()
+    }
+    
+    @objc func viewTapped() {
+        tf_uname.resignFirstResponder()
+        tf_pwd.resignFirstResponder()
     }
     
     func configureView() {

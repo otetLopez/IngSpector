@@ -26,10 +26,18 @@ class UserProfileViewController: UIViewController {
         super.viewDidLoad()
 
         configureView()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+            self.view.addGestureRecognizer(tapGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         configureView()
+    }
+    
+    @objc func viewTapped()  {
+        tf_name.resignFirstResponder()
+        tf_ht.resignFirstResponder()
+        tf_wt.resignFirstResponder()
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {

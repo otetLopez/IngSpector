@@ -22,6 +22,17 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         /* OTET: configureView() functions configure the view controller views every time it will appear on screen */
         configureView()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+            self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func viewTapped() {
+        tf_name.resignFirstResponder()
+        tf_eadd.resignFirstResponder()
+        tf_pwd.resignFirstResponder()
+        tf_cpwd.resignFirstResponder()
+        tf_height.resignFirstResponder()
+        tf_weight.resignFirstResponder()
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
