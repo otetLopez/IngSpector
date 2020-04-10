@@ -40,12 +40,14 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func registerButtonPressed(_ sender: UIButton) {
+        checkFields()
     }
     
     func cancelRegistration() {
         clearFields()
         self.navigationController?.popToRootViewController(animated: true)
     }
+    
     func clearFields() {
         tf_name.text = ""
         tf_eadd.text = ""
@@ -53,6 +55,94 @@ class RegisterViewController: UIViewController {
         tf_cpwd.text = ""
         tf_height.text = ""
         tf_weight.text = ""
+    }
+    
+    func checkFields() {
+        var isIncomplete : Bool = false
+        if tf_name.text!.isEmpty {
+            tf_name.layer.borderWidth = 1
+            tf_name.layer.borderColor = UIColor.red.cgColor
+            isIncomplete = true
+        } else {
+            tf_name.layer.borderWidth = 0
+        }
+        if tf_eadd.text!.isEmpty {
+            tf_eadd.layer.borderWidth = 1
+            tf_eadd.layer.borderColor = UIColor.red.cgColor
+            isIncomplete = true
+        } else {
+            tf_eadd.layer.borderWidth = 0
+        }
+        if tf_pwd.text!.isEmpty {
+            tf_pwd.layer.borderWidth = 1
+            tf_pwd.layer.borderColor = UIColor.red.cgColor
+            isIncomplete = true
+        } else {
+            tf_pwd.layer.borderWidth = 0
+        }
+        if tf_cpwd.text!.isEmpty {
+            tf_cpwd.layer.borderWidth = 1
+            tf_cpwd.layer.borderColor = UIColor.red.cgColor
+            isIncomplete = true
+        } else {
+            tf_cpwd.layer.borderWidth = 0
+        }
+        if tf_height.text!.isEmpty {
+        }
+        if tf_weight.text!.isEmpty {
+        }
+        
+      
+        if(isIncomplete == true) {
+            alertErrors(msg: "Missing fields")
+        } else {
+            /* Check email validity */
+            if isEmailValid() == true {
+                /* Check passwords */
+                if isPasswordValid() == true {
+                    
+                }
+            }
+        }
+    }
+    
+    func isEmailValid() -> Bool {
+        /* Check Data If Email is not yet taken*/
+        return true
+    }
+    
+    func isPasswordValid() -> Bool {
+        var isPwdValid : Bool = true
+        /* Check if password is Strong */
+        if tf_pwd.text?.count ?? 0 < 6 {
+            print("DEBUG: RegisterViewController isPasswordValid() Password Weak")
+            alertErrors(msg: "Password Weak")
+            isPwdValid = false
+        } else if tf_pwd.text! != tf_cpwd.text! {
+            print("DEBUG: RegisterViewController isPasswordValid() Passwords did not match")
+            alertErrors(msg: "Passwords did not match")
+            isPwdValid = false
+        }
+        
+        if isPwdValid == false {
+            tf_pwd.layer.borderWidth = 1
+            tf_pwd.layer.borderColor = UIColor.red.cgColor
+            tf_cpwd.layer.borderWidth = 1
+            tf_cpwd.layer.borderColor = UIColor.red.cgColor
+        } else {
+            tf_pwd.layer.borderWidth = 0
+            tf_cpwd.layer.borderWidth = 0
+        }
+        
+        return isPwdValid
+    }
+    
+    func alertErrors(msg: String) {
+        let alertController = UIAlertController(title: "Error", message: msg, preferredStyle: .alert)
+    
+        alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func alertCancel(title: String, msg: String) {
