@@ -168,6 +168,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
     
     func addAllergen(allergen : String) {
         allergenList.append(allergen)
+        tableView.reloadData()
     }
     
     func removeAllergen(allergen : String) {
@@ -257,8 +258,9 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //<#code#>
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel!.text = allergenList[indexPath.row]
+        return cell
     }
     
 
