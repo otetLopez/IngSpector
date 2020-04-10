@@ -14,6 +14,10 @@ class LogInViewController: UIViewController {
     @IBOutlet weak var tf_uname: UITextField!
     @IBOutlet weak var tf_pwd: UITextField!
     @IBOutlet weak var logInBtn: UIButton!
+    
+    var userList = [UserDetails]()
+    var emailList = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         /* TODO*/
@@ -26,6 +30,9 @@ class LogInViewController: UIViewController {
         // Make sure keyboard hides after typing
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         self.view.addGestureRecognizer(tapGesture)
+        
+        /* Retrieve list of users from server */
+        retrieveUsersFromServer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,13 +86,26 @@ class LogInViewController: UIViewController {
         tf_pwd.text = ""
         
     }
-
-
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//         if let reg_delegate = (segue.destination as! UINavigationController).topViewController as? RegisterViewController {
-//            reg_delegate.log_delegate = self
-//        }
-//    }
     
-
+    func addUserFromRegister(newUser : UserDetails) {
+        userList.append(newUser)
+        
+        for idx in userList {
+            print("\(index)")
+        }
+    }
+    
+    func retrieveUsersFromServer() {
+        setUserDefaultsFromServer()
+    }
+    
+    func setUserDefaultsFromServer() {
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         if let reg_delegate = segue.destination as? RegisterViewController {
+            reg_delegate.log_delegate = self
+        }
+    }
 }

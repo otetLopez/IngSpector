@@ -89,6 +89,10 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         tf_weight.text = ""
     }
     
+    func createUser() {
+        
+    }
+    
     func checkFields() {
         var isIncomplete : Bool = false
         if tf_name.text!.isEmpty {
@@ -120,8 +124,18 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
             tf_cpwd.layer.borderWidth = 0
         }
         if tf_height.text!.isEmpty {
+            tf_height.layer.borderWidth = 1
+            tf_height.layer.borderColor = UIColor.red.cgColor
+            isIncomplete = true
+        } else {
+            tf_height.layer.borderWidth = 0
         }
         if tf_weight.text!.isEmpty {
+            tf_weight.layer.borderWidth = 1
+            tf_weight.layer.borderColor = UIColor.red.cgColor
+            isIncomplete = true
+        } else {
+            tf_weight.layer.borderWidth = 0
         }
         
     
@@ -132,7 +146,9 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
             if isEmailValid() == true {
                 /* Check passwords */
                 if isPasswordValid() == true {
-                    
+                    createUser()
+                    showRegisterResult(result: true)
+                    clearFields()
                 }
             }
         }
@@ -195,6 +211,20 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
             self.cancelRegistration()
         }))
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func showRegisterResult(result: Bool) {
+        var msg : String = result ? "Register Successful" : "Register Unsuccesful"
+        let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+        alertController.view.alpha = 0.5
+        alertController.view.layer.cornerRadius = 15
+        
+        self.present(alertController, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+            alertController.dismiss(animated: true)
+            if(result) { self.navigationController?.popToRootViewController(animated: true) }
+        }
     }
 
     func configureView() {

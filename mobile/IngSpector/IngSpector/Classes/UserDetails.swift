@@ -1,5 +1,5 @@
 //
-//  Users.swift
+//  UserDetails.swift
 //  IngSpector
 //
 //  Created by otet_tud on 4/9/20.
@@ -8,7 +8,8 @@
 
 import Foundation
 
-class Users {
+class UserDetails : CustomStringConvertible {
+    
     private var name : String
     private var eadd : String
     private var height : Double
@@ -27,6 +28,14 @@ class Users {
         self.food = food
     }
     
+    var description: String {
+        var detailStr = "--------------------------------\nName: \(name)\nEmail: \(eadd)\nPassword: \(passwd)\nHeight: \(height)\nWeight: \(weight)\nAllergens:\n"
+        for idx in allergens {
+            detailStr += "\t \(idx)\n"
+        }
+        detailStr += "--------------------------------\n"
+        return detailStr
+    }
 
     /* Getters */
     public func getName() -> String { return self.name }
