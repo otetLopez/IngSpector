@@ -13,6 +13,7 @@ class LogInViewController: UIViewController {
 
     @IBOutlet weak var tf_uname: UITextField!
     @IBOutlet weak var tf_pwd: UITextField!
+    @IBOutlet weak var logInBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         /* TODO*/
@@ -69,10 +70,14 @@ class LogInViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.navigationController?.setToolbarHidden(true, animated: true)
         
+        logInBtn.layer.cornerRadius = 10
         tf_uname.layer.borderWidth = 0
+        tf_uname.layer.cornerRadius = 10
         tf_uname.text = ""
         tf_pwd.layer.borderWidth = 0
+        tf_pwd.layer.cornerRadius = 10
         tf_pwd.text = ""
+        
     }
 
 
