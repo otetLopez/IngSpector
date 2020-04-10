@@ -20,6 +20,9 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tf_height: UITextField!
     @IBOutlet weak var tf_weight: UITextField!
     
+    @IBOutlet weak var cancelBtn: UIButton!
+    @IBOutlet weak var registerBtn: UIButton!
+    
     var allergenList = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -197,6 +200,9 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
     func configureView() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
+        cancelBtn.layer.cornerRadius = 10
+        registerBtn.layer.cornerRadius = 10
+        
         // Name
         let l_name = CALayer()
         l_name.frame = CGRect(x: 0.0, y: tf_name.frame.height - 1, width: tf_name.frame.width, height: 1.0)
@@ -259,7 +265,9 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel!.text = allergenList[indexPath.row]
+        cell.textLabel!.text = " \(indexPath.row + 1) \(allergenList[indexPath.row])"
+        cell.layer.cornerRadius = 10
+        //cell.layer.masksToBounds = true
         return cell
     }
     
