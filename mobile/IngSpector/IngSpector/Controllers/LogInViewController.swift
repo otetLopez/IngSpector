@@ -68,6 +68,11 @@ class LogInViewController: UIViewController {
     func configureView() {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.navigationController?.setToolbarHidden(true, animated: true)
+        
+        tf_uname.layer.borderWidth = 0
+        tf_uname.text = ""
+        tf_pwd.layer.borderWidth = 0
+        tf_pwd.text = ""
     }
 
 

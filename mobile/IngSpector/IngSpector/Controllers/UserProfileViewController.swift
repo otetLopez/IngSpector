@@ -40,6 +40,17 @@ class UserProfileViewController: UIViewController {
         tf_wt.resignFirstResponder()
     }
     
+    @IBAction func signOutBtnPressed(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Logging Out", message: "Are you sure?", preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
+            action in
+                self.navigationController?.popToRootViewController(animated: true)
+        }))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         if editing == true {
