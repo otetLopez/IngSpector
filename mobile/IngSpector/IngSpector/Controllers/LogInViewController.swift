@@ -104,8 +104,10 @@ class LogInViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         if let reg_delegate = segue.destination as? RegisterViewController {
+        if let reg_delegate = segue.destination as? RegisterViewController {
             reg_delegate.log_delegate = self
+        } else if let log_delegate = segue.destination as? HomeViewController {
+            log_delegate.home_delegate = self
         }
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    weak var home_delegate: LogInViewController?
     @IBOutlet weak var analyzeFoodBtn: UIButton!
     @IBOutlet weak var homeBtn: UIBarButtonItem!
     @IBOutlet weak var listBtn: UIBarButtonItem!
@@ -61,7 +62,6 @@ class HomeViewController: UIViewController {
     func promptFoodName() {
         let alertController = UIAlertController(title: "Food Name", message: "Input name of food to analyze ingredients", preferredStyle: .alert)
 
-        var nFoodName : UITextField?
         alertController.addTextField { (nFoodName) in
             nFoodName.placeholder = "Food Name"
         }

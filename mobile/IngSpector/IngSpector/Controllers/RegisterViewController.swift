@@ -41,7 +41,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
             self.view.addGestureRecognizer(tapGesture)
         
         //Notify user of internet connection
-        let connection : Bool = checkInternet()
+        let _ = checkInternet()
     }
     
     @objc func viewTapped() {
@@ -63,7 +63,6 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func addAllergenList(_ sender: UIButton) {
         let alertController = UIAlertController(title: "Add Allergens", message: "Enter an ingredient you are allergic to", preferredStyle: .alert)
-        var nAllergen : UITextField?
         
         alertController.addTextField { (nAllergen) in
             nAllergen.placeholder = "e.g. Peanut"
