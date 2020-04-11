@@ -17,6 +17,7 @@ class LogInViewController: UIViewController {
     
     var userList = [UserDetails]()
     var emailList = [String]()
+    var serverConnection = ServerConnection()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,9 @@ class LogInViewController: UIViewController {
         // Make sure keyboard hides after typing
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         self.view.addGestureRecognizer(tapGesture)
+        
+        /* Connect to Server */
+        
         
         /* Retrieve list of users from server */
         retrieveUsersFromServer()
@@ -45,6 +49,16 @@ class LogInViewController: UIViewController {
     }
     
     @IBAction func logBtnPressed(_ sender: UIButton) {
+        if(!checkFields()) {
+            alert(title: "Error: ", msg: "Missing mandatory fields")
+        } else {
+            /* base: http://72.137.45.112:8080/ingSpectorMobileServices/ingspector/userlogin/t@d.com/1234 */
+            let loginURL : String = serverConnection.getURLlogin() + "\(tf_uname.text!)/\(tf_pwd.text!)"
+            print("DEBUG: LOGIN Credentials \(loginURL)")
+        }
+    }
+    
+    func checkFields() -> Bool {
         if tf_uname.text!.isEmpty || tf_pwd.text!.isEmpty {
             if tf_uname.text!.isEmpty {
                 tf_uname.layer.borderWidth = 1
@@ -59,10 +73,9 @@ class LogInViewController: UIViewController {
             } else {
                 tf_pwd.layer.borderWidth = 0
             }
-            alert(title: "Error: ", msg: "Missing mandatory fields")
-        } else {
-            // Check user
+            return false
         }
+        return true
     }
     
     func alert(title: String, msg : String) {
@@ -89,7 +102,6 @@ class LogInViewController: UIViewController {
     
     func addUserFromRegister(newUser : UserDetails) {
         userList.append(newUser)
-        
         for idx in userList {
             print("\(idx)")
         }

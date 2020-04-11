@@ -27,6 +27,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var registerBtn: UIButton!
     
+    let serverConnection = ServerConnection()
     let internetConnection = InternetConnection()
     var allergenList = [String]()
     override func viewDidLoad() {
@@ -99,7 +100,17 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
     func sendDataToServer(newUser : UserDetails) {
         if(checkInternet()) {
             // We have internet connection now we send the register information to server
+            /* http://72.137.45.112:8080/ingSpectorMobileServices/ingspector/adduser/rosette@test.com/123456/rosette/170/50/peanut,milk */
+            var registrationURL : String = serverConnection.getURLreg() + "\(tf_eadd.text!)/\(tf_pwd.text!)/\(tf_name.text!)/\(tf_height.text!)/\(tf_weight.text!)"
             
+            if(allergenList.count > 0) {
+                registrationURL = registrationURL + "/"
+                for allergen in allergenList {
+                    registrationURL = registrationURL + "\(allergen),"
+                }
+                registrationURL = String(registrationURL.dropLast())
+            }
+            print("DEBUG: Register Msg \(registrationURL)")
         }
     }
     
