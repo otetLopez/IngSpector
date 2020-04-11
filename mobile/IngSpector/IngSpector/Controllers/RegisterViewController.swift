@@ -89,12 +89,16 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         tf_weight.text = ""
     }
     
-    func createUser() {
+    func createUser() -> Bool{
         let ht : Double = Double(tf_height.text!)!
         let wt : Double = Double(tf_weight.text!)!
         print("DEBUG: \(ht)\(wt)")
         let newUser = UserDetails(name: tf_name.text!, eadd: tf_eadd.text!, height: Double(tf_height.text!)!, weight: Double(tf_weight.text!)!, passwd: tf_pwd.text!, allergens: allergenList, food: [String]())
         log_delegate?.addUserFromRegister(newUser: newUser)
+        
+        //TODO: Send these data into server to check if email is valid
+        
+        return true
     }
     
     func checkFields() {
@@ -150,9 +154,11 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
             if isEmailValid() == true {
                 /* Check passwords */
                 if isPasswordValid() == true {
-                    createUser()
-                    showRegisterResult(result: true)
-                    clearFields()
+                    let rc : Bool = createUser()
+                    showRegisterResult(result: rc)
+                    if rc == true {
+                        clearFields()
+                    }
                 }
             }
         }

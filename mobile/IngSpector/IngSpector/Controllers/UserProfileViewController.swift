@@ -55,14 +55,14 @@ class UserProfileViewController: UIViewController {
         super.setEditing(editing, animated: animated)
         if editing == true {
             //tf_email.isUserInteractionEnabled = true
-            tf_name.isUserInteractionEnabled = true
+            //tf_name.isUserInteractionEnabled = true
             tf_ht.isUserInteractionEnabled = true
             tf_wt.isUserInteractionEnabled = true
             addAllergensBtn.isUserInteractionEnabled = true
             //addAllergensBtn.isHidden = false
     
         } else {
-            tf_name.isUserInteractionEnabled = false
+            //tf_name.isUserInteractionEnabled = false
             //tf_email.isUserInteractionEnabled = false
             tf_ht.isUserInteractionEnabled = false
             tf_wt.isUserInteractionEnabled = false
