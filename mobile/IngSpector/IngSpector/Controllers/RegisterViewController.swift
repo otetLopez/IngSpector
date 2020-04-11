@@ -8,6 +8,10 @@
 
 import UIKit
 
+import Alamofire
+import SwiftyJSON
+import SVProgressHUD
+import Reachability
 
 class RegisterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -34,6 +38,9 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
             self.view.addGestureRecognizer(tapGesture)
+        
+        //Notify user of internet connection
+        let connection : Bool = checkInternet()
     }
     
     @objc func viewTapped() {
@@ -89,6 +96,12 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         tf_weight.text = ""
     }
     
+    func sendDataToServer(newUser : UserDetails) {
+        if(checkInternet()) {
+            
+        }
+    }
+    
     func createUser() -> Bool{
         let ht : Double = Double(tf_height.text!)!
         let wt : Double = Double(tf_weight.text!)!
@@ -97,6 +110,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         log_delegate?.addUserFromRegister(newUser: newUser)
         
         //TODO: Send these data into server to check if email is valid
+        sendDataToServer(newUser : newUser)
         
         return true
     }
@@ -146,27 +160,19 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
             tf_weight.layer.borderWidth = 0
         }
         
-    
         if(isIncomplete == true) {
             alertErrors(msg: "Missing fields")
         } else {
-            /* Check email validity */
-            if isEmailValid() == true {
-                /* Check passwords */
-                if isPasswordValid() == true {
-                    let rc : Bool = createUser()
-                    showRegisterResult(result: rc)
-                    if rc == true {
-                        clearFields()
-                    }
+            /* Check passwords */
+            if isPasswordValid() == true {
+                let rc : Bool = createUser()
+                let msg : String = rc ? "Register Successful" : "Register Unsuccesful"
+                showToastMsg(msg: msg, done: rc)
+                if rc == true {
+                    clearFields()
                 }
             }
         }
-    }
-    
-    func isEmailValid() -> Bool {
-        /* Check Data If Email is not yet taken*/
-        return true
     }
     
     func isPasswordValid() -> Bool {
@@ -204,6 +210,16 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+    func checkInternet() -> Bool {
+        let reachability = Reachability.forInternetConnection()
+        let connection : Bool = (reachability?.isReachable())!
+        if (!connection) {
+            showToastMsg(msg: "Not connected to internet.  Try Again.", done: false)
+        }
+
+        return connection
+    }
+    
     func alertErrors(msg: String) {
         let alertController = UIAlertController(title: "Error", message: msg, preferredStyle: .alert)
     
@@ -223,8 +239,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func showRegisterResult(result: Bool) {
-        var msg : String = result ? "Register Successful" : "Register Unsuccesful"
+    func showToastMsg(msg: String, done: Bool) {
         let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
         alertController.view.alpha = 0.5
         alertController.view.layer.cornerRadius = 15
@@ -233,7 +248,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
             alertController.dismiss(animated: true)
-            if(result) { self.navigationController?.popToRootViewController(animated: true) }
+            if(done) { self.navigationController?.popToRootViewController(animated: true) }
         }
     }
 
