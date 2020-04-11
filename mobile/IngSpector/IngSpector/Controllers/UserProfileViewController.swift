@@ -13,7 +13,6 @@ class UserProfileViewController: UIViewController {
     @IBOutlet weak var homeBtn: UIBarButtonItem!
     @IBOutlet weak var listBtn: UIBarButtonItem!
     @IBOutlet weak var profileBtn: UIBarButtonItem!
-    @IBOutlet weak var viewListBtn: UIButton!
     @IBOutlet weak var signoutBtn: UIButton!
     
     @IBOutlet weak var tf_name: UITextField!
@@ -82,7 +81,6 @@ class UserProfileViewController: UIViewController {
         listBtn.tintColor = UIColor.white
         profileBtn.tintColor = UIColor.systemTeal
         
-        viewListBtn.layer.cornerRadius = 10
         addAllergensBtn.layer.cornerRadius = 10
         signoutBtn.layer.cornerRadius = 10
         
