@@ -27,6 +27,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var registerBtn: UIButton!
     
+    let internetConnection = InternetConnection()
     var allergenList = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +99,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
     
     func sendDataToServer(newUser : UserDetails) {
         if(checkInternet()) {
+            // We have internet connection now we send the register information to server
             
         }
     }
@@ -167,7 +169,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
             if isPasswordValid() == true {
                 let rc : Bool = createUser()
                 let msg : String = rc ? "Register Successful" : "Register Unsuccesful"
-                showToastMsg(msg: msg, done: rc)
+                showToastMsg(msg: msg, done: rc, seconds: 2)
                 if rc == true {
                     clearFields()
                 }
@@ -211,12 +213,10 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func checkInternet() -> Bool {
-        let reachability = Reachability.forInternetConnection()
-        let connection : Bool = (reachability?.isReachable())!
-        if (!connection) {
-            showToastMsg(msg: "Not connected to internet.  Try Again.", done: false)
+        let connection : Bool = internetConnection.isConnected()
+        if (!internetConnection.isConnected()) {
+            showToastMsg(msg: "Not connected to internet.  Try Again.", done: false, seconds: 3)
         }
-
         return connection
     }
     
@@ -239,14 +239,14 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func showToastMsg(msg: String, done: Bool) {
+    func showToastMsg(msg: String, done: Bool, seconds: Double) {
         let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
         alertController.view.alpha = 0.5
         alertController.view.layer.cornerRadius = 15
         
         self.present(alertController, animated: true)
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
             alertController.dismiss(animated: true)
             if(done) { self.navigationController?.popToRootViewController(animated: true) }
         }
