@@ -81,7 +81,7 @@
                                     <color key="titleColor" red="0.062745098040000002" green="0.14666128549999999" blue="0.68087621669999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ECb-9F-mBJ" kind="show" id="oiC-Oo-OXp"/>
+                                    <segue destination="ECb-9F-mBJ" kind="show" identifier="register" id="oiC-Oo-OXp"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D4N-Il-ou5">

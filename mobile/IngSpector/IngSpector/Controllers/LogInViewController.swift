@@ -33,7 +33,6 @@ class LogInViewController: UIViewController {
         // Make sure keyboard hides after typing
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         self.view.addGestureRecognizer(tapGesture)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,8 +43,10 @@ class LogInViewController: UIViewController {
         print("DEBUG: viewDidAppear")
         if UserDefaults.standard.string(forKey: "email") != nil {
             // Then we have a data
-            setFromUserDefaults()
-            performSegue(withIdentifier: "loginSuccess", sender: nil)
+            
+            //setFromUserDefaults()
+            //performSegue(withIdentifier: "loginSuccess", sender: nil)
+            removerUserFromDefaults()
         }
     }
     
@@ -56,7 +57,7 @@ class LogInViewController: UIViewController {
                 rc = true
                 logFlag = false
             }
-        }
+        } else if(identifier == "register") { rc = true }
         return rc
     }
     
@@ -67,6 +68,17 @@ class LogInViewController: UIViewController {
     
     @IBAction func logBtnPressed(_ sender: UIButton) {
         logFlag = false
+        //SVProgressHUD.setForegroundColor(UIColor(displayP3Red: 255/255, green: 111/255, blue: 207/255, alpha: 1.00))
+        //SVProgressHUD.show(withStatus: "Logging in...")
+        
+//        SVProgressHUD.setDefaultStyle(.custom)
+//        SVProgressHUD.setDefaultMaskType(.custom)
+//        SVProgressHUD.setForegroundColor(UIColor.red)           //Ring Color
+//        SVProgressHUD.setBackgroundColor(UIColor.yellow)        //HUD Color
+//        SVProgressHUD.setBackgroundLayerColor(UIColor.green)    //Background Color
+//        SVProgressHUD.show()
+        
+        
         if(!checkFields()) {
             alert(title: "Error: ", msg: "Missing mandatory fields")
         } else {
@@ -151,8 +163,15 @@ class LogInViewController: UIViewController {
             var allergenList = [String]()
             if(allergens.count > 0) {
                 allergenList = parseList(toParse: allergens)
-                for idx in allergenList {
-                    print("DEBUG: Allergen -> \(idx)")
+                var idxes : [Int] = [Int]()
+                for (index, element) in allergenList.enumerated() {
+                    print("Item \(index): \(element)")
+                    if element == "empty" {
+                        idxes.append(index)
+                    }
+                }
+                for idx in idxes {
+                    allergenList.remove(at: idx)
                 }
             }
             
@@ -164,11 +183,12 @@ class LogInViewController: UIViewController {
                 }
             }
             
-            print("DEBUG: userInfo \(email) \(password) \(name) \(height) \(weight) \(allergens) \(allergicFoods)")
             let user = UserDetails(name: name, eadd: email, height: Double(height)!, weight: Double(weight)!, passwd: password, allergens: allergenList, food: foodList)
             currentUser = user
+            print("DEBUG UserInfo Parsed \(currentUser)")
             setToUserDefaults(user: user)
             logFlag = true
+            //SVProgressHUD.dismiss()
             performSegue(withIdentifier: "loginSuccess", sender: nil)
         }
     }
@@ -220,27 +240,19 @@ class LogInViewController: UIViewController {
         return parsed
     }
     
-    /* Note, this to delete */
-    func addUserFromRegister(newUser : UserDetails) {
-        userList.append(newUser)
-        for idx in userList {
-            print("\(idx)")
-        }
-    }
-    
-    func retrieveUsersFromServer() {
-        setUserDefaultsFromServer()
-    }
-    
-    func setUserDefaultsFromServer() {
-        
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let reg_delegate = segue.destination as? RegisterViewController {
-            reg_delegate.log_delegate = self
-        } else if let log_delegate = segue.destination as? HomeViewController {
+        if let log_delegate = segue.destination as? HomeViewController {
             log_delegate.home_delegate = self
         }
+    }
+    
+    func removerUserFromDefaults() {
+        UserDefaults.standard.removeObject(forKey: "email")
+        UserDefaults.standard.removeObject(forKey: "password")
+        UserDefaults.standard.removeObject(forKey: "name")
+        UserDefaults.standard.removeObject(forKey: "height")
+        UserDefaults.standard.removeObject(forKey: "weight")
+        UserDefaults.standard.removeObject(forKey: "allergenList")
+        UserDefaults.standard.removeObject(forKey: "foodList")
     }
 }

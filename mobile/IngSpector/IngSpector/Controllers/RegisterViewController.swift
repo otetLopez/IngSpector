@@ -15,7 +15,6 @@ import Reachability
 
 class RegisterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    weak var log_delegate: LogInViewController?
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tf_name: UITextField!
     @IBOutlet weak var tf_eadd: UITextField!
@@ -97,33 +96,62 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         tf_weight.text = ""
     }
     
-    func sendDataToServer(newUser : UserDetails) -> Bool {
-        var rc : Bool = true
+    func sendDataToServer(newUser : UserDetails) {
         if(checkInternet()) {
             // We have internet connection now we send the register information to server
             /* http://72.137.45.112:8080/ingSpectorMobileServices/ingspector/adduser/rosette@test.com/123456/rosette/170/50/peanut,milk */
-            var registrationURL : String = serverConnection.getURLreg() + "\(tf_eadd.text!)/\(tf_pwd.text!)/\(tf_name.text!)/\(tf_height.text!)/\(tf_weight.text!)"
+            //SVProgressHUD.setForegroundColor(UIColor(displayP3Red: 255/255, green: 111/255, blue: 207/255, alpha: 1.00))
+            var registrationURL : String = serverConnection.getURLreg() + "\(tf_eadd.text!)/\(tf_pwd.text!)/\(tf_name.text!)/\(tf_height.text!)/\(tf_weight.text!)/"
             
             if(allergenList.count > 0) {
-                registrationURL = registrationURL + "/"
                 for allergen in allergenList {
                     registrationURL = registrationURL + "\(allergen),"
                 }
                 registrationURL = String(registrationURL.dropLast())
-            }
+            } else {
+                registrationURL = registrationURL + "empty" }
             print("DEBUG: Register Msg \(registrationURL)")
-        } else { rc = false }
-        return rc
+            sendRegistrationDetails(url: registrationURL)
+            //SVProgressHUD.dismiss()
+        }
     }
     
-    func createUser() -> Bool{
+    func sendRegistrationDetails(url: String) {
+        AF.request(url, method: .get).responseJSON {
+        response in
+            switch response.result {
+                case let .success(value):
+                    let dataJSON : JSON = JSON(value)
+                    print("DEBUG: sendRegistrationDetails \(dataJSON)")
+                    if dataJSON == true {
+                        print("DEBUG: dataJSON == true")
+                        self.completeRegistration()
+                    } else {
+                        print("DEBUG: email taken probably")
+                        self.notifyRegistrationError()
+                    }
+                case let .failure(error):
+                    print(error)
+            }
+        }
+    }
+    
+    func completeRegistration() {
+        clearFields()
+        showToastMsg(msg: "Regitration Successful!", done: true, seconds: 2)
+    }
+    
+    func notifyRegistrationError() {
+        showToastMsg(msg: "Regitration Not Successful.  Make sure email is not taken", done: false, seconds: 3)
+    }
+    
+    func createUser() {
         let ht : Double = Double(tf_height.text!)!
         let wt : Double = Double(tf_weight.text!)!
         print("DEBUG: \(ht)\(wt)")
         let newUser = UserDetails(name: tf_name.text!, eadd: tf_eadd.text!, height: Double(tf_height.text!)!, weight: Double(tf_weight.text!)!, passwd: tf_pwd.text!, allergens: allergenList, food: [String]())
-        log_delegate?.addUserFromRegister(newUser: newUser)
         
-        return sendDataToServer(newUser : newUser)
+        sendDataToServer(newUser : newUser)
     }
     
     func checkFields() {
@@ -176,12 +204,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             /* Check passwords */
             if isPasswordValid() == true {
-                let rc : Bool = createUser()
-                let msg : String = rc ? "Register Successful" : "Register Unsuccesful"
-                showToastMsg(msg: msg, done: rc, seconds: 2)
-                if rc == true {
-                    clearFields()
-                }
+                createUser()
             }
         }
     }
