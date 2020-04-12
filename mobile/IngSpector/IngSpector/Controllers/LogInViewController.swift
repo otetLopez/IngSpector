@@ -26,9 +26,6 @@ class LogInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /* TODO*/
-        /* OTET: We need to check if the user is logged in, if so, there is no need to display this page
-                 and we will proceed to Home Page*/
         
         /* OTET: configureView() functions configure the view controller views every time it will appear on screen */
         configureView()
@@ -37,15 +34,19 @@ class LogInViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         self.view.addGestureRecognizer(tapGesture)
         
-        /* Connect to Server */
-        
-        
-        /* Retrieve list of users from server */
-        retrieveUsersFromServer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         configureView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("DEBUG: viewDidAppear")
+        if UserDefaults.standard.string(forKey: "email") != nil {
+            // Then we have a data
+            setFromUserDefaults()
+            performSegue(withIdentifier: "loginSuccess", sender: nil)
+        }
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -74,6 +75,27 @@ class LogInViewController: UIViewController {
             print("DEBUG: LOGIN Credentials \(loginURL)")
             loginCredentials(url:  loginURL, email: "\(tf_uname.text!)")
         }
+    }
+    
+    func setFromUserDefaults() {
+        let email : String = UserDefaults.standard.string(forKey: "email") ?? ""
+        let password : String = UserDefaults.standard.string(forKey: "password") ?? ""
+        let name: String = UserDefaults.standard.string(forKey: "name") ?? ""
+        let height : Double = UserDefaults.standard.double(forKey: "height")
+        let weight : Double = UserDefaults.standard.double(forKey: "weight")
+        let allergenList : [String] = UserDefaults.standard.stringArray(forKey: "allergenList") ?? [String]()
+        let foodList : [String] = UserDefaults.standard.stringArray(forKey: "foodList") ?? [String]()
+        currentUser = UserDetails(name: name, eadd: email, height: height, weight: weight, passwd: password, allergens: allergenList, food: foodList)
+    }
+    
+    func setToUserDefaults(user: UserDetails) {
+        UserDefaults.standard.set(user.getEmail(), forKey: "email")
+        UserDefaults.standard.set(user.getPassword(), forKey: "password")
+        UserDefaults.standard.set(user.getName(), forKey: "name")
+        UserDefaults.standard.set(user.getHeight(), forKey: "height")
+        UserDefaults.standard.set(user.getWeight(), forKey: "weight")
+        UserDefaults.standard.set(user.getAllergens(), forKey: "allergenList")
+        UserDefaults.standard.set(user.getFoodList(), forKey: "foodList")
     }
     
     func loginCredentials(url: String, email: String) {
@@ -145,6 +167,7 @@ class LogInViewController: UIViewController {
             print("DEBUG: userInfo \(email) \(password) \(name) \(height) \(weight) \(allergens) \(allergicFoods)")
             let user = UserDetails(name: name, eadd: email, height: Double(height)!, weight: Double(weight)!, passwd: password, allergens: allergenList, food: foodList)
             currentUser = user
+            setToUserDefaults(user: user)
             logFlag = true
             performSegue(withIdentifier: "loginSuccess", sender: nil)
         }
