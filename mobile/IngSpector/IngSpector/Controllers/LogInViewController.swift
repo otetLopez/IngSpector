@@ -58,11 +58,11 @@ class LogInViewController: UIViewController {
             /* base: http://72.137.45.112:8080/ingSpectorMobileServices/ingspector/userlogin/t@d.com/1234 */
             let loginURL : String = serverConnection.getURLlogin() + "\(tf_uname.text!)/\(tf_pwd.text!)"
             print("DEBUG: LOGIN Credentials \(loginURL)")
-            loginCredentials(url:  loginURL)
+            loginCredentials(url:  loginURL, email: "\(tf_uname.text!)")
         }
     }
     
-    func loginCredentials(url: String) {
+    func loginCredentials(url: String, email: String) {
         AF.request(url, method: .get).responseJSON {
         response in
             switch response.result {
@@ -70,12 +70,65 @@ class LogInViewController: UIViewController {
                     let dataJSON : JSON = JSON(value)
                     print("DEBUG: \(value) \(true) \(false) \(dataJSON)")
                     if dataJSON == true {
-                        //SVProgressHUD.dismiss();
-                        //self.parseLoginInfo(json: dataJSON);
+                        self.requestUserInfo(email: email)
+                    } else {
+                        // Alert log In unsuccessful
                     }
                 case let .failure(error):
                     print(error)
             }
+        }
+    }
+    
+    func sendUserInfoRequest(url: String, email: String) {
+        AF.request(url, method: .get).responseJSON {
+        response in
+            switch response.result {
+                case let .success(value):
+                    let dataJSON : JSON = JSON(value)
+                    //print("DEBUG: sendRequest Retrieved JSON data \(dataJSON)")
+                    self.parseUserInfo(dataJSON: dataJSON)
+                case let .failure(error):
+                    print(error)
+            }
+        }
+    }
+    
+    func requestUserInfo(email: String) {
+        /* http://72.137.45.112:8080/ingSpectorMobileServices/ingspector/userinfo/rosette@test.com/get */
+        let url : String = serverConnection.getURLinfo() + "\(email)/get"
+        print("DEBUG: Retrieve user details \(url)")
+        sendUserInfoRequest(url: url, email: email)
+    }
+    
+    func parseUserInfo(dataJSON: JSON) {
+        /*{"email":"rosette@test.com","password":"123456","name":"rosette","height":"170","weight":"50",
+         "allergens":"peanut,milk","allergicFoods":""} */
+        if let email = dataJSON["email"].string {
+            let password = (dataJSON["password"].string)!
+            let name = (dataJSON["name"].string)!
+            let height = (dataJSON["height"].string)!
+            let weight = (dataJSON["weight"].string)!
+            let allergens = (dataJSON["allergens"].string)!
+            let allergicFoods = (dataJSON["allergicFoods"].string)!
+            
+            var allergenList = [String]()
+            if(allergens.count > 0) {
+                allergenList = parseList(toParse: allergens)
+                for idx in allergenList {
+                    print("DEBUG: Allergen -> \(idx)")
+                }
+            }
+            
+            var foodList = [String]()
+            if(allergicFoods.count > 0) {
+                foodList = parseList(toParse: allergicFoods)
+                for idx in foodList {
+                    print("DEBUG: FoodList -> \(idx)")
+                }
+            }
+            
+            print("DEBUG: userInfo \(email) \(password) \(name) \(height) \(weight) \(allergens) \(allergicFoods)")
         }
     }
     
@@ -119,6 +172,11 @@ class LogInViewController: UIViewController {
         tf_pwd.layer.cornerRadius = 10
         tf_pwd.text = ""
         
+    }
+    
+    func parseList(toParse: String) -> [String] {
+        let parsed : [String] = toParse.split{$0 == ","}.map(String.init)
+        return parsed
     }
     
     func addUserFromRegister(newUser : UserDetails) {

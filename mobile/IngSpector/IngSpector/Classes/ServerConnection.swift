@@ -28,4 +28,9 @@ class ServerConnection {
         /* http://72.137.45.112:8080/ingSpectorMobileServices/ingspector/adduser/rosette@test.com/123456/rosette/170/50/peanut,milk */
         return (self.url + "adduser/")
     }
+    
+    public func getURLinfo() -> String {
+        /* http://72.137.45.112:8080/ingSpectorMobileServices/ingspector/userinfo/rosette@test.com/get */
+        return (self.url + "userinfo/")
+    }
 }
