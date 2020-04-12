@@ -21,6 +21,7 @@ class LogInViewController: UIViewController {
     var userList = [UserDetails]()
     var emailList = [String]()
     var serverConnection = ServerConnection()
+    var defaultsAccess = DefaultsAccess()
     var currentUser = UserDetails()
     var logFlag : Bool = false
     
@@ -44,9 +45,11 @@ class LogInViewController: UIViewController {
         if UserDefaults.standard.string(forKey: "email") != nil {
             // Then we have a data
             
-            //setFromUserDefaults()
-            //performSegue(withIdentifier: "loginSuccess", sender: nil)
-            removerUserFromDefaults()
+            currentUser = defaultsAccess.setFromUserDefaults()
+            print("DEBUG: Logging In to \(currentUser)")
+            performSegue(withIdentifier: "loginSuccess", sender: nil)
+            /* This is for testing purposes */
+            //removerUserFromDefaults()
         }
     }
     
@@ -87,27 +90,6 @@ class LogInViewController: UIViewController {
             print("DEBUG: LOGIN Credentials \(loginURL)")
             loginCredentials(url:  loginURL, email: "\(tf_uname.text!)")
         }
-    }
-    
-    func setFromUserDefaults() {
-        let email : String = UserDefaults.standard.string(forKey: "email") ?? ""
-        let password : String = UserDefaults.standard.string(forKey: "password") ?? ""
-        let name: String = UserDefaults.standard.string(forKey: "name") ?? ""
-        let height : Double = UserDefaults.standard.double(forKey: "height")
-        let weight : Double = UserDefaults.standard.double(forKey: "weight")
-        let allergenList : [String] = UserDefaults.standard.stringArray(forKey: "allergenList") ?? [String]()
-        let foodList : [String] = UserDefaults.standard.stringArray(forKey: "foodList") ?? [String]()
-        currentUser = UserDetails(name: name, eadd: email, height: height, weight: weight, passwd: password, allergens: allergenList, food: foodList)
-    }
-    
-    func setToUserDefaults(user: UserDetails) {
-        UserDefaults.standard.set(user.getEmail(), forKey: "email")
-        UserDefaults.standard.set(user.getPassword(), forKey: "password")
-        UserDefaults.standard.set(user.getName(), forKey: "name")
-        UserDefaults.standard.set(user.getHeight(), forKey: "height")
-        UserDefaults.standard.set(user.getWeight(), forKey: "weight")
-        UserDefaults.standard.set(user.getAllergens(), forKey: "allergenList")
-        UserDefaults.standard.set(user.getFoodList(), forKey: "foodList")
     }
     
     func loginCredentials(url: String, email: String) {
@@ -186,7 +168,7 @@ class LogInViewController: UIViewController {
             let user = UserDetails(name: name, eadd: email, height: Double(height)!, weight: Double(weight)!, passwd: password, allergens: allergenList, food: foodList)
             currentUser = user
             print("DEBUG UserInfo Parsed \(currentUser)")
-            setToUserDefaults(user: user)
+            defaultsAccess.setToUserDefaults(user: user)
             logFlag = true
             //SVProgressHUD.dismiss()
             performSegue(withIdentifier: "loginSuccess", sender: nil)
@@ -244,15 +226,5 @@ class LogInViewController: UIViewController {
         if let log_delegate = segue.destination as? HomeViewController {
             log_delegate.home_delegate = self
         }
-    }
-    
-    func removerUserFromDefaults() {
-        UserDefaults.standard.removeObject(forKey: "email")
-        UserDefaults.standard.removeObject(forKey: "password")
-        UserDefaults.standard.removeObject(forKey: "name")
-        UserDefaults.standard.removeObject(forKey: "height")
-        UserDefaults.standard.removeObject(forKey: "weight")
-        UserDefaults.standard.removeObject(forKey: "allergenList")
-        UserDefaults.standard.removeObject(forKey: "foodList")
     }
 }
