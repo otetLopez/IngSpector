@@ -22,6 +22,7 @@ class LogInViewController: UIViewController {
     var emailList = [String]()
     var serverConnection = ServerConnection()
     var currentUser = UserDetails()
+    var logFlag : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,12 +48,24 @@ class LogInViewController: UIViewController {
         configureView()
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        var rc : Bool = false
+        if(identifier == "loginSuccess") {
+            if logFlag == true {
+                rc = true
+                logFlag = false
+            }
+        }
+        return rc
+    }
+    
     @objc func viewTapped() {
         tf_uname.resignFirstResponder()
         tf_pwd.resignFirstResponder()
     }
     
     @IBAction func logBtnPressed(_ sender: UIButton) {
+        logFlag = false
         if(!checkFields()) {
             alert(title: "Error: ", msg: "Missing mandatory fields")
         } else {
@@ -132,6 +145,8 @@ class LogInViewController: UIViewController {
             print("DEBUG: userInfo \(email) \(password) \(name) \(height) \(weight) \(allergens) \(allergicFoods)")
             let user = UserDetails(name: name, eadd: email, height: Double(height)!, weight: Double(weight)!, passwd: password, allergens: allergenList, food: foodList)
             currentUser = user
+            logFlag = true
+            performSegue(withIdentifier: "loginSuccess", sender: nil)
         }
     }
     
@@ -182,6 +197,7 @@ class LogInViewController: UIViewController {
         return parsed
     }
     
+    /* Note, this to delete */
     func addUserFromRegister(newUser : UserDetails) {
         userList.append(newUser)
         for idx in userList {
