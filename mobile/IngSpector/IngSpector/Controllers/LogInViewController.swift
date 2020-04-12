@@ -8,6 +8,9 @@
 
 import UIKit
 import QuartzCore
+import Alamofire
+import SwiftyJSON
+import SVProgressHUD
 
 class LogInViewController: UIViewController {
 
@@ -55,6 +58,24 @@ class LogInViewController: UIViewController {
             /* base: http://72.137.45.112:8080/ingSpectorMobileServices/ingspector/userlogin/t@d.com/1234 */
             let loginURL : String = serverConnection.getURLlogin() + "\(tf_uname.text!)/\(tf_pwd.text!)"
             print("DEBUG: LOGIN Credentials \(loginURL)")
+            loginCredentials(url:  loginURL)
+        }
+    }
+    
+    func loginCredentials(url: String) {
+        AF.request(url, method: .get).responseJSON {
+        response in
+            switch response.result {
+                case let .success(value):
+                    let dataJSON : JSON = JSON(value)
+                    print("DEBUG: \(value) \(true) \(false) \(dataJSON)")
+                    if dataJSON == true {
+                        //SVProgressHUD.dismiss();
+                        //self.parseLoginInfo(json: dataJSON);
+                    }
+                case let .failure(error):
+                    print(error)
+            }
         }
     }
     
