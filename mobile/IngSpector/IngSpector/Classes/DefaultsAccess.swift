@@ -30,7 +30,7 @@ class DefaultsAccess {
         UserDefaults.standard.set(user.getFoodList(), forKey: "foodList")
     }
     
-    func removerUserFromDefaults() {
+    func removeUserFromDefaults() {
         UserDefaults.standard.removeObject(forKey: "email")
         UserDefaults.standard.removeObject(forKey: "password")
         UserDefaults.standard.removeObject(forKey: "name")

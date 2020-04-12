@@ -49,7 +49,7 @@ class LogInViewController: UIViewController {
             print("DEBUG: Logging In to \(currentUser)")
             performSegue(withIdentifier: "loginSuccess", sender: nil)
             /* This is for testing purposes */
-            //removerUserFromDefaults()
+            //removeUserFromDefaults()
         }
     }
     

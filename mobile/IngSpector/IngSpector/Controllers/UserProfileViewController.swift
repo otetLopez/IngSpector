@@ -21,12 +21,19 @@ class UserProfileViewController: UIViewController {
     @IBOutlet weak var tf_wt: UITextField!
     
     @IBOutlet weak var addAllergensBtn: UIButton!
+    
+    var defaultsAccess = DefaultsAccess()
+    var currentUser : UserDetails = UserDetails()
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureView()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
             self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        currentUser = defaultsAccess.setFromUserDefaults()
+        configureView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +52,7 @@ class UserProfileViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
             action in
+                self.defaultsAccess.removeUserFromDefaults()
                 self.navigationController?.popToRootViewController(animated: true)
         }))
         self.present(alertController, animated: true, completion: nil)
@@ -53,19 +61,17 @@ class UserProfileViewController: UIViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         if editing == true {
-            //tf_email.isUserInteractionEnabled = true
-            //tf_name.isUserInteractionEnabled = true
             tf_ht.isUserInteractionEnabled = true
             tf_wt.isUserInteractionEnabled = true
             addAllergensBtn.isUserInteractionEnabled = true
+            addAllergensBtn.tintColor = UIColor.white
             //addAllergensBtn.isHidden = false
     
         } else {
-            //tf_name.isUserInteractionEnabled = false
-            //tf_email.isUserInteractionEnabled = false
             tf_ht.isUserInteractionEnabled = false
             tf_wt.isUserInteractionEnabled = false
             addAllergensBtn.isUserInteractionEnabled = false
+            addAllergensBtn.tintColor = UIColor.darkGray
             //addAllergensBtn.isHidden = true
         }
     }
