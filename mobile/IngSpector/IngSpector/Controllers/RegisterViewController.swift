@@ -97,7 +97,8 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         tf_weight.text = ""
     }
     
-    func sendDataToServer(newUser : UserDetails) {
+    func sendDataToServer(newUser : UserDetails) -> Bool {
+        var rc : Bool = true
         if(checkInternet()) {
             // We have internet connection now we send the register information to server
             /* http://72.137.45.112:8080/ingSpectorMobileServices/ingspector/adduser/rosette@test.com/123456/rosette/170/50/peanut,milk */
@@ -111,7 +112,8 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
                 registrationURL = String(registrationURL.dropLast())
             }
             print("DEBUG: Register Msg \(registrationURL)")
-        }
+        } else { rc = false }
+        return rc
     }
     
     func createUser() -> Bool{
@@ -121,10 +123,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         let newUser = UserDetails(name: tf_name.text!, eadd: tf_eadd.text!, height: Double(tf_height.text!)!, weight: Double(tf_weight.text!)!, passwd: tf_pwd.text!, allergens: allergenList, food: [String]())
         log_delegate?.addUserFromRegister(newUser: newUser)
         
-        //TODO: Send these data into server to check if email is valid
-        sendDataToServer(newUser : newUser)
-        
-        return true
+        return sendDataToServer(newUser : newUser)
     }
     
     func checkFields() {
@@ -258,7 +257,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
             alertController.dismiss(animated: true)
-            if(done) { self.navigationController?.popToRootViewController(animated: true) }
+            if(done == true) { self.navigationController?.popToRootViewController(animated: true) }
         }
     }
 

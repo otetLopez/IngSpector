@@ -28,6 +28,16 @@ class UserDetails : CustomStringConvertible {
         self.food = food
     }
     
+    init() {
+        self.name = ""
+        self.eadd = ""
+        self.height = 0.0
+        self.weight = 0.0
+        self.passwd = ""
+        self.allergens = [String]()
+        self.food = [String]()
+    }
+    
     var description: String {
         var detailStr = "--------------------------------\nName: \(name)\nEmail: \(eadd)\nPassword: \(passwd)\nHeight: \(height)\nWeight: \(weight)\nAllergens:\n"
         for idx in allergens {

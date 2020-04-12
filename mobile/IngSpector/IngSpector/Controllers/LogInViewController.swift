@@ -21,6 +21,7 @@ class LogInViewController: UIViewController {
     var userList = [UserDetails]()
     var emailList = [String]()
     var serverConnection = ServerConnection()
+    var currentUser = UserDetails()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,6 +130,8 @@ class LogInViewController: UIViewController {
             }
             
             print("DEBUG: userInfo \(email) \(password) \(name) \(height) \(weight) \(allergens) \(allergicFoods)")
+            let user = UserDetails(name: name, eadd: email, height: Double(height)!, weight: Double(weight)!, passwd: password, allergens: allergenList, food: foodList)
+            currentUser = user
         }
     }
     
