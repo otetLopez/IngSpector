@@ -454,13 +454,13 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="opz-4d-g7O"/>
                         <barButtonItem title="Item" image="house" catalog="system" id="6cI-7w-S3K">
                             <connections>
-                                <segue destination="zh6-GA-KEq" kind="show" id="h8E-rO-4ox"/>
+                                <segue destination="zh6-GA-KEq" kind="show" identifier="home" id="h8E-rO-4ox"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="lZf-ww-JOd"/>
                         <barButtonItem title="Item" image="list.number" catalog="system" id="n3x-xL-Q6P">
                             <connections>
-                                <segue destination="yqG-An-MVN" kind="show" id="j9z-Q5-IpZ"/>
+                                <segue destination="yqG-An-MVN" kind="show" identifier="foodlist" id="j9z-Q5-IpZ"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="R1u-dz-13U"/>

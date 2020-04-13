@@ -122,6 +122,23 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    func promptChange(identifier: String) {
+        if isChanged() {
+            let alertController = UIAlertController(title: "Discard Changes?", message: "Are you sure?", preferredStyle: .alert)
+        
+            alertController.addAction(UIAlertAction(title: "Yes", style: .cancel, handler: {
+                action in
+                self.performSegue(withIdentifier: identifier, sender: nil)
+            }))
+            alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
+                action in
+                self.saveChanges()
+                self.performSegue(withIdentifier: identifier, sender: nil)
+            }))
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
     func saveChanges() {
         currentUser.setHeight(height: Double(tf_ht.text!)!)
         currentUser.setWeight(weight: Double(tf_wt.text!)!)
@@ -207,7 +224,6 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
             tf_wt.textColor = UIColor.lightGray
         }
     }
-    
 
     func refreshData(refreshView: Bool) {
         let url : String = serverConnection.getURLinfo() + "\(currentUser.getEmail())/get"
@@ -264,6 +280,15 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if(identifier == "foodlist" || identifier == "home") {
+            if isEditing == true {
+                promptChange(identifier: identifier)
+            }
+        }
+        return true
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allergenList.count
     }
@@ -285,4 +310,5 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if self.isEditing == true { return .delete } else { return .none }
     }
+
 }
