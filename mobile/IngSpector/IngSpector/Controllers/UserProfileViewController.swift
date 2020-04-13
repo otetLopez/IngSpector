@@ -59,6 +59,27 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         tf_wt.resignFirstResponder()
     }
     
+    @IBAction func addAllergensPressed(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Add Allergens", message: "Enter an ingredient you are allergic to", preferredStyle: .alert)
+        
+        alertController.addTextField { (nAllergen) in
+            nAllergen.placeholder = "e.g. Peanut"
+        }
+            
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        cancelAction.setValue(UIColor.orange, forKey: "titleTextColor")
+        
+        let addItemAction = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            let textField = alertController.textFields![0]
+            print("DEBUG: RegisterViewController::addAllergenList(): Will be adding folder \(textField.text!)")
+            self.addAllergen(allergen: "\(textField.text!)")
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(addItemAction)
+            
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     @IBAction func signOutBtnPressed(_ sender: UIButton) {
         let alertController = UIAlertController(title: "Logging Out", message: "Are you sure?", preferredStyle: .alert)
         
@@ -78,6 +99,11 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         if editing == false {
             confirmChanges()
         }
+    }
+    
+    func addAllergen(allergen: String) {
+        allergenList.append(allergen)
+        tableView.reloadData()
     }
     
     func confirmChanges() {

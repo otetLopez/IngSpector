@@ -381,6 +381,9 @@
                                                 <color key="backgroundColor" red="0.20073825033029838" green="0.61211135786802029" blue="0.20581419626947203" alpha="0.30297517123287671" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="10"/>
                                                 <state key="normal" title=" Add Allergens" image="plus.rectangle" catalog="system"/>
+                                                <connections>
+                                                    <action selector="addAllergensPressed:" destination="SJn-LL-4RS" eventType="touchUpInside" id="Rzr-Qs-Tvc"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
