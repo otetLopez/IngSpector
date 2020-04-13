@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class UserProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var homeBtn: UIBarButtonItem!
@@ -24,6 +26,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     var defaultsAccess = DefaultsAccess()
     var currentUser : UserDetails = UserDetails()
+    var serverConnection : ServerConnection = ServerConnection()
     var allergenList : [String] = [String]()
     
     let l_ht = CALayer()
@@ -39,8 +42,14 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        configureView(editing: false)
         currentUser = defaultsAccess.setFromUserDefaults()
+        configureView(editing: false)
+        
+        /* We need to make sure we have the latest data */
+        refreshData(refreshView: true)
+        
+        /* Configure again even if it is configured in refreshData
+            Because we just configure what we have in case return from server takes time */
         configureView()
     }
     
@@ -65,13 +74,61 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         configureView(editing: editing)
+        // Confirm user on changes
+        if editing == false {
+            confirmChanges()
+        }
+    }
+    
+    func confirmChanges() {
+        if isChanged() {
+            let alertController = UIAlertController(title: "Save Changes", message: "Are you sure?", preferredStyle: .alert)
+        
+            alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: {
+                action in
+                self.configureView()
+            }))
+            alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
+                action in
+                self.saveChanges()
+            }))
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func saveChanges() {
+        currentUser.setHeight(height: Double(tf_ht.text!)!)
+        currentUser.setWeight(weight: Double(tf_wt.text!)!)
+        currentUser.setAllergens(allergens: allergenList)
+        
+        /* This is a flight case but why would a user do that? */
+        //refreshData(refreshView: false)
+        updateServer()
+        
+        
+    }
+    
+    func isChanged() -> Bool {
+        var changed : Bool = false
+        if (tf_ht.text != "\(currentUser.getHeight())" || tf_wt.text != "\(currentUser.getWeight())") {
+            changed = true
+        }
+        let originauxList : [String] = currentUser.getAllergens()
+        if(allergenList.count == originauxList.count) {
+            for (index, element) in allergenList.enumerated() {
+                if element != originauxList[index] {
+                    changed = true
+                }
+            }
+        } else { changed = true }
+        return changed
     }
     
     func configureView() {
         tf_name.text = currentUser.getName()
         tf_email.text = currentUser.getEmail()
-        tf_ht.text = "\(currentUser.getHeight()) cm"
-        tf_wt.text = "\(currentUser.getWeight()) kg"
+        tf_ht.text = "\(currentUser.getHeight())"
+        tf_wt.text = "\(currentUser.getWeight())"
         allergenList = currentUser.getAllergens()
         self.tableView.reloadData()
         
@@ -125,6 +182,62 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+
+    func refreshData(refreshView: Bool) {
+        let url : String = serverConnection.getURLinfo() + "\(currentUser.getEmail())/get"
+        AF.request(url, method: .get).responseJSON {
+        response in
+            switch response.result {
+                case let .success(value):
+                    let dataJSON : JSON = JSON(value)
+                    self.currentUser = self.serverConnection.parseUserInfo(dataJSON: dataJSON)
+                    self.setUpdatesFromServer(refreshView: refreshView)
+                case let .failure(error):
+                    print(error)
+            }
+        }
+    }
+
+    func setUpdatesFromServer(refreshView: Bool) {
+        //defaultsAccess.removeUserFromDefaults()
+        defaultsAccess.setToUserDefaults(user: currentUser)
+        if refreshView == true { configureView() } else {
+            /* This is not a refrefresh View, user wish to change data*/
+            
+        }
+    }
+    
+    func updateServer() {
+        // baseurl + updateuser/(user-email)/(allergen)/(height)/(weight)
+        // \(tf_eadd.text!)/\(tf_pwd.text!)/\(tf_name.text!)/\(tf_height.text!)/\(tf_weight.text!)/
+        var url : String = serverConnection.getURLupd() + "\(currentUser.getEmail())/"
+        if(allergenList.count > 0) {
+            for allergen in allergenList {
+                url = url + "\(allergen),"
+            }
+            url = String(url.dropLast())
+        } else {
+            url = url + "empty" }
+        url = url + "/\(currentUser.getHeight())/\(currentUser.getWeight())"
+        
+        print("DEBUG: updateServer \(url)")
+        AF.request(url, method: .get).responseJSON {
+        response in
+            switch response.result {
+                case let .success(value):
+                    let dataJSON : JSON = JSON(value)
+                    print("DEBUG: \(value) \(true) \(false) \(dataJSON)")
+                    if dataJSON == true {
+                        //
+                    } else {
+                        // Alert log In unsuccessful
+                    }
+                case let .failure(error):
+                    print(error)
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allergenList.count
     }
@@ -145,6 +258,5 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if self.isEditing == true { return .delete } else { return .none }
-        
     }
 }

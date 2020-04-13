@@ -355,5 +355,4 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-
 }
