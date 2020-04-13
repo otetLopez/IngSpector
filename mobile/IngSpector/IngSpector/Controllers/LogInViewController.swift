@@ -18,8 +18,6 @@ class LogInViewController: UIViewController {
     @IBOutlet weak var tf_pwd: UITextField!
     @IBOutlet weak var logInBtn: UIButton!
     
-    var userList = [UserDetails]()
-    var emailList = [String]()
     var serverConnection = ServerConnection()
     var defaultsAccess = DefaultsAccess()
     var currentUser = UserDetails()
@@ -38,13 +36,8 @@ class LogInViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         configureView()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        print("DEBUG: viewDidAppear")
         if UserDefaults.standard.string(forKey: "email") != nil {
             // Then we have a data
-            
             currentUser = defaultsAccess.setFromUserDefaults()
             print("DEBUG: Logging In to \(currentUser)")
             performSegue(withIdentifier: "loginSuccess", sender: nil)

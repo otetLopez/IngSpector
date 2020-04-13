@@ -8,8 +8,7 @@
 
 import UIKit
 
-class UserProfileViewController: UIViewController {
-
+class UserProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var homeBtn: UIBarButtonItem!
     @IBOutlet weak var listBtn: UIBarButtonItem!
     @IBOutlet weak var profileBtn: UIBarButtonItem!
@@ -20,27 +19,29 @@ class UserProfileViewController: UIViewController {
     @IBOutlet weak var tf_ht: UITextField!
     @IBOutlet weak var tf_wt: UITextField!
     
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addAllergensBtn: UIButton!
     
     var defaultsAccess = DefaultsAccess()
     var currentUser : UserDetails = UserDetails()
+    var allergenList : [String] = [String]()
     
     let l_ht = CALayer()
     let l_wt = CALayer()
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
-            self.view.addGestureRecognizer(tapGesture)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        currentUser = defaultsAccess.setFromUserDefaults()
-        configureView()
+        self.view.addGestureRecognizer(tapGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         configureView(editing: false)
+        currentUser = defaultsAccess.setFromUserDefaults()
+        configureView()
     }
     
     @objc func viewTapped()  {
@@ -67,6 +68,13 @@ class UserProfileViewController: UIViewController {
     }
     
     func configureView() {
+        tf_name.text = currentUser.getName()
+        tf_email.text = currentUser.getEmail()
+        tf_ht.text = "\(currentUser.getHeight()) cm"
+        tf_wt.text = "\(currentUser.getWeight()) kg"
+        allergenList = currentUser.getAllergens()
+        self.tableView.reloadData()
+        
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.hidesBackButton = true
@@ -79,8 +87,6 @@ class UserProfileViewController: UIViewController {
         
         addAllergensBtn.layer.cornerRadius = 10
         signoutBtn.layer.cornerRadius = 10
-        
-
     }
     
     func configureView(editing: Bool) {
@@ -92,35 +98,17 @@ class UserProfileViewController: UIViewController {
             addAllergensBtn.setTitleColor(UIColor.white, for: .normal)
             addAllergensBtn.alpha = 1
             
-            /* These must not be changed
-            // Name
-            let l_name = CALayer()
-            l_name.frame = CGRect(x: 0.0, y: tf_name.frame.height - 1, width: tf_name.frame.width, height: 1.0)
-            l_name.backgroundColor = UIColor.white.cgColor
-            tf_name.layer.addSublayer(l_name)
-            
-            
-            // Email
-            let l_email = CALayer()
-            l_email.frame = CGRect(x: 0.0, y: tf_email.frame.height - 1, width: tf_email.frame.width, height: 1.0)
-            l_email.backgroundColor = UIColor.white.cgColor
-            tf_email.layer.addSublayer(l_email) */
-            
             // Height
-            //let l_ht = CALayer()
             l_ht.frame = CGRect(x: 0.0, y: tf_ht.frame.height - 1, width: tf_ht.frame.width, height: 1.0)
             l_ht.backgroundColor = UIColor.white.cgColor
             tf_ht.layer.addSublayer(l_ht)
             tf_ht.textColor = UIColor.white
 
             // Weight
-            //let l_wt = CALayer()
             l_wt.frame = CGRect(x: 0.0, y: tf_wt.frame.height - 1, width: tf_wt.frame.width, height: 1.0)
             l_wt.backgroundColor = UIColor.white.cgColor
             tf_wt.layer.addSublayer(l_wt)
             tf_wt.textColor = UIColor.white
-            
-                
         } else {
             tf_ht.isUserInteractionEnabled = false
             tf_wt.isUserInteractionEnabled = false
@@ -136,15 +124,27 @@ class UserProfileViewController: UIViewController {
             tf_wt.textColor = UIColor.lightGray
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return allergenList.count
     }
-    */
-
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "profile_cell", for: indexPath)
+        cell.textLabel!.text = " \(indexPath.row + 1) \(allergenList[indexPath.row])"
+        cell.layer.cornerRadius = 10
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            allergenList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if self.isEditing == true { return .delete } else { return .none }
+        
+    }
 }

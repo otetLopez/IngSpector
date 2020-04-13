@@ -38,7 +38,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.dataSource = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
-            self.view.addGestureRecognizer(tapGesture)
+        self.view.addGestureRecognizer(tapGesture)
         
         //Notify user of internet connection
         let _ = checkInternet()
@@ -309,7 +309,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         l_ht.frame = CGRect(x: 0.0, y: tf_height.frame.height - 1, width: tf_height.frame.width, height: 1.0)
         l_ht.backgroundColor = UIColor.white.cgColor
         tf_height.layer.addSublayer(l_ht)
-        tf_height.attributedPlaceholder = NSAttributedString(string: "Height (m)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        tf_height.attributedPlaceholder = NSAttributedString(string: "Height (cm)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         
         // Weight
         let l_wt = CALayer()
