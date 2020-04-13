@@ -24,6 +24,9 @@ class UserProfileViewController: UIViewController {
     
     var defaultsAccess = DefaultsAccess()
     var currentUser : UserDetails = UserDetails()
+    
+    let l_ht = CALayer()
+    let l_wt = CALayer()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,7 +40,7 @@ class UserProfileViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        configureView()
+        configureView(editing: false)
     }
     
     @objc func viewTapped()  {
@@ -60,20 +63,7 @@ class UserProfileViewController: UIViewController {
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
-        if editing == true {
-            tf_ht.isUserInteractionEnabled = true
-            tf_wt.isUserInteractionEnabled = true
-            addAllergensBtn.isUserInteractionEnabled = true
-            addAllergensBtn.tintColor = UIColor.white
-            //addAllergensBtn.isHidden = false
-    
-        } else {
-            tf_ht.isUserInteractionEnabled = false
-            tf_wt.isUserInteractionEnabled = false
-            addAllergensBtn.isUserInteractionEnabled = false
-            addAllergensBtn.tintColor = UIColor.darkGray
-            //addAllergensBtn.isHidden = true
-        }
+        configureView(editing: editing)
     }
     
     func configureView() {
@@ -90,33 +80,61 @@ class UserProfileViewController: UIViewController {
         addAllergensBtn.layer.cornerRadius = 10
         signoutBtn.layer.cornerRadius = 10
         
-        
-        // Name
-        let l_name = CALayer()
-        l_name.frame = CGRect(x: 0.0, y: tf_name.frame.height - 1, width: tf_name.frame.width, height: 1.0)
-        l_name.backgroundColor = UIColor.white.cgColor
-        tf_name.layer.addSublayer(l_name)
-        
-        
-        // Email
-        let l_email = CALayer()
-        l_email.frame = CGRect(x: 0.0, y: tf_email.frame.height - 1, width: tf_email.frame.width, height: 1.0)
-        l_email.backgroundColor = UIColor.white.cgColor
-        tf_email.layer.addSublayer(l_email)
-        
-        // Height
-        let l_ht = CALayer()
-        l_ht.frame = CGRect(x: 0.0, y: tf_ht.frame.height - 1, width: tf_ht.frame.width, height: 1.0)
-        l_ht.backgroundColor = UIColor.white.cgColor
-        tf_ht.layer.addSublayer(l_ht)
 
-        
-        // Weight
-        let l_wt = CALayer()
-        l_wt.frame = CGRect(x: 0.0, y: tf_wt.frame.height - 1, width: tf_wt.frame.width, height: 1.0)
-        l_wt.backgroundColor = UIColor.white.cgColor
-        tf_wt.layer.addSublayer(l_wt)
+    }
+    
+    func configureView(editing: Bool) {
+        if editing == true {
+            tf_ht.isUserInteractionEnabled = true
+            tf_wt.isUserInteractionEnabled = true
+            addAllergensBtn.isUserInteractionEnabled = true
+            addAllergensBtn.tintColor = UIColor.white
+            addAllergensBtn.setTitleColor(UIColor.white, for: .normal)
+            addAllergensBtn.alpha = 1
+            
+            /* These must not be changed
+            // Name
+            let l_name = CALayer()
+            l_name.frame = CGRect(x: 0.0, y: tf_name.frame.height - 1, width: tf_name.frame.width, height: 1.0)
+            l_name.backgroundColor = UIColor.white.cgColor
+            tf_name.layer.addSublayer(l_name)
+            
+            
+            // Email
+            let l_email = CALayer()
+            l_email.frame = CGRect(x: 0.0, y: tf_email.frame.height - 1, width: tf_email.frame.width, height: 1.0)
+            l_email.backgroundColor = UIColor.white.cgColor
+            tf_email.layer.addSublayer(l_email) */
+            
+            // Height
+            //let l_ht = CALayer()
+            l_ht.frame = CGRect(x: 0.0, y: tf_ht.frame.height - 1, width: tf_ht.frame.width, height: 1.0)
+            l_ht.backgroundColor = UIColor.white.cgColor
+            tf_ht.layer.addSublayer(l_ht)
+            tf_ht.textColor = UIColor.white
 
+            // Weight
+            //let l_wt = CALayer()
+            l_wt.frame = CGRect(x: 0.0, y: tf_wt.frame.height - 1, width: tf_wt.frame.width, height: 1.0)
+            l_wt.backgroundColor = UIColor.white.cgColor
+            tf_wt.layer.addSublayer(l_wt)
+            tf_wt.textColor = UIColor.white
+            
+                
+        } else {
+            tf_ht.isUserInteractionEnabled = false
+            tf_wt.isUserInteractionEnabled = false
+            addAllergensBtn.isUserInteractionEnabled = false
+            addAllergensBtn.tintColor = UIColor.gray
+            addAllergensBtn.setTitleColor(UIColor.gray, for: .normal)
+            addAllergensBtn.alpha = 0
+            
+            tf_ht.layer.sublayers?.first?.removeFromSuperlayer()
+            tf_wt.layer.sublayers?.first?.removeFromSuperlayer()
+            
+            tf_ht.textColor = UIColor.lightGray
+            tf_wt.textColor = UIColor.lightGray
+        }
     }
 
     /*

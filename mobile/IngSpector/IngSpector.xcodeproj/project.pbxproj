@@ -3,17 +3,21 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC40F4E25D57276C4F2955EA /* Pods_IngSpector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67931004EA145804753AA96F /* Pods_IngSpector.framework */; };
 		F5316620243EC953000F7375 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = F531661F243EC953000F7375 /* plus.png */; };
 		F5316623243ED8B4000F7375 /* camera-2.png in Resources */ = {isa = PBXBuildFile; fileRef = F5316621243ED8B4000F7375 /* camera-2.png */; };
 		F5316624243ED8B4000F7375 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = F5316622243ED8B4000F7375 /* search.png */; };
 		F5316626243EDDB3000F7375 /* FoodListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5316625243EDDB3000F7375 /* FoodListTableViewController.swift */; };
 		F5316629243EE19E000F7375 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5316628243EE19E000F7375 /* UserProfileViewController.swift */; };
 		F538AC04243E731200A75BD4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F538AC03243E731200A75BD4 /* HomeViewController.swift */; };
-		F597D02A244021EB00E61169 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = F597D029244021EB00E61169 /* Users.swift */; };
+		F56967B2244264CB00596B46 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56967B1244264CB00596B46 /* InternetConnection.swift */; };
+		F56967B424426DF300596B46 /* ServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56967B324426DF300596B46 /* ServerConnection.swift */; };
+		F56967B62443B26000596B46 /* DefaultsAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56967B52443B26000596B46 /* DefaultsAccess.swift */; };
+		F597D02A244021EB00E61169 /* UserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = F597D029244021EB00E61169 /* UserDetails.swift */; };
 		F5AB9F82243D174800DF0BE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AB9F81243D174800DF0BE9 /* AppDelegate.swift */; };
 		F5AB9F84243D174800DF0BE9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AB9F83243D174800DF0BE9 /* SceneDelegate.swift */; };
 		F5AB9F89243D174800DF0BE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5AB9F87243D174800DF0BE9 /* Main.storyboard */; };
@@ -30,13 +34,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09775B014E5521D9A245747D /* Pods-IngSpector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IngSpector.release.xcconfig"; path = "Target Support Files/Pods-IngSpector/Pods-IngSpector.release.xcconfig"; sourceTree = "<group>"; };
+		67931004EA145804753AA96F /* Pods_IngSpector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IngSpector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A44EE12B212F1195C008176B /* Pods-IngSpector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IngSpector.debug.xcconfig"; path = "Target Support Files/Pods-IngSpector/Pods-IngSpector.debug.xcconfig"; sourceTree = "<group>"; };
 		F531661F243EC953000F7375 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		F5316621243ED8B4000F7375 /* camera-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-2.png"; sourceTree = "<group>"; };
 		F5316622243ED8B4000F7375 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		F5316625243EDDB3000F7375 /* FoodListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListTableViewController.swift; sourceTree = "<group>"; };
 		F5316628243EE19E000F7375 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		F538AC03243E731200A75BD4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		F597D029244021EB00E61169 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		F56967B1244264CB00596B46 /* InternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
+		F56967B324426DF300596B46 /* ServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnection.swift; sourceTree = "<group>"; };
+		F56967B52443B26000596B46 /* DefaultsAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsAccess.swift; sourceTree = "<group>"; };
+		F597D029244021EB00E61169 /* UserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetails.swift; sourceTree = "<group>"; };
 		F5AB9F7E243D174800DF0BE9 /* IngSpector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IngSpector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5AB9F81243D174800DF0BE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5AB9F83243D174800DF0BE9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,12 +69,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC40F4E25D57276C4F2955EA /* Pods_IngSpector.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		801B56F80A941AB83A8DE288 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				67931004EA145804753AA96F /* Pods_IngSpector.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC1794B6D508EC4517F3BBB4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A44EE12B212F1195C008176B /* Pods-IngSpector.debug.xcconfig */,
+				09775B014E5521D9A245747D /* Pods-IngSpector.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		F5316627243EE142000F7375 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -80,7 +108,10 @@
 		F597D028244021CD00E61169 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				F597D029244021EB00E61169 /* Users.swift */,
+				F597D029244021EB00E61169 /* UserDetails.swift */,
+				F56967B1244264CB00596B46 /* InternetConnection.swift */,
+				F56967B324426DF300596B46 /* ServerConnection.swift */,
+				F56967B52443B26000596B46 /* DefaultsAccess.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -90,6 +121,8 @@
 			children = (
 				F5AB9F80243D174800DF0BE9 /* IngSpector */,
 				F5AB9F7F243D174800DF0BE9 /* Products */,
+				CC1794B6D508EC4517F3BBB4 /* Pods */,
+				801B56F80A941AB83A8DE288 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,9 +173,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F5AB9F95243D174D00DF0BE9 /* Build configuration list for PBXNativeTarget "IngSpector" */;
 			buildPhases = (
+				B16C619E9B7A78DF311F209A /* [CP] Check Pods Manifest.lock */,
 				F5AB9F7A243D174800DF0BE9 /* Sources */,
 				F5AB9F7B243D174800DF0BE9 /* Frameworks */,
 				F5AB9F7C243D174800DF0BE9 /* Resources */,
+				C788DFA4B720E221004D406D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -207,15 +242,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B16C619E9B7A78DF311F209A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IngSpector-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C788DFA4B720E221004D406D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-IngSpector/Pods-IngSpector-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-IngSpector/Pods-IngSpector-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IngSpector/Pods-IngSpector-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F5AB9F7A243D174800DF0BE9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				F5AB9F8C243D174800DF0BE9 /* IngSpector.xcdatamodeld in Sources */,
-				F597D02A244021EB00E61169 /* Users.swift in Sources */,
+				F56967B62443B26000596B46 /* DefaultsAccess.swift in Sources */,
+				F56967B424426DF300596B46 /* ServerConnection.swift in Sources */,
+				F597D02A244021EB00E61169 /* UserDetails.swift in Sources */,
 				F5316629243EE19E000F7375 /* UserProfileViewController.swift in Sources */,
 				F5AB9F9E243D2E9700DF0BE9 /* LogInViewController.swift in Sources */,
+				F56967B2244264CB00596B46 /* InternetConnection.swift in Sources */,
 				F5AB9FA8243D5D4A00DF0BE9 /* RegisterViewController.swift in Sources */,
 				F5AB9F82243D174800DF0BE9 /* AppDelegate.swift in Sources */,
 				F5316626243EDDB3000F7375 /* FoodListTableViewController.swift in Sources */,
@@ -362,6 +442,7 @@
 		};
 		F5AB9F96243D174D00DF0BE9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A44EE12B212F1195C008176B /* Pods-IngSpector.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -380,6 +461,7 @@
 		};
 		F5AB9F97243D174D00DF0BE9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09775B014E5521D9A245747D /* Pods-IngSpector.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
