@@ -62,16 +62,12 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
     
     @IBAction func logBtnPressed(_ sender: UIButton) {
         logFlag = false
-//        SVProgressHUD.setForegroundColor(UIColor(displayP3Red: 255/255, green: 111/255, blue: 207/255, alpha: 1.00))
-//        SVProgressHUD.show(withStatus: "Logging in...")
         
         SVProgressHUD.setDefaultStyle(.custom)
         SVProgressHUD.setDefaultMaskType(.custom)
         SVProgressHUD.setForegroundColor(UIColor.red)           //Ring Color
         SVProgressHUD.setBackgroundColor(UIColor.orange)        //HUD Color
-        //SVProgressHUD.setBackgroundLayerColor(UIColor.green)    //Background Color
         SVProgressHUD.show(withStatus: "Logging in...")
-        
         
         if(!checkFields()) {
             alert(title: "Error: ", msg: "Missing mandatory fields")
@@ -126,7 +122,7 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
         currentUser  = serverConnection.parseUserInfo(dataJSON: dataJSON)
         defaultsAccess.setToUserDefaults(user: currentUser)
         logFlag = true
-        //SVProgressHUD.dismiss()
+        SVProgressHUD.dismiss()
         performSegue(withIdentifier: "loginSuccess", sender: nil)
     }
     
