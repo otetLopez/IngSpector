@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+import SVProgressHUD
 
 class FoodListTableViewController: UITableViewController {
 
@@ -73,6 +76,8 @@ class FoodListTableViewController: UITableViewController {
         
         //Retrieve Data but make sure we have the latest (one in the server)
         foodList = defaultsAccess.getFoodListFromDefaults()
+        retrieveFoodList()
+        
         var detailStr = "\nFood List:\n"
         for idx in foodList {
             detailStr += "\t \(idx)\n"
@@ -80,5 +85,30 @@ class FoodListTableViewController: UITableViewController {
         print("DEBUG: FoodList() \(detailStr)")
         tableView.reloadData()
     }
-
+    
+    func retrieveFoodList() {
+        let email : String = defaultsAccess.getEmailFromDefaults()
+        let url : String = serverConnection.getURLGetFood() + email + "/get"
+        
+        print("DEBUG: FoodList retrieveFoodList() \(url)")
+        SVProgressHUD.setDefaultStyle(.custom)
+        SVProgressHUD.setDefaultMaskType(.custom)
+        SVProgressHUD.setForegroundColor(UIColor.darkGray)
+        SVProgressHUD.setBackgroundColor(UIColor.orange)
+        SVProgressHUD.show(withStatus: "Updating List From Server")
+        
+        AF.request(url, method: .get).responseJSON {
+        response in
+            SVProgressHUD.dismiss()
+            switch response.result {
+                case let .success(value):
+                    let dataJSON : JSON = JSON(value)
+                    self.foodList = self.serverConnection.parseAllergicFood(dataJSON: dataJSON)
+                    self.tableView.reloadData()
+                    self.defaultsAccess.setFoodListToDefaults(foodList: self.foodList)
+                case let .failure(error):
+                    print(error)
+            }
+        }
+    }
 }

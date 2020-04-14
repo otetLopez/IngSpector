@@ -43,6 +43,10 @@ class ServerConnection {
         return (self.url + "addallergicfood/")
     }
     
+    public func getURLGetFood() -> String {
+        return (self.url + "getallallergicfoodlist/")
+    }
+    
     private func parseList(toParse: String) -> [String] {
         var parsed : [String] = toParse.split{$0 == ","}.map(String.init)
         for i in 0...parsed.count-1{
@@ -51,6 +55,19 @@ class ServerConnection {
             
         }
         return parsed
+    }
+    
+    public func parseAllergicFood(dataJSON: JSON) -> [String] {
+        let allergicFoods = (dataJSON.string)!
+        var foodList = [String]()
+        if(allergicFoods.count > 0) {
+            print("DEBUG: toParse: \(allergicFoods)")
+            foodList = parseList(toParse: allergicFoods)
+            for idx in foodList {
+                print("DEBUG: FoodList -> \(idx)")
+            }
+        }
+        return foodList
     }
     
     public func parseUserInfo(dataJSON: JSON) -> UserDetails {
@@ -77,8 +94,6 @@ class ServerConnection {
             }
             
             var foodList = [String]()
-            print(allergicFoods);
-            print("aaaa")
             if(allergicFoods.count > 0) {
                 print("DEBUG: toParse: \(allergicFoods)")
                 foodList = parseList(toParse: allergicFoods)
