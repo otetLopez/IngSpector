@@ -30,16 +30,14 @@ class HomeViewController: UIViewController {
         configureView()
         
         /* For Testing purposes only.  Adding Dummy food */
-        addFood(newFood: "Peanut Butter")
-        addFood(newFood: "Cajun Shrimps")
-        addFood(newFood: "Calamari")
-        addFood(newFood: "Peanut Butter")
-        addFood(newFood: "Cajun Shrimps")
-        addFood(newFood: "Calamari")
+        //(newFood: "Sesame Sauce")
+        //addFood(newFood: "Peanut Butter")
     }
     
+    
+    
     override func viewWillAppear(_ animated: Bool) {
-        configureView()
+        configureView()        
     }
     
     @IBAction func takePhotoBtnPressed(_ sender: UIButton) {
@@ -100,7 +98,7 @@ class HomeViewController: UIViewController {
             
             /* Add to server */
             let email : String = defaultsAccess.getEmailFromDefaults()
-            let url : String = serverConnection.getURLAddFood() + "\(email)/\(newFood)"
+            let url : String = serverConnection.getURLAddFood() + "\(email)/\(newFood.replacingOccurrences(of: " ", with: "%20"))"
             print("DEBUG: addFood food to user details \(url)")
  
             AF.request(url, method: .get).responseJSON {
@@ -112,7 +110,6 @@ class HomeViewController: UIViewController {
                         print(error)
                 }
             }
-            
         }
         
     }

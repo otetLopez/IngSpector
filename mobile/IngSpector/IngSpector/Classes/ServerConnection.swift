@@ -74,6 +74,7 @@ class ServerConnection {
             
             var foodList = [String]()
             if(allergicFoods.count > 0) {
+                print("DEBUG: toParse: \(allergicFoods)")
                 foodList = parseList(toParse: allergicFoods)
                 for idx in foodList {
                     print("DEBUG: FoodList -> \(idx)")
