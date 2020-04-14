@@ -41,13 +41,6 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
         if UserDefaults.standard.string(forKey: "email") != nil {
             // We get the latest data from server
             requestUserInfo(email: defaultsAccess.getEmailFromDefaults())
-            
-            // Then we have a data
-//            currentUser = defaultsAccess.setFromUserDefaults()
-//            print("DEBUG: Logging In to \(currentUser)")
-//            performSegue(withIdentifier: "loginSuccess", sender: nil)
-            /* This is for testing purposes */
-            //removeUserFromDefaults()
         }
     }
     
@@ -58,10 +51,7 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
                 rc = true
                 logFlag = false
             }
-        } else {
-            rc = true
-        }
-        //if(identifier == "register") { rc = true }
+        } else { rc = true }
         return rc
     }
     
@@ -117,7 +107,6 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
             switch response.result {
                 case let .success(value):
                     let dataJSON : JSON = JSON(value)
-                    //print("DEBUG: sendRequest Retrieved JSON data \(dataJSON)")
                     self.parseUserInfo(dataJSON: dataJSON)
                 case let .failure(error):
                     print(error)
@@ -133,48 +122,12 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
     }
     
     func parseUserInfo(dataJSON: JSON) {
-        /*{"email":"rosette@test.com","password":"123456","name":"rosette","height":"170","weight":"50",
-         "allergens":"peanut,milk","allergicFoods":""} */
         print("DEBUG: parseUserInfo() This is what we have from server \(dataJSON)")
-        if let email = dataJSON["email"].string {
-            let password = (dataJSON["password"].string)!
-            let name = (dataJSON["name"].string)!
-            let height = (dataJSON["height"].string)!
-            let weight = (dataJSON["weight"].string)!
-            let allergens = (dataJSON["allergens"].string)!
-            let allergicFoods = (dataJSON["allergicFoods"].string)!
-            
-            var allergenList = [String]()
-            if(allergens.count > 0) {
-                allergenList = parseList(toParse: allergens)
-                var idxes : [Int] = [Int]()
-                for (index, element) in allergenList.enumerated() {
-                    print("Item \(index): \(element)")
-                    if element == "empty" {
-                        idxes.append(index)
-                    }
-                }
-                for idx in idxes {
-                    allergenList.remove(at: idx)
-                }
-            }
-            
-            var foodList = [String]()
-            if(allergicFoods.count > 0) {
-                foodList = parseList(toParse: allergicFoods)
-                for idx in foodList {
-                    print("DEBUG: FoodList -> \(idx)")
-                }
-            }
-            
-            let user = UserDetails(name: name, eadd: email, height: Double(height)!, weight: Double(weight)!, passwd: password, allergens: allergenList, food: foodList)
-            currentUser = user
-            print("DEBUG UserInfo Parsed \(currentUser)")
-            defaultsAccess.setToUserDefaults(user: user)
-            logFlag = true
-            //SVProgressHUD.dismiss()
-            performSegue(withIdentifier: "loginSuccess", sender: nil)
-        }
+        currentUser  = serverConnection.parseUserInfo(dataJSON: dataJSON)
+        defaultsAccess.setToUserDefaults(user: currentUser)
+        logFlag = true
+        //SVProgressHUD.dismiss()
+        performSegue(withIdentifier: "loginSuccess", sender: nil)
     }
     
     func checkFields() -> Bool {
@@ -219,11 +172,6 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
         tf_pwd.layer.cornerRadius = 10
         tf_pwd.text = ""
         
-    }
-    
-    func parseList(toParse: String) -> [String] {
-        let parsed : [String] = toParse.split{$0 == ","}.map(String.init)
-        return parsed
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
