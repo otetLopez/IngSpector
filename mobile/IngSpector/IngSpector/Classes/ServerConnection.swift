@@ -12,7 +12,6 @@ import SwiftyJSON
 
 class ServerConnection {
     private var url : String
-    
     init() {
         self.url = "http://72.137.45.112:8080/ingSpectorMobileServices/ingspector/"
     }
