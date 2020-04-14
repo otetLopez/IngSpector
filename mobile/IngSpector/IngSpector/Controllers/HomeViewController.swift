@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class HomeViewController: UIViewController {
 
@@ -19,11 +21,21 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var cameraBtn: UIButton!
     @IBOutlet weak var searchBtn: UIButton!
     
+    var defaultsAccess : DefaultsAccess = DefaultsAccess()
+    var serverConnection : ServerConnection = ServerConnection()
     override func viewDidLoad() {
         super.viewDidLoad()
 
         /* OTET: configureView() functions configure the view controller views every time it will appear on screen */
         configureView()
+        
+        /* For Testing purposes only.  Adding Dummy food */
+        addFood(newFood: "Peanut Butter")
+        addFood(newFood: "Cajun Shrimps")
+        addFood(newFood: "Calamari")
+        addFood(newFood: "Peanut Butter")
+        addFood(newFood: "Cajun Shrimps")
+        addFood(newFood: "Calamari")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,6 +88,43 @@ class HomeViewController: UIViewController {
         alertController.addAction(searchFoodAction)
         alertController.addAction(cancelAction)
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func addFood(newFood: String) {
+        if isFoodRecorded(newFood: newFood) == false {
+            var foodList : [String] = defaultsAccess.getFoodListFromDefaults()
+            
+            /* Add to user defaults */
+            foodList.append(newFood)
+            defaultsAccess.setFoodListToDefaults(foodList: foodList)
+            
+            /* Add to server */
+            let email : String = defaultsAccess.getEmailFromDefaults()
+            let url : String = serverConnection.getURLAddFood() + "\(email)/\(newFood)"
+            print("DEBUG: addFood food to user details \(url)")
+ 
+            AF.request(url, method: .get).responseJSON {
+            response in
+                switch response.result {
+                    case .success(_):
+                        print("")
+                    case let .failure(error):
+                        print(error)
+                }
+            }
+            
+        }
+        
+    }
+    
+    func isFoodRecorded(newFood: String) -> Bool {
+        let foodList : [String] = defaultsAccess.getFoodListFromDefaults()
+        for food in foodList {
+            if food == newFood {
+                return true
+            }
+        }
+        return false
     }
     
     

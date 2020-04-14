@@ -39,4 +39,16 @@ class DefaultsAccess {
         UserDefaults.standard.removeObject(forKey: "allergenList")
         UserDefaults.standard.removeObject(forKey: "foodList")
     }
+    
+    func getEmailFromDefaults() -> String {
+        return UserDefaults.standard.string(forKey: "email") ?? ""
+    }
+    
+    func getFoodListFromDefaults() -> [String] {
+        return UserDefaults.standard.stringArray(forKey: "foodList") ?? [String]()
+    }
+    
+    func setFoodListToDefaults(foodList: [String]) {
+        UserDefaults.standard.set(foodList, forKey: "foodList")
+    }
 }

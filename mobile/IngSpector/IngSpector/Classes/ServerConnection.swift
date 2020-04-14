@@ -40,6 +40,10 @@ class ServerConnection {
         return (self.url + "updateuser/")
     }
     
+    public func getURLAddFood() -> String {
+        return (self.url + "addallergicfood/")
+    }
+    
     private func parseList(toParse: String) -> [String] {
         let parsed : [String] = toParse.split{$0 == ","}.map(String.init)
         return parsed

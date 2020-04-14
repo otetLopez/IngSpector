@@ -43,6 +43,10 @@ class UserDetails : CustomStringConvertible {
         for idx in allergens {
             detailStr += "\t \(idx)\n"
         }
+        detailStr += "\nFood List:\n"
+        for idx in food {
+            detailStr += "\t \(idx)\n"
+        }
         detailStr += "--------------------------------\n"
         return detailStr
     }
