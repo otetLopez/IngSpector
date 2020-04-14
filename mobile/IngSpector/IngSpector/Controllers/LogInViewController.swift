@@ -11,12 +11,14 @@ import QuartzCore
 import Alamofire
 import SwiftyJSON
 import SVProgressHUD
+import MessageUI
 
-class LogInViewController: UIViewController {
+class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
     @IBOutlet weak var tf_uname: UITextField!
     @IBOutlet weak var tf_pwd: UITextField!
     @IBOutlet weak var logInBtn: UIButton!
+    @IBOutlet weak var psswdBtn: UIButton!
     
     var serverConnection = ServerConnection()
     var defaultsAccess = DefaultsAccess()
@@ -53,7 +55,10 @@ class LogInViewController: UIViewController {
                 rc = true
                 logFlag = false
             }
-        } else if(identifier == "register") { rc = true }
+        } else {
+            rc = true
+        }
+        //if(identifier == "register") { rc = true }
         return rc
     }
     
@@ -199,6 +204,8 @@ class LogInViewController: UIViewController {
     func configureView() {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.navigationController?.setToolbarHidden(true, animated: true)
+        
+        psswdBtn.isHidden = true
         
         logInBtn.layer.cornerRadius = 10
         tf_uname.layer.borderWidth = 0
