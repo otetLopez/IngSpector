@@ -45,7 +45,12 @@ class ServerConnection {
     }
     
     private func parseList(toParse: String) -> [String] {
-        let parsed : [String] = toParse.split{$0 == ","}.map(String.init)
+        var parsed : [String] = toParse.split{$0 == ","}.map(String.init)
+        for i in 0...parsed.count-1{
+           
+            parsed[i] = parsed[i].trimmingCharacters(in: .whitespacesAndNewlines)
+            
+        }
         return parsed
     }
     
@@ -73,6 +78,8 @@ class ServerConnection {
             }
             
             var foodList = [String]()
+            print(allergicFoods);
+            print("aaaa")
             if(allergicFoods.count > 0) {
                 print("DEBUG: toParse: \(allergicFoods)")
                 foodList = parseList(toParse: allergicFoods)
