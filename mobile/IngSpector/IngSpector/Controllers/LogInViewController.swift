@@ -39,10 +39,13 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
     override func viewWillAppear(_ animated: Bool) {
         configureView()
         if UserDefaults.standard.string(forKey: "email") != nil {
+            // We get the latest data from server
+            requestUserInfo(email: defaultsAccess.getEmailFromDefaults())
+            
             // Then we have a data
-            currentUser = defaultsAccess.setFromUserDefaults()
-            print("DEBUG: Logging In to \(currentUser)")
-            performSegue(withIdentifier: "loginSuccess", sender: nil)
+//            currentUser = defaultsAccess.setFromUserDefaults()
+//            print("DEBUG: Logging In to \(currentUser)")
+//            performSegue(withIdentifier: "loginSuccess", sender: nil)
             /* This is for testing purposes */
             //removeUserFromDefaults()
         }
@@ -132,6 +135,7 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
     func parseUserInfo(dataJSON: JSON) {
         /*{"email":"rosette@test.com","password":"123456","name":"rosette","height":"170","weight":"50",
          "allergens":"peanut,milk","allergicFoods":""} */
+        print("DEBUG: parseUserInfo() This is what we have from server \(dataJSON)")
         if let email = dataJSON["email"].string {
             let password = (dataJSON["password"].string)!
             let name = (dataJSON["name"].string)!
