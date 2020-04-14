@@ -241,7 +241,6 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     func setUpdatesFromServer(refreshView: Bool) {
-        //defaultsAccess.removeUserFromDefaults()
         defaultsAccess.setToUserDefaults(user: currentUser)
         if refreshView == true { configureView() } else {
             /* This is not a refrefresh View, user wish to change data*/

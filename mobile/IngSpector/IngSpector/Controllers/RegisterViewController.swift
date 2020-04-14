@@ -100,8 +100,14 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         if(checkInternet()) {
             // We have internet connection now we send the register information to server
             /* http://72.137.45.112:8080/ingSpectorMobileServices/ingspector/adduser/rosette@test.com/123456/rosette/170/50/peanut,milk */
-            //SVProgressHUD.setForegroundColor(UIColor(displayP3Red: 255/255, green: 111/255, blue: 207/255, alpha: 1.00))
-            var registrationURL : String = serverConnection.getURLreg() + "\(tf_eadd.text!)/\(tf_pwd.text!)/\(tf_name.text!)/\(tf_height.text!)/\(tf_weight.text!)/"
+            
+            SVProgressHUD.setDefaultStyle(.custom)
+            SVProgressHUD.setDefaultMaskType(.custom)
+            SVProgressHUD.setForegroundColor(UIColor.darkGray)
+            SVProgressHUD.setBackgroundColor(UIColor.orange)
+            SVProgressHUD.show(withStatus: "Registration In Progress")
+            
+            var registrationURL : String = serverConnection.getURLreg() + "\(tf_eadd.text!)/\(tf_pwd.text!)/\(tf_name.text!.replacingOccurrences(of: " ", with: "%20"))/\(tf_height.text!)/\(tf_weight.text!)/"
             
             if(allergenList.count > 0) {
                 for allergen in allergenList {
@@ -112,13 +118,13 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
                 registrationURL = registrationURL + "empty" }
             print("DEBUG: Register Msg \(registrationURL)")
             sendRegistrationDetails(url: registrationURL)
-            //SVProgressHUD.dismiss()
         }
     }
     
     func sendRegistrationDetails(url: String) {
         AF.request(url, method: .get).responseJSON {
         response in
+            SVProgressHUD.dismiss()
             switch response.result {
                 case let .success(value):
                     let dataJSON : JSON = JSON(value)
@@ -138,7 +144,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
     
     func completeRegistration() {
         clearFields()
-        showToastMsg(msg: "Regitration Successful!", done: true, seconds: 2)
+        showToastMsg(msg: "Registration Successful!", done: true, seconds: 2)
     }
     
     func notifyRegistrationError() {
@@ -331,10 +337,6 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
         l_cpwd.backgroundColor = UIColor.white.cgColor
         tf_cpwd.layer.addSublayer(l_cpwd)
         tf_cpwd.attributedPlaceholder = NSAttributedString(string: "Confirm Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-    }
-    
-    func configure_tf() {
-        
     }
     
     /* Here are the table view functions */

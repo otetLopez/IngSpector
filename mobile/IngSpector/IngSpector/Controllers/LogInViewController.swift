@@ -62,11 +62,13 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
     
     @IBAction func logBtnPressed(_ sender: UIButton) {
         logFlag = false
+        tf_uname.layer.borderWidth = 0
+        tf_pwd.layer.borderWidth = 0
         
         SVProgressHUD.setDefaultStyle(.custom)
         SVProgressHUD.setDefaultMaskType(.custom)
-        SVProgressHUD.setForegroundColor(UIColor.red)           //Ring Color
-        SVProgressHUD.setBackgroundColor(UIColor.orange)        //HUD Color
+        SVProgressHUD.setForegroundColor(UIColor.darkGray)
+        SVProgressHUD.setBackgroundColor(UIColor.orange)
         SVProgressHUD.show(withStatus: "Logging in...")
         
         if(!checkFields()) {
@@ -82,14 +84,16 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
     func loginCredentials(url: String, email: String) {
         AF.request(url, method: .get).responseJSON {
         response in
+            SVProgressHUD.dismiss()
             switch response.result {
                 case let .success(value):
                     let dataJSON : JSON = JSON(value)
                     print("DEBUG: \(value) \(true) \(false) \(dataJSON)")
                     if dataJSON == true {
                         self.requestUserInfo(email: email)
-                    } else {
-                        // Alert log In unsuccessful
+                    } else if dataJSON == false {
+                        self.highlightFields()
+                        self.showToastMsg(msg: "Email/Password Incorrect", seconds: 2)
                     }
                 case let .failure(error):
                     print(error)
@@ -100,6 +104,7 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
     func sendUserInfoRequest(url: String, email: String) {
         AF.request(url, method: .get).responseJSON {
         response in
+            SVProgressHUD.dismiss()
             switch response.result {
                 case let .success(value):
                     let dataJSON : JSON = JSON(value)
@@ -122,9 +127,16 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
         currentUser  = serverConnection.parseUserInfo(dataJSON: dataJSON)
         defaultsAccess.setToUserDefaults(user: currentUser)
         logFlag = true
-        SVProgressHUD.dismiss()
         performSegue(withIdentifier: "loginSuccess", sender: nil)
     }
+    
+    func highlightFields() {
+        tf_uname.layer.borderWidth = 1
+        tf_uname.layer.borderColor = UIColor.red.cgColor
+        tf_pwd.layer.borderWidth = 1
+        tf_pwd.layer.borderColor = UIColor.red.cgColor
+    }
+    
     
     func checkFields() -> Bool {
         if tf_uname.text!.isEmpty || tf_pwd.text!.isEmpty {
@@ -144,6 +156,18 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
             return false
         }
         return true
+    }
+    
+    func showToastMsg(msg: String, seconds: Double) {
+        let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+        alertController.view.alpha = 0.5
+        alertController.view.layer.cornerRadius = 15
+        
+        self.present(alertController, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+            alertController.dismiss(animated: true)
+        }
     }
     
     func alert(title: String, msg : String) {
@@ -167,7 +191,6 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
         tf_pwd.layer.borderWidth = 0
         tf_pwd.layer.cornerRadius = 10
         tf_pwd.text = ""
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

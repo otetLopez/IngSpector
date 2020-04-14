@@ -30,8 +30,8 @@ class HomeViewController: UIViewController {
         configureView()
         
         /* For Testing purposes only.  Adding Dummy food */
-        addFood(newFood: "Cajun Shrimps")
-        addFood(newFood: "Peanut Butter")
+        //addFood(newFood: "Cajun Shrimps")
+        //addFood(newFood: "Peanut Butter")
     }
     
     
