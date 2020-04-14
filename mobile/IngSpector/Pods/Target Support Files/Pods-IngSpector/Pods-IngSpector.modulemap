@@ -1,0 +1,6 @@
+framework module Pods_IngSpector {
+  umbrella header "Pods-IngSpector-umbrella.h"
+
+  export *
+  module * { export * }
+}

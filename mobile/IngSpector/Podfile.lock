@@ -1,0 +1,32 @@
+PODS:
+  - Alamofire (5.1.0)
+  - Reachability (3.2)
+  - SVProgressHUD (2.2.5)
+  - SwiftyJSON (5.0.0)
+  - TesseractOCRiOS (5.0.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - Reachability
+  - SVProgressHUD
+  - SwiftyJSON
+  - TesseractOCRiOS
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Reachability
+    - SVProgressHUD
+    - SwiftyJSON
+    - TesseractOCRiOS
+
+SPEC CHECKSUMS:
+  Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  TesseractOCRiOS: 2c189465f86abb030d0c5141c90da9705b647854
+
+PODFILE CHECKSUM: 2038fcad715c5950de2f9ed3f85d0fd2f45542bd
+
+COCOAPODS: 1.9.1
