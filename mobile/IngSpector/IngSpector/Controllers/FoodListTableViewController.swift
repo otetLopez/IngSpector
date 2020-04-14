@@ -64,7 +64,6 @@ class FoodListTableViewController: UITableViewController {
             // Remove data from server
             
             // Update userdefaults?
-            
             foodList.remove(at: indexPath.row)
         }
     }
