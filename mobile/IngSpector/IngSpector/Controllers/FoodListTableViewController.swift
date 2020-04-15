@@ -88,7 +88,7 @@ class FoodListTableViewController: UITableViewController {
     
     func retrieveFoodList() {
         let email : String = defaultsAccess.getEmailFromDefaults()
-        let url : String = serverConnection.getURLGetFood() + email + "/get"
+        let url : String = serverConnection.getURLinfo() + email + "/get"
         
         print("DEBUG: FoodList retrieveFoodList() \(url)")
         SVProgressHUD.setDefaultStyle(.custom)
@@ -103,9 +103,10 @@ class FoodListTableViewController: UITableViewController {
             switch response.result {
                 case let .success(value):
                     let dataJSON : JSON = JSON(value)
-                    self.foodList = self.serverConnection.parseAllergicFood(dataJSON: dataJSON)
-                    self.tableView.reloadData()
-                    self.defaultsAccess.setFoodListToDefaults(foodList: self.foodList)
+                    let user = self.serverConnection.parseUserInfo(dataJSON: dataJSON)
+                    self.defaultsAccess.setFoodListToDefaults(foodList: user.getFoodList())
+                    self.foodList = user.getFoodList()
+                    self.tableView.reloadData()            
                 case let .failure(error):
                     print(error)
             }

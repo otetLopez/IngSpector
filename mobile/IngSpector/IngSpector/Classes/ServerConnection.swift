@@ -57,11 +57,11 @@ class ServerConnection {
         return parsed
     }
     
-    public func parseAllergicFood(dataJSON: JSON) -> [String] {
-        let allergicFoods = (dataJSON.string)!
+    public func parseAllergicFood(data: String) -> [String] {
         var foodList = [String]()
+        let allergicFoods : String = data
         if(allergicFoods.count > 0) {
-            print("DEBUG: toParse: \(allergicFoods)")
+            print("DEBUG: parseAllergicFood: \(allergicFoods)")
             foodList = parseList(toParse: allergicFoods)
             for idx in foodList {
                 print("DEBUG: FoodList -> \(idx)")
