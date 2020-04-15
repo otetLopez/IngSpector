@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Iql-LE-2nh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Iql-LE-2nh">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -183,6 +183,7 @@
                                         <state key="normal" title="Input Food Name" image="search.png"/>
                                         <connections>
                                             <action selector="searchBtnPressed:" destination="zh6-GA-KEq" eventType="touchUpInside" id="2ZH-n1-byJ"/>
+                                            <segue destination="5Hb-OQ-zpd" kind="show" id="Vs0-Nf-hmZ"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -357,7 +358,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fwc-Zv-VpQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2883" y="-808"/>
+            <point key="canvasLocation" x="3125" y="-777"/>
         </scene>
         <!--User Profile-->
         <scene sceneID="4Z1-wj-LMk">
@@ -774,6 +775,93 @@
             </objects>
             <point key="canvasLocation" x="-380" y="61"/>
         </scene>
+        <!--SearchByProductName-->
+        <scene sceneID="JdJ-4c-JeN">
+            <objects>
+                <viewController id="5Hb-OQ-zpd" userLabel="SearchByProductName" customClass="SearchByProductNameViewController" customModule="IngSpector" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="weh-vZ-X8B">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="QY7-cb-9cN">
+                                <rect key="frame" x="0.0" y="-140" width="414" height="953"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nlL-g4-Yes">
+                                <rect key="frame" x="78.5" y="379" width="258" height="38.5"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Start IngSpecting Just write the name of the product below">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="Avenir-Book"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QSt-b2-MGi">
+                                <rect key="frame" x="30" y="429.5" width="354" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RVy-KT-rns">
+                                <rect key="frame" x="30" y="471.5" width="354" height="30"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Check Allergens"/>
+                                <connections>
+                                    <action selector="checkAllergensButton:" destination="5Hb-OQ-zpd" eventType="touchUpInside" id="Zbz-Po-b72"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="RVy-KT-rns" firstAttribute="top" secondItem="QSt-b2-MGi" secondAttribute="bottom" constant="8" id="3PN-pL-7zw"/>
+                            <constraint firstItem="gpD-sR-Mae" firstAttribute="trailing" secondItem="RVy-KT-rns" secondAttribute="trailing" constant="30" id="Cow-ag-Vy2"/>
+                            <constraint firstItem="QY7-cb-9cN" firstAttribute="trailing" secondItem="gpD-sR-Mae" secondAttribute="trailing" id="GZn-as-DVQ"/>
+                            <constraint firstItem="QY7-cb-9cN" firstAttribute="top" secondItem="weh-vZ-X8B" secondAttribute="top" constant="-140" id="Lio-bL-b7U"/>
+                            <constraint firstItem="QSt-b2-MGi" firstAttribute="leading" secondItem="gpD-sR-Mae" secondAttribute="leading" constant="30" id="LpS-xV-YJz"/>
+                            <constraint firstItem="QSt-b2-MGi" firstAttribute="top" secondItem="nlL-g4-Yes" secondAttribute="bottom" constant="12" id="U6M-qz-1dr"/>
+                            <constraint firstItem="gpD-sR-Mae" firstAttribute="trailing" secondItem="QSt-b2-MGi" secondAttribute="trailing" constant="30" id="WzL-ej-0zF"/>
+                            <constraint firstItem="nlL-g4-Yes" firstAttribute="centerX" secondItem="weh-vZ-X8B" secondAttribute="centerX" constant="0.5" id="hs8-gA-Rdk"/>
+                            <constraint firstItem="nlL-g4-Yes" firstAttribute="centerY" secondItem="weh-vZ-X8B" secondAttribute="centerY" constant="-50" id="ivs-Oj-afs"/>
+                            <constraint firstItem="QY7-cb-9cN" firstAttribute="bottom" secondItem="gpD-sR-Mae" secondAttribute="bottom" id="j0q-lK-od6"/>
+                            <constraint firstItem="RVy-KT-rns" firstAttribute="leading" secondItem="gpD-sR-Mae" secondAttribute="leading" constant="30" id="lEl-xe-bZv"/>
+                            <constraint firstItem="QY7-cb-9cN" firstAttribute="leading" secondItem="gpD-sR-Mae" secondAttribute="leading" id="qrx-DD-GCE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gpD-sR-Mae"/>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="XRj-do-bIy"/>
+                        <barButtonItem image="house" catalog="system" id="TiF-tD-30B">
+                            <connections>
+                                <segue destination="zh6-GA-KEq" kind="show" id="zL8-ux-RgH"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="z5a-2S-i3R"/>
+                        <barButtonItem image="list.number" catalog="system" id="aZk-FH-rwJ">
+                            <connections>
+                                <segue destination="yqG-An-MVN" kind="show" id="0ZC-zk-pGC"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="hxE-EY-nAg"/>
+                        <barButtonItem image="person" catalog="system" id="ycF-bN-PE6">
+                            <connections>
+                                <segue destination="SJn-LL-4RS" kind="show" id="RTg-nH-zks"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="dFf-lm-4AO"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Home" id="gkH-6X-UNJ"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="checkAllegensBtnOutlet" destination="RVy-KT-rns" id="Our-I0-5tv"/>
+                        <outlet property="searchText" destination="QSt-b2-MGi" id="10d-uc-CvK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VKI-Yl-8YF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="175" y="-947"/>
+        </scene>
     </scenes>
     <resources>
         <image name="background.png" width="1357" height="1920"/>
@@ -788,9 +876,9 @@
         <image name="search.png" width="409.60000610351562" height="409.60000610351562"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RFB-CK-OTd"/>
-        <segue reference="j9z-Q5-IpZ"/>
-        <segue reference="pSU-NQ-PE0"/>
+        <segue reference="RTg-nH-zks"/>
+        <segue reference="0ZC-zk-pGC"/>
+        <segue reference="zL8-ux-RgH"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

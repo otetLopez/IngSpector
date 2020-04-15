@@ -51,4 +51,8 @@ class DefaultsAccess {
     func setFoodListToDefaults(foodList: [String]) {
         UserDefaults.standard.set(foodList, forKey: "foodList")
     }
+    
+    func getAllergenListFromDefaults() -> [String] {
+        return UserDefaults.standard.stringArray(forKey: "allergenList") ?? [String]()
+    }
 }

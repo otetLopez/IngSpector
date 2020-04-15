@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		127514A624468388003DC4E9 /* SearchByProductNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127514A524468388003DC4E9 /* SearchByProductNameViewController.swift */; };
 		CC40F4E25D57276C4F2955EA /* Pods_IngSpector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67931004EA145804753AA96F /* Pods_IngSpector.framework */; };
 		F5316620243EC953000F7375 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = F531661F243EC953000F7375 /* plus.png */; };
 		F5316623243ED8B4000F7375 /* camera-2.png in Resources */ = {isa = PBXBuildFile; fileRef = F5316621243ED8B4000F7375 /* camera-2.png */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		09775B014E5521D9A245747D /* Pods-IngSpector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IngSpector.release.xcconfig"; path = "Target Support Files/Pods-IngSpector/Pods-IngSpector.release.xcconfig"; sourceTree = "<group>"; };
+		127514A524468388003DC4E9 /* SearchByProductNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchByProductNameViewController.swift; sourceTree = "<group>"; };
 		67931004EA145804753AA96F /* Pods_IngSpector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IngSpector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A44EE12B212F1195C008176B /* Pods-IngSpector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IngSpector.debug.xcconfig"; path = "Target Support Files/Pods-IngSpector/Pods-IngSpector.debug.xcconfig"; sourceTree = "<group>"; };
 		F531661F243EC953000F7375 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
@@ -78,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		127514A2244680E4003DC4E9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F5AB9F87243D174800DF0BE9 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		801B56F80A941AB83A8DE288 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +114,7 @@
 				F538AC03243E731200A75BD4 /* HomeViewController.swift */,
 				F5316628243EE19E000F7375 /* UserProfileViewController.swift */,
 				F55FD81324450EBE00E1F289 /* ForgotViewController.swift */,
+				127514A524468388003DC4E9 /* SearchByProductNameViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -140,12 +151,12 @@
 		F5AB9F80243D174800DF0BE9 /* IngSpector */ = {
 			isa = PBXGroup;
 			children = (
+				127514A2244680E4003DC4E9 /* View */,
 				F597D028244021CD00E61169 /* Classes */,
 				F5316627243EE142000F7375 /* Controllers */,
 				F5AB9F9A243D2C2D00DF0BE9 /* Images */,
 				F5AB9F81243D174800DF0BE9 /* AppDelegate.swift */,
 				F5AB9F83243D174800DF0BE9 /* SceneDelegate.swift */,
-				F5AB9F87243D174800DF0BE9 /* Main.storyboard */,
 				F5AB9F8D243D174D00DF0BE9 /* Assets.xcassets */,
 				F5AB9F8F243D174D00DF0BE9 /* LaunchScreen.storyboard */,
 				F5AB9F92243D174D00DF0BE9 /* Info.plist */,
@@ -294,6 +305,7 @@
 			files = (
 				F5AB9F8C243D174800DF0BE9 /* IngSpector.xcdatamodeld in Sources */,
 				F56967B62443B26000596B46 /* DefaultsAccess.swift in Sources */,
+				127514A624468388003DC4E9 /* SearchByProductNameViewController.swift in Sources */,
 				F56967B424426DF300596B46 /* ServerConnection.swift in Sources */,
 				F55FD81424450EBE00E1F289 /* ForgotViewController.swift in Sources */,
 				F597D02A244021EB00E61169 /* UserDetails.swift in Sources */,
