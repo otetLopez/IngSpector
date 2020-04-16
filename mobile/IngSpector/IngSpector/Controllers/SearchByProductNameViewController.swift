@@ -46,6 +46,15 @@ class SearchByProductNameViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "showNutrition"){
+            let vc = segue.destination as! NutritionFactsViewController;
+            
+            vc.incomingFoodName = searchText.text!.uppercased();
+            
+        }
+    }
 
     @IBAction func checkAllergensButton(_ sender: Any) {
         
@@ -102,19 +111,23 @@ class SearchByProductNameViewController: UIViewController {
                                                 let okAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
                                                     alert.dismiss(animated: true) {
                                                         
-                                                        var checkResult :Bool = false;
-                                                        for c in 0...self.allergicFoods.count-1{
-                                                            if(self.searchText.text?.lowercased() == self.allergicFoods[c].lowercased()){
-                                                                checkResult = false
-                                                                break
+                                                        var checkResult :Bool = true;
+                                                        //check if there is any duplication
+                                                        if(self.allergicFoods.count > 0){
+                                                            for c in 0...self.allergicFoods.count-1{
+                                                                if(self.searchText.text?.lowercased() == self.allergicFoods[c].lowercased()){
+                                                                        checkResult = false
+                                                                        break
+                                                                    }
+                                                                                                                       
+                                                                else{
+                                                                    checkResult = true
+                                                                    }
+                                                                                                                       
                                                             }
-                                                            
-                                                            else{
-                                                                checkResult = true
-                                                            }
-                                                            
                                                         }
-                                                        print("\(checkResult) cjeckresult")
+                                                       
+                                                      
                                                         if(checkResult){
                                                             self.allergicFoods.append((self.searchText.text?.uppercased())!)
                                                             self.defaultsAccess.setFoodListToDefaults(foodList: self.allergicFoods)
@@ -142,12 +155,25 @@ class SearchByProductNameViewController: UIViewController {
                                                 }
                                             //if there is not any allergic item in food
                                             if(self.allergicIngredients.count == 0){
-                                                let alertNot = UIAlertController(title: "\(self.searchText.text!.uppercased()) is not Allergic", message: "" , preferredStyle: .alert);
-                                                let okActionn = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+                                                let alertNot = UIAlertController(title: "\(self.searchText.text!.uppercased()) is not Allergic", message: "Do you want to learn nutrition facts of \(self.searchText.text!.uppercased())" , preferredStyle: .alert);
+                                                let okActionn = UIAlertAction(title: "Yes", style: .default) { (UIAlertAction) in
                                                     alertNot.dismiss(animated: true, completion: nil)
-                                                    self.searchText.text=""
+                                                
+                                                    //segue to nutrituin facts
+                                                     self.performSegue(withIdentifier: "showNutrition", sender: nil);
+                                                     self.searchText.text=""
+                                                    
+                                                    
                                                 }
+                                                
+                                                let noActionn = UIAlertAction(title: "No, I'm Okay", style: .default) { (UIAlertAction) in
+                                                 alertNot.dismiss(animated: true, completion: nil)
+                                                 self.searchText.text=""
+   
+                                                }
+                                                
                                                 alertNot.addAction(okActionn)
+                                                alertNot.addAction(noActionn)
                                                 self.present(alertNot, animated: true, completion: nil)
                                         }
                                     }

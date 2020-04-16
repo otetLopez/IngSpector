@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		127514A624468388003DC4E9 /* SearchByProductNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127514A524468388003DC4E9 /* SearchByProductNameViewController.swift */; };
+		127514A82448EA76003DC4E9 /* NutritionFactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127514A72448EA76003DC4E9 /* NutritionFactsViewController.swift */; };
 		CC40F4E25D57276C4F2955EA /* Pods_IngSpector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67931004EA145804753AA96F /* Pods_IngSpector.framework */; };
 		F5316620243EC953000F7375 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = F531661F243EC953000F7375 /* plus.png */; };
 		F5316623243ED8B4000F7375 /* camera-2.png in Resources */ = {isa = PBXBuildFile; fileRef = F5316621243ED8B4000F7375 /* camera-2.png */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		09775B014E5521D9A245747D /* Pods-IngSpector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IngSpector.release.xcconfig"; path = "Target Support Files/Pods-IngSpector/Pods-IngSpector.release.xcconfig"; sourceTree = "<group>"; };
 		127514A524468388003DC4E9 /* SearchByProductNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchByProductNameViewController.swift; sourceTree = "<group>"; };
+		127514A72448EA76003DC4E9 /* NutritionFactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionFactsViewController.swift; sourceTree = "<group>"; };
 		67931004EA145804753AA96F /* Pods_IngSpector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IngSpector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A44EE12B212F1195C008176B /* Pods-IngSpector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IngSpector.debug.xcconfig"; path = "Target Support Files/Pods-IngSpector/Pods-IngSpector.debug.xcconfig"; sourceTree = "<group>"; };
 		F531661F243EC953000F7375 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				F5316628243EE19E000F7375 /* UserProfileViewController.swift */,
 				F55FD81324450EBE00E1F289 /* ForgotViewController.swift */,
 				127514A524468388003DC4E9 /* SearchByProductNameViewController.swift */,
+				127514A72448EA76003DC4E9 /* NutritionFactsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				F5316626243EDDB3000F7375 /* FoodListTableViewController.swift in Sources */,
 				F538AC04243E731200A75BD4 /* HomeViewController.swift in Sources */,
 				F5AB9F84243D174800DF0BE9 /* SceneDelegate.swift in Sources */,
+				127514A82448EA76003DC4E9 /* NutritionFactsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
