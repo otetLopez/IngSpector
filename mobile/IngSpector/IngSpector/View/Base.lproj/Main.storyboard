@@ -168,6 +168,7 @@
                                         <state key="normal" title="Take Label Photo" image="camera-2.png"/>
                                         <connections>
                                             <action selector="takePhotoBtnPressed:" destination="zh6-GA-KEq" eventType="touchUpInside" id="eFu-Wp-pR9"/>
+                                            <segue destination="6MM-uX-Y8i" kind="show" id="VjD-NB-8Im"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8n-vk-K2K">
@@ -861,7 +862,34 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VKI-Yl-8YF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="403" y="-960"/>
+            <point key="canvasLocation" x="786" y="-1191"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="KE7-8O-fLc">
+            <objects>
+                <viewController id="6MM-uX-Y8i" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zST-pU-X5p">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="Kfe-Ox-AHQ">
+                                <rect key="frame" x="0.0" y="-96" width="414" height="909"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Kfe-Ox-AHQ" firstAttribute="leading" secondItem="b0K-cJ-6OK" secondAttribute="leading" id="3v3-sg-Ygn"/>
+                            <constraint firstItem="b0K-cJ-6OK" firstAttribute="bottom" secondItem="Kfe-Ox-AHQ" secondAttribute="bottom" id="8At-vp-Pto"/>
+                            <constraint firstItem="b0K-cJ-6OK" firstAttribute="trailing" secondItem="Kfe-Ox-AHQ" secondAttribute="trailing" id="PgT-xr-bwU"/>
+                            <constraint firstItem="Kfe-Ox-AHQ" firstAttribute="top" secondItem="b0K-cJ-6OK" secondAttribute="top" constant="-140" id="YMk-0s-Tdq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="b0K-cJ-6OK"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hFt-uS-fLe"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iNF-hv-wsq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1827" y="-1192"/>
         </scene>
         <!--NutritionFacts-->
         <scene sceneID="B5x-83-dA5">
@@ -962,9 +990,10 @@
         <image name="search.png" width="409.60000610351562" height="409.60000610351562"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5ly-oe-XUC"/>
-        <segue reference="X9i-Tk-5u9"/>
-        <segue reference="Mhn-ZJ-UGW"/>
+        <segue reference="Vs0-Nf-hmZ"/>
+        <segue reference="NR4-kB-ehi"/>
+        <segue reference="Sb3-8S-u4c"/>
+        <segue reference="zL8-ux-RgH"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
