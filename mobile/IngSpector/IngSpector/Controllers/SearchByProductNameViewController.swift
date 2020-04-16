@@ -9,15 +9,20 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import SVProgressHUD
+
 
 class SearchByProductNameViewController: UIViewController {
 
     @IBOutlet weak var checkAllegensBtnOutlet: UIButton!
     @IBOutlet weak var searchText: UITextField!
     
+    var serverConnection : ServerConnection = ServerConnection()
+    
     var defaultsAccess = DefaultsAccess()
     var allergensOfUser : [String] = [String]()
     var allergicIngredients : [String] = [String]()
+    var allergicFoods : [String] = [String]()
     
     
     
@@ -27,6 +32,7 @@ class SearchByProductNameViewController: UIViewController {
         checkAllegensBtnOutlet.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
         allergensOfUser = defaultsAccess.getAllergenListFromDefaults()
+        allergicFoods = defaultsAccess.getFoodListFromDefaults()
         print(allergensOfUser);
     }
 //    http://www.recipepuppy.com/api/?q=gyro&p=1
@@ -43,49 +49,140 @@ class SearchByProductNameViewController: UIViewController {
 
     @IBAction func checkAllergensButton(_ sender: Any) {
         
-        var searchString : String = searchText.text!;
-        searchString = searchString.replacingOccurrences(of: " ", with: "%20")
-    
-        let apiUrl : String = "http://www.recipepuppy.com/api/?q=\(searchString)&p=1"
-        
-           AF.request(apiUrl, method: .get).responseJSON {
-             response in
-                // SVProgressHUD.dismiss()
-                 switch response.result {
-                     case let .success(value):
-                         let dataJSON : JSON = JSON(value)
-                         
-                         if let ingredientsOfSearchedProduct = dataJSON["results"][0]["ingredients"].string{
-                            let ingredientArray = ingredientsOfSearchedProduct.components(separatedBy: ",")
-                            
-                            print(ingredientArray);
-                           
-                            for i in self.allergensOfUser{
+        if(searchText.text != ""){
+            
+            SVProgressHUD.setDefaultStyle(.custom)
+            SVProgressHUD.setDefaultMaskType(.custom)
+            SVProgressHUD.setForegroundColor(UIColor.darkGray)
+            SVProgressHUD.setBackgroundColor(UIColor.orange)
+            SVProgressHUD.show(withStatus: "Checking Allergens...")
+            
+            
+            var searchString : String = searchText.text!;
+                    searchString = searchString.replacingOccurrences(of: " ", with: "%20")
+                
+                    let apiUrl : String = "http://www.recipepuppy.com/api/?q=\(searchString)&p=1"
+                    
+                       AF.request(apiUrl, method: .get).responseJSON {
+                         response in
+                            // SVProgressHUD.dismiss()
+                             switch response.result {
+                                 case let .success(value):
+                                     let dataJSON : JSON = JSON(value)
+                                     
+                                     if let ingredientsOfSearchedProduct = dataJSON["results"][0]["ingredients"].string{
+                                        let ingredientArray = ingredientsOfSearchedProduct.components(separatedBy: ",")
+                                        
+                                        print(ingredientArray);
+                                       
+                                        for i in self.allergensOfUser{
 
-                                let searchStr = i
-                                let lowerCasedStr = searchStr.lowercased();
-                                    for i in 0...ingredientArray.count-1{
-                                        print("aaa")
-                                        print(lowerCasedStr);
-                                        print(ingredientArray[i])
-                                        if(lowerCasedStr.contains(ingredientArray[i])){
-                                            self.allergicIngredients.append(searchStr)
+                                            let searchStr = i
+                                            let lowerCasedStr : String = searchStr.lowercased();
+                                                for x in 0...ingredientArray.count-1{
+  
+                                                    if(ingredientArray[x].contains(lowerCasedStr)){
+                                                        self.allergicIngredients.append(searchStr)
+                                                
+                                            }
+                                        }
+                                    }
+                                        let when = DispatchTime.now() + 2
+                                        DispatchQueue.main.asyncAfter(deadline: when){
+                                        SVProgressHUD.dismiss()
+                                         
+                                            if(self.allergicIngredients.count > 0){
+                                                var result : String = "ALLERGIC ITEMS\n\n"
+                                                    for i in 0...self.allergicIngredients.count-1{
+                                                        result += "\(i+1)- \(self.allergicIngredients[i].uppercased()) "
+                                                    }
+                                                
+                                                let alert = UIAlertController(title: "Allergic Item Found!", message: result , preferredStyle: .alert);
+
+                                                let okAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+                                                    alert.dismiss(animated: true) {
+                                                        
+                                                        var checkResult :Bool = false;
+                                                        for c in 0...self.allergicFoods.count-1{
+                                                            if(self.searchText.text?.lowercased() == self.allergicFoods[c].lowercased()){
+                                                                checkResult = false
+                                                                break
+                                                            }
+                                                            
+                                                            else{
+                                                                checkResult = true
+                                                            }
+                                                            
+                                                        }
+                                                        print("\(checkResult) cjeckresult")
+                                                        if(checkResult){
+                                                            self.allergicFoods.append((self.searchText.text?.uppercased())!)
+                                                            self.defaultsAccess.setFoodListToDefaults(foodList: self.allergicFoods)
+                                                                                                                 
+                                                            /* Add to server */
+                                                            let email : String = self.defaultsAccess.getEmailFromDefaults()
+                                                            let url : String = self.serverConnection.getURLAddFood() + "\(email)/\(self.searchText.text!.uppercased().replacingOccurrences(of: " ", with: "%20"))"
+                                                            self.searchText.text=""
+                                                            AF.request(url, method: .get).responseJSON {
+                                                                response in
+                                                                    switch response.result {
+                                                                        case .success(_):
+                                                                            print("")
+                                                                        case let .failure(error):
+                                                                            print(error)
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                           
+                                                alert.addAction(okAction);
+                                                self.present(alert, animated: true, completion: nil)
+                                                self.allergicIngredients.removeAll()
+                                                }
+                                            //if there is not any allergic item in food
+                                            if(self.allergicIngredients.count == 0){
+                                                let alertNot = UIAlertController(title: "\(self.searchText.text!.uppercased()) is not Allergic", message: "" , preferredStyle: .alert);
+                                                let okActionn = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+                                                    alertNot.dismiss(animated: true, completion: nil)
+                                                    self.searchText.text=""
+                                                }
+                                                alertNot.addAction(okActionn)
+                                                self.present(alertNot, animated: true, completion: nil)
+                                        }
+                                    }
                                 }
-                            }
-                        }
-                    }
-                         
-                        //if not found
-                         else{
-                            print("not found")
+                                     
+                                    //if not found
+                                     else{
+                                        print("not found")
+                                        SVProgressHUD.dismiss()
+                                        let alertNotFound = UIAlertController(title: "Food not exist", message: "Try another search", preferredStyle: .alert)
+                                        let okActionnn = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+                                            alertNotFound.dismiss(animated: true, completion: nil)
+                                        self.searchText.text=""
+
+                                     }
+                                        alertNotFound.addAction(okActionnn)
+                                        self.present(alertNotFound, animated: true, completion: nil)
+                                }
+                                     
+                                     
+                                 case let .failure(error):
+                                     print(error)
+                                     SVProgressHUD.dismiss()
+                                let alertError = UIAlertController(title: "Unknown Error", message: "Please try again later", preferredStyle: .alert)
+                                let okActionnnn = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+                                    alertError.dismiss(animated: true, completion: nil)
+                                    self.searchText.text=""
+
+                                                                }
+                                     alertError.addAction(okActionnnn)
+                                     self.present(alertError, animated: true, completion: nil)
+                                     
+                             }
                          }
-      
-                   
-                         
-                         
-                     case let .failure(error):
-                         print(error)
-                 }
-             }
-    }
+                }
+        }
+        
 }

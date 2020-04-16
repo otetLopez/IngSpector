@@ -47,6 +47,8 @@ class ServerConnection {
         return (self.url + "getallallergicfoodlist/")
     }
     
+    
+    
     private func parseList(toParse: String) -> [String] {
         var parsed : [String] = toParse.split{$0 == ","}.map(String.init)
         for i in 0...parsed.count-1{
