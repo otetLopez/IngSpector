@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import SVProgressHUD
 
 class UserProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var homeBtn: UIBarButtonItem!
@@ -26,6 +27,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     var defaultsAccess = DefaultsAccess()
     var currentUser : UserDetails = UserDetails()
+    var internetConnection : InternetConnection = InternetConnection()
     var serverConnection : ServerConnection = ServerConnection()
     var allergenList : [String] = [String]()
     
@@ -227,15 +229,21 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
 
     func refreshData(refreshView: Bool) {
         let url : String = serverConnection.getURLinfo() + "\(currentUser.getEmail())/get"
-        AF.request(url, method: .get).responseJSON {
-        response in
-            switch response.result {
-                case let .success(value):
-                    let dataJSON : JSON = JSON(value)
-                    self.currentUser = self.serverConnection.parseUserInfo(dataJSON: dataJSON)
-                    self.setUpdatesFromServer(refreshView: refreshView)
-                case let .failure(error):
-                    print(error)
+        if (!internetConnection.isConnected()) {
+            showToastMsg(msg: "Not connected to internet.  Try Again.", seconds: 3)
+        }  else {
+            showProgress(msg: "Updating Data From Server")
+            AF.request(url, method: .get).responseJSON {
+            response in
+                switch response.result {
+                    case let .success(value):
+                        let dataJSON : JSON = JSON(value)
+                        self.currentUser = self.serverConnection.parseUserInfo(dataJSON: dataJSON)
+                        self.setUpdatesFromServer(refreshView: refreshView)
+                        SVProgressHUD.dismiss()
+                    case let .failure(error):
+                        print(error)
+                }
             }
         }
     }
@@ -249,8 +257,6 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func updateServer() {
-        // baseurl + updateuser/(user-email)/(allergen)/(height)/(weight)
-        // \(tf_eadd.text!)/\(tf_pwd.text!)/\(tf_name.text!)/\(tf_height.text!)/\(tf_weight.text!)/
         var url : String = serverConnection.getURLupd() + "\(currentUser.getEmail())/"
         if(allergenList.count > 0) {
             for allergen in allergenList {
@@ -262,21 +268,34 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         url = url + "/\(currentUser.getHeight())/\(currentUser.getWeight())"
         
         print("DEBUG: updateServer \(url)")
-        AF.request(url, method: .get).responseJSON {
-        response in
-            switch response.result {
-                case let .success(value):
-                    let dataJSON : JSON = JSON(value)
-                    print("DEBUG: \(value) \(true) \(false) \(dataJSON)")
-                    if dataJSON == true {
-                        //
-                    } else {
-                        // Alert log In unsuccessful
-                    }
-                case let .failure(error):
-                    print(error)
+        if (!internetConnection.isConnected()) {
+            showToastMsg(msg: "Not connected to internet.  Try Again.", seconds: 3)
+        } else {
+            AF.request(url, method: .get).responseJSON {
+            response in
+                print("DEBUG: Updated user data")
             }
         }
+    }
+    
+    func showToastMsg(msg: String, seconds: Double) {
+        let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+        alertController.view.alpha = 0.5
+        alertController.view.layer.cornerRadius = 15
+        
+        self.present(alertController, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+            alertController.dismiss(animated: true)
+        }
+    }
+
+    func showProgress(msg: String) {
+        SVProgressHUD.setDefaultStyle(.custom)
+        SVProgressHUD.setDefaultMaskType(.custom)
+        SVProgressHUD.setForegroundColor(UIColor.darkGray)
+        SVProgressHUD.setBackgroundColor(UIColor.orange)
+        SVProgressHUD.show(withStatus: msg)
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {

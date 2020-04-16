@@ -20,6 +20,7 @@ class FoodListTableViewController: UITableViewController {
     var foodList : [String] = [String]()
     var serverConnection : ServerConnection = ServerConnection()
     var defaultsAccess : DefaultsAccess = DefaultsAccess()
+    var internetConnection : InternetConnection = InternetConnection()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,29 +87,47 @@ class FoodListTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func retrieveFoodList() {
-        let email : String = defaultsAccess.getEmailFromDefaults()
-        let url : String = serverConnection.getURLinfo() + email + "/get"
+    func showToastMsg(msg: String, seconds: Double) {
+        let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+        alertController.view.alpha = 0.5
+        alertController.view.layer.cornerRadius = 15
         
-        print("DEBUG: FoodList retrieveFoodList() \(url)")
+        self.present(alertController, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+            alertController.dismiss(animated: true)
+        }
+    }
+
+    func showProgress(msg: String) {
         SVProgressHUD.setDefaultStyle(.custom)
         SVProgressHUD.setDefaultMaskType(.custom)
         SVProgressHUD.setForegroundColor(UIColor.darkGray)
         SVProgressHUD.setBackgroundColor(UIColor.orange)
-        SVProgressHUD.show(withStatus: "Updating List From Server")
+        SVProgressHUD.show(withStatus: msg)
+    }
+
+    
+    func retrieveFoodList() {
+        let email : String = defaultsAccess.getEmailFromDefaults()
+        let url : String = serverConnection.getURLinfo() + email + "/get"
         
-        AF.request(url, method: .get).responseJSON {
-        response in
-            SVProgressHUD.dismiss()
-            switch response.result {
-                case let .success(value):
-                    let dataJSON : JSON = JSON(value)
-                    let user = self.serverConnection.parseUserInfo(dataJSON: dataJSON)
-                    self.defaultsAccess.setFoodListToDefaults(foodList: user.getFoodList())
-                    self.foodList = user.getFoodList()
-                    self.tableView.reloadData()            
-                case let .failure(error):
-                    print(error)
+        if (!internetConnection.isConnected()) {
+            showToastMsg(msg: "Not connected to internet.  Try Again.", seconds: 3)
+        } else {
+            AF.request(url, method: .get).responseJSON {
+            response in
+                SVProgressHUD.dismiss()
+                switch response.result {
+                    case let .success(value):
+                        let dataJSON : JSON = JSON(value)
+                        let user = self.serverConnection.parseUserInfo(dataJSON: dataJSON)
+                        self.defaultsAccess.setFoodListToDefaults(foodList: user.getFoodList())
+                        self.foodList = user.getFoodList()
+                        self.tableView.reloadData()
+                    case let .failure(error):
+                        print(error)
+                }
             }
         }
     }
