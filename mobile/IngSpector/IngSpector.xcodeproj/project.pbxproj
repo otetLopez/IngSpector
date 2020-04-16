@@ -16,6 +16,7 @@
 		F5316626243EDDB3000F7375 /* FoodListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5316625243EDDB3000F7375 /* FoodListTableViewController.swift */; };
 		F5316629243EE19E000F7375 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5316628243EE19E000F7375 /* UserProfileViewController.swift */; };
 		F538AC04243E731200A75BD4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F538AC03243E731200A75BD4 /* HomeViewController.swift */; };
+		F55BC29924490681006F927C /* AnalyzePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55BC29824490681006F927C /* AnalyzePhotoViewController.swift */; };
 		F55FD81424450EBE00E1F289 /* ForgotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55FD81324450EBE00E1F289 /* ForgotViewController.swift */; };
 		F56967B2244264CB00596B46 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56967B1244264CB00596B46 /* InternetConnection.swift */; };
 		F56967B424426DF300596B46 /* ServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56967B324426DF300596B46 /* ServerConnection.swift */; };
@@ -48,6 +49,7 @@
 		F5316625243EDDB3000F7375 /* FoodListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListTableViewController.swift; sourceTree = "<group>"; };
 		F5316628243EE19E000F7375 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		F538AC03243E731200A75BD4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F55BC29824490681006F927C /* AnalyzePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzePhotoViewController.swift; sourceTree = "<group>"; };
 		F55FD81324450EBE00E1F289 /* ForgotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotViewController.swift; sourceTree = "<group>"; };
 		F56967B1244264CB00596B46 /* InternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
 		F56967B324426DF300596B46 /* ServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnection.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				F55FD81324450EBE00E1F289 /* ForgotViewController.swift */,
 				127514A524468388003DC4E9 /* SearchByProductNameViewController.swift */,
 				127514A72448EA76003DC4E9 /* NutritionFactsViewController.swift */,
+				F55BC29824490681006F927C /* AnalyzePhotoViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F55BC29924490681006F927C /* AnalyzePhotoViewController.swift in Sources */,
 				F5AB9F8C243D174800DF0BE9 /* IngSpector.xcdatamodeld in Sources */,
 				F56967B62443B26000596B46 /* DefaultsAccess.swift in Sources */,
 				127514A624468388003DC4E9 /* SearchByProductNameViewController.swift in Sources */,
@@ -472,7 +476,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = madt5264.IngSpector;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -492,7 +496,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = madt5264.IngSpector;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
