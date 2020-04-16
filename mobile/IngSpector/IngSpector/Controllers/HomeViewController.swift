@@ -23,6 +23,7 @@ class HomeViewController: UIViewController {
     
     var defaultsAccess : DefaultsAccess = DefaultsAccess()
     var serverConnection : ServerConnection = ServerConnection()
+    var internetConnection : InternetConnection = InternetConnection()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -101,17 +102,15 @@ class HomeViewController: UIViewController {
             let url : String = serverConnection.getURLAddFood() + "\(email)/\(newFood.replacingOccurrences(of: " ", with: "%20"))"
             print("DEBUG: addFood food to user details \(url)")
  
-            AF.request(url, method: .get).responseJSON {
-            response in
-                switch response.result {
-                    case .success(_):
-                        print("")
-                    case let .failure(error):
-                        print(error)
+            if (!internetConnection.isConnected()) {
+                showToastMsg(msg: "Not connected to internet.  Try Again.", seconds: 3)
+            }  else {
+                AF.request(url, method: .get).responseJSON {
+                response in
+                    print("Sending new food to server")
                 }
             }
         }
-        
     }
     
     func isFoodRecorded(newFood: String) -> Bool {
@@ -124,6 +123,17 @@ class HomeViewController: UIViewController {
         return false
     }
     
+    func showToastMsg(msg: String, seconds: Double) {
+        let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+        alertController.view.alpha = 0.5
+        alertController.view.layer.cornerRadius = 15
+        
+        self.present(alertController, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+            alertController.dismiss(animated: true)
+        }
+    }
     
     func configureView() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)

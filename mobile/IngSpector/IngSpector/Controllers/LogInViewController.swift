@@ -20,9 +20,10 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
     @IBOutlet weak var logInBtn: UIButton!
     @IBOutlet weak var psswdBtn: UIButton!
     
-    var serverConnection = ServerConnection()
-    var defaultsAccess = DefaultsAccess()
+    var serverConnection : ServerConnection = ServerConnection()
+    var defaultsAccess : DefaultsAccess = DefaultsAccess()
     var currentUser = UserDetails()
+    var internetConnection : InternetConnection = InternetConnection()
     var logFlag : Bool = false
     
     override func viewDidLoad() {
@@ -65,12 +66,6 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
         tf_uname.layer.borderWidth = 0
         tf_pwd.layer.borderWidth = 0
         
-        SVProgressHUD.setDefaultStyle(.custom)
-        SVProgressHUD.setDefaultMaskType(.custom)
-        SVProgressHUD.setForegroundColor(UIColor.darkGray)
-        SVProgressHUD.setBackgroundColor(UIColor.orange)
-        SVProgressHUD.show(withStatus: "Logging in...")
-        
         if(!checkFields()) {
             alert(title: "Error: ", msg: "Missing mandatory fields")
         } else {
@@ -82,35 +77,45 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
     }
     
     func loginCredentials(url: String, email: String) {
-        AF.request(url, method: .get).responseJSON {
-        response in
-            SVProgressHUD.dismiss()
-            switch response.result {
-                case let .success(value):
-                    let dataJSON : JSON = JSON(value)
-                    print("DEBUG: \(value) \(true) \(false) \(dataJSON)")
-                    if dataJSON == true {
-                        self.requestUserInfo(email: email)
-                    } else if dataJSON == false {
-                        self.highlightFields()
-                        self.showToastMsg(msg: "Email/Password Incorrect", seconds: 2)
-                    }
-                case let .failure(error):
-                    print(error)
+        if (!internetConnection.isConnected()) {
+            showToastMsg(msg: "Not connected to internet.  Try Again.", seconds: 3)
+        }  else {
+            showProgress(msg: "Logging In.  Please Wait...")
+            AF.request(url, method: .get).responseJSON {
+            response in
+                SVProgressHUD.dismiss()
+                switch response.result {
+                    case let .success(value):
+                        let dataJSON : JSON = JSON(value)
+                        print("DEBUG: \(value) \(true) \(false) \(dataJSON)")
+                        if dataJSON == true {
+                            self.requestUserInfo(email: email)
+                        } else if dataJSON == false {
+                            self.highlightFields()
+                            self.showToastMsg(msg: "Email/Password Incorrect", seconds: 2)
+                        }
+                    case let .failure(error):
+                        print(error)
+                }
             }
         }
     }
     
     func sendUserInfoRequest(url: String, email: String) {
-        AF.request(url, method: .get).responseJSON {
-        response in
-            SVProgressHUD.dismiss()
-            switch response.result {
-                case let .success(value):
-                    let dataJSON : JSON = JSON(value)
-                    self.parseUserInfo(dataJSON: dataJSON)
-                case let .failure(error):
-                    print(error)
+        if (!internetConnection.isConnected()) {
+            showToastMsg(msg: "Not connected to internet.  Try Again.", seconds: 3)
+        }  else {
+            showProgress(msg: "Retrieving User Data...")
+            AF.request(url, method: .get).responseJSON {
+            response in
+                SVProgressHUD.dismiss()
+                switch response.result {
+                    case let .success(value):
+                        let dataJSON : JSON = JSON(value)
+                        self.parseUserInfo(dataJSON: dataJSON)
+                    case let .failure(error):
+                        print(error)
+                }
             }
         }
     }
@@ -168,6 +173,14 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
             alertController.dismiss(animated: true)
         }
+    }
+    
+    func showProgress(msg: String) {
+        SVProgressHUD.setDefaultStyle(.custom)
+        SVProgressHUD.setDefaultMaskType(.custom)
+        SVProgressHUD.setForegroundColor(UIColor.darkGray)
+        SVProgressHUD.setBackgroundColor(UIColor.orange)
+        SVProgressHUD.show(withStatus: msg)
     }
     
     func alert(title: String, msg : String) {
