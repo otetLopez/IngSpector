@@ -168,7 +168,7 @@
                                         <state key="normal" title="Take Label Photo" image="camera-2.png"/>
                                         <connections>
                                             <action selector="takePhotoBtnPressed:" destination="zh6-GA-KEq" eventType="touchUpInside" id="eFu-Wp-pR9"/>
-                                            <segue destination="6MM-uX-Y8i" kind="show" id="VjD-NB-8Im"/>
+                                            <segue destination="6MM-uX-Y8i" kind="show" id="Eaj-Vl-DJy"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8n-vk-K2K">
@@ -864,10 +864,10 @@
             </objects>
             <point key="canvasLocation" x="786" y="-1191"/>
         </scene>
-        <!--View Controller-->
+        <!--Analyze Photo View Controller-->
         <scene sceneID="KE7-8O-fLc">
             <objects>
-                <viewController id="6MM-uX-Y8i" sceneMemberID="viewController">
+                <viewController id="6MM-uX-Y8i" customClass="AnalyzePhotoViewController" customModule="IngSpector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zST-pU-X5p">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -875,17 +875,69 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="Kfe-Ox-AHQ">
                                 <rect key="frame" x="0.0" y="-96" width="414" height="909"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WdM-64-u54">
+                                <rect key="frame" x="157.5" y="54" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.90844392119999995" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="lnc-Qq-ygK"/>
+                                    <constraint firstAttribute="width" constant="100" id="t7q-Au-0Va"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="20" minY="20" maxX="20" maxY="20"/>
+                                <state key="normal" image="camera-2.png"/>
+                                <connections>
+                                    <action selector="cameraBtnPressed:" destination="6MM-uX-Y8i" eventType="touchUpInside" id="FOp-op-pvh"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3HX-YR-Awq">
+                                <rect key="frame" x="20" y="174" width="374" height="240"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="RXl-HH-mbS"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LJL-8G-0JP">
+                                <rect key="frame" x="30" y="757" width="354" height="36"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                <state key="normal" title="Scan Photo"/>
+                                <connections>
+                                    <action selector="ScanBtnPressed:" destination="6MM-uX-Y8i" eventType="touchUpInside" id="egm-3r-GBB"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWK-rr-J8b">
+                                <rect key="frame" x="40" y="727" width="334" height="0.0"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="LJL-8G-0JP" firstAttribute="top" secondItem="UWK-rr-J8b" secondAttribute="bottom" constant="30" id="0z6-mx-eCe"/>
+                            <constraint firstItem="b0K-cJ-6OK" firstAttribute="trailing" secondItem="UWK-rr-J8b" secondAttribute="trailing" constant="40" id="2vT-zb-XLj"/>
                             <constraint firstItem="Kfe-Ox-AHQ" firstAttribute="leading" secondItem="b0K-cJ-6OK" secondAttribute="leading" id="3v3-sg-Ygn"/>
+                            <constraint firstItem="LJL-8G-0JP" firstAttribute="leading" secondItem="b0K-cJ-6OK" secondAttribute="leading" constant="30" id="52g-Sz-s6f"/>
                             <constraint firstItem="b0K-cJ-6OK" firstAttribute="bottom" secondItem="Kfe-Ox-AHQ" secondAttribute="bottom" id="8At-vp-Pto"/>
+                            <constraint firstItem="b0K-cJ-6OK" firstAttribute="trailing" secondItem="3HX-YR-Awq" secondAttribute="trailing" constant="20" id="APN-4a-BKv"/>
+                            <constraint firstItem="b0K-cJ-6OK" firstAttribute="bottom" secondItem="LJL-8G-0JP" secondAttribute="bottom" constant="20" id="NXD-Oo-9Vq"/>
                             <constraint firstItem="b0K-cJ-6OK" firstAttribute="trailing" secondItem="Kfe-Ox-AHQ" secondAttribute="trailing" id="PgT-xr-bwU"/>
+                            <constraint firstItem="b0K-cJ-6OK" firstAttribute="trailing" secondItem="LJL-8G-0JP" secondAttribute="trailing" constant="30" id="Tw2-MV-ulo"/>
+                            <constraint firstItem="WdM-64-u54" firstAttribute="top" secondItem="b0K-cJ-6OK" secondAttribute="top" constant="10" id="WNE-9z-P0p"/>
+                            <constraint firstItem="WdM-64-u54" firstAttribute="centerX" secondItem="zST-pU-X5p" secondAttribute="centerX" constant="0.5" id="WdP-nP-4Vx"/>
                             <constraint firstItem="Kfe-Ox-AHQ" firstAttribute="top" secondItem="b0K-cJ-6OK" secondAttribute="top" constant="-140" id="YMk-0s-Tdq"/>
+                            <constraint firstItem="UWK-rr-J8b" firstAttribute="leading" secondItem="b0K-cJ-6OK" secondAttribute="leading" constant="40" id="omV-ql-5si"/>
+                            <constraint firstItem="3HX-YR-Awq" firstAttribute="top" secondItem="WdM-64-u54" secondAttribute="bottom" constant="20" id="xo0-JB-Gwz"/>
+                            <constraint firstItem="3HX-YR-Awq" firstAttribute="leading" secondItem="b0K-cJ-6OK" secondAttribute="leading" constant="20" id="zyx-6R-FFk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="b0K-cJ-6OK"/>
                     </view>
                     <navigationItem key="navigationItem" id="hFt-uS-fLe"/>
+                    <connections>
+                        <outlet property="cameraBtn" destination="WdM-64-u54" id="BUi-Ci-anD"/>
+                        <outlet property="photoView" destination="3HX-YR-Awq" id="u8u-DL-fZF"/>
+                        <outlet property="resultLbl" destination="UWK-rr-J8b" id="T9y-Io-8Z1"/>
+                        <outlet property="scanBtn" destination="LJL-8G-0JP" id="kFD-ty-nE1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iNF-hv-wsq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -990,7 +1042,6 @@
         <image name="search.png" width="409.60000610351562" height="409.60000610351562"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Vs0-Nf-hmZ"/>
         <segue reference="NR4-kB-ehi"/>
         <segue reference="Sb3-8S-u4c"/>
         <segue reference="zL8-ux-RgH"/>
