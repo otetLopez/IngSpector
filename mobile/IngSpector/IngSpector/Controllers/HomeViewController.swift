@@ -35,8 +35,6 @@ class HomeViewController: UIViewController {
         //addFood(newFood: "Peanut Butter")
     }
     
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         configureView()        
     }
@@ -47,48 +45,7 @@ class HomeViewController: UIViewController {
     @IBAction func searchBtnPressed(_ sender: UIButton) {
 
     }
-    func promptAnalyzeOptions() {
-        let alertController = UIAlertController(title: "Analyze Food", message: "Analyze food from the following options", preferredStyle: .alert)
-    
-        let cameraAction = UIAlertAction(title: "Take Photo of Food Label", style: .default) { (action) in
-        
-        }
-        
-        let nameAction = UIAlertAction(title: "Photo Gallery", style: .default) { (action) in
-            self.promptFoodName()
-        }
-        
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alertController.addAction(cameraAction)
-        alertController.addAction(nameAction)
-
-        
-        alertController.addAction(cancelAction)
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    func promptFoodName() {
-        let alertController = UIAlertController(title: "Food Name", message: "Input name of food to analyze ingredients", preferredStyle: .alert)
-
-        alertController.addTextField { (nFoodName) in
-            nFoodName.placeholder = "Food Name"
-        }
-        
-        let searchFoodAction = UIAlertAction(title: "IngSpect!", style: .default) { (action) in
-            let textField = alertController.textFields![0]
-            print("DEBUG: Searching for food  \(textField.text!)")
-        }
-
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alertController.addAction(searchFoodAction)
-        alertController.addAction(cancelAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
     func addFood(newFood: String) {
         if isFoodRecorded(newFood: newFood) == false {
             var foodList : [String] = defaultsAccess.getFoodListFromDefaults()
@@ -148,15 +105,4 @@ class HomeViewController: UIViewController {
         cameraBtn.layer.cornerRadius = 10
         searchBtn.layer.cornerRadius = 10
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

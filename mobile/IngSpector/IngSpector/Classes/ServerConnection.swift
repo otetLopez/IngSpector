@@ -47,6 +47,9 @@ class ServerConnection {
         return (self.url + "getallallergicfoodlist/")
     }
     
+    public func getURLGetAllergen() -> String {
+        return (self.url + "getallallergens/")
+    }
     
     
     private func parseList(toParse: String) -> [String] {

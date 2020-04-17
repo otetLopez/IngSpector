@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 import SVProgressHUD
 import TesseractOCR
 import GPUImage
@@ -18,19 +20,24 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
     @IBOutlet weak var resultLbl: UILabel!
     @IBOutlet weak var scanBtn: UIButton!
     
+    var internetConnection : InternetConnection = InternetConnection()
+    var serverConnection : ServerConnection = ServerConnection()
+    var defaultsAccess : DefaultsAccess = DefaultsAccess()
+    var allergenList : [String] = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        configureValues()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureView()
-        configureValues()
+        retrieveAllergenList()
     }
     
     @IBAction func cameraBtnPressed(_ sender: UIButton) {
+        resultLbl.text = ""
         let vc = UIImagePickerController()
         vc.allowsEditing = true
         vc.delegate = self
@@ -44,7 +51,8 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     @IBAction func ScanBtnPressed(_ sender: UIButton) {
-        performImageRecognition(photoView.image!)
+        let recogTxt : String = performImageRecognition(photoView.image!)
+        analyzeFoodLabel(foodLabel : recogTxt)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -58,19 +66,125 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
         scanBtn.isEnabled = true
     }
     
-    func performImageRecognition(_ image: UIImage) {
-      let scaledImage = image.scaledImage(1000) ?? image
-      let preprocessedImage = scaledImage.preprocessedImage() ?? scaledImage
+    func performImageRecognition(_ image: UIImage) -> String {
+        var txt : String = ""
+        let scaledImage = image.scaledImage(1000) ?? image
+        let preprocessedImage = scaledImage.preprocessedImage() ?? scaledImage
       
-      if let tesseract = G8Tesseract(language: "eng+fra") {
-        tesseract.engineMode = .tesseractCubeCombined
-        tesseract.pageSegmentationMode = .auto
+        if let tesseract = G8Tesseract(language: "eng+fra") {
+            tesseract.engineMode = .tesseractCubeCombined
+            tesseract.pageSegmentationMode = .auto
+            
+            tesseract.image = preprocessedImage
+            tesseract.recognize()
+            txt =  tesseract.recognizedText ?? ""
+            print("DEBUG: Recognized Text --> \(txt)")
+        }
+        return txt
+    }
+    
+    func retrieveAllergenList() {
+        let email : String = defaultsAccess.getEmailFromDefaults()
+        let url : String = serverConnection.getURLinfo() + email + "/get"
         
-        tesseract.image = preprocessedImage
-        tesseract.recognize()
-        let txt : String = tesseract.recognizedText ?? ""
-        print("DEBUG: Recognized Text --> \(txt)")
-      }
+        if (!internetConnection.isConnected()) {
+            showToastMsg(msg: "Not connected to internet.  Try Again.", seconds: 3)
+        } else {
+            AF.request(url, method: .get).responseJSON {
+            response in
+                SVProgressHUD.dismiss()
+                switch response.result {
+                    case let .success(value):
+                        let dataJSON : JSON = JSON(value)
+                        let user = self.serverConnection.parseUserInfo(dataJSON: dataJSON)
+                        self.defaultsAccess.setAllergenListToDefaults(allergenList: user.getAllergens())
+                        self.allergenList = user.getAllergens()
+                    case let .failure(error):
+                        self.showToastMsg(msg: "Cannot Connect To Server.  Please Try Again.", seconds: 3)
+                        print(error)
+                }
+            }
+        }
+    }
+    
+    func analyzeFoodLabel(foodLabel: String) {
+        var isAllergic : Bool = false
+        allergenList = defaultsAccess.getAllergenListFromDefaults()
+        for allergen in allergenList {
+            if foodLabel.lowercased().contains(allergen.lowercased()) {
+                promptFoodName(allergen: allergen)
+                isAllergic = true
+                break
+            }
+        }
+        if isAllergic == false {
+            resultLbl.text = "This is safe for you.  Bon Appétit!"
+        }
+    }
+    
+    func promptFoodName(allergen: String) {
+        let alertController = UIAlertController(title: "Contains \(allergen)!", message: "Save food to your list", preferredStyle: .alert)
+        
+        alertController.addTextField { (nFoodName) in
+            nFoodName.placeholder = "Food Name"
+        }
+        
+        let saveFoodAction = UIAlertAction(title: "Save", style: .default) { (action) in
+            let textField = alertController.textFields![0]
+            var foodName : String = ""
+            if textField.text!.isEmpty {
+                foodName = allergen
+            } else { foodName = textField.text! }
+            
+            self.addFood(newFood: foodName)
+        }
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(saveFoodAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func addFood(newFood: String) {
+        if isFoodRecorded(newFood: newFood) == false {
+            var foodList : [String] = defaultsAccess.getFoodListFromDefaults()
+           
+            /* Add to user defaults */
+            foodList.append(newFood)
+            defaultsAccess.setFoodListToDefaults(foodList: foodList)
+           
+            /* Add to server */
+            let email : String = defaultsAccess.getEmailFromDefaults()
+            let url : String = serverConnection.getURLAddFood() + "\(email)/\(newFood.replacingOccurrences(of: " ", with: "%20"))"
+            print("DEBUG: addFood food to user details \(url)")
+
+            if (!internetConnection.isConnected()) {
+                showToastMsg(msg: "Not connected to internet.  Try Again.", seconds: 3)
+            }  else {
+                AF.request(url, method: .get).responseJSON {
+                    response in
+                    switch response.result {
+                        case .success(_):
+                            print("DEBUG: Added New Food")
+                        case let .failure(error):
+                            self.showToastMsg(msg: "Cannot Connect To Server.  Please Try Again.", seconds: 2)
+                            print(error)
+                    }
+                }
+            }
+        } else { showToastMsg(msg: "This is already in your food list", seconds: 2) }
+        
+    }
+       
+    func isFoodRecorded(newFood: String) -> Bool {
+       let foodList : [String] = defaultsAccess.getFoodListFromDefaults()
+       for food in foodList {
+           if food == newFood {
+               return true
+           }
+       }
+       return false
     }
     
     func showToastMsg(msg: String, seconds: Double) {
@@ -93,15 +207,12 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
         SVProgressHUD.show(withStatus: msg)
     }
     
-    func configureValues() {
-        
-    }
-    
     func configureView() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.titleView?.isHidden = true
         self.navigationController?.setToolbarHidden(true, animated: true)
         scanBtn.isEnabled = false
+        resultLbl.text = ""
         
         cameraBtn.layer.cornerRadius = 10
         scanBtn.layer.cornerRadius = 10

@@ -55,4 +55,8 @@ class DefaultsAccess {
     func getAllergenListFromDefaults() -> [String] {
         return UserDefaults.standard.stringArray(forKey: "allergenList") ?? [String]()
     }
+    
+    func setAllergenListToDefaults(allergenList: [String]) {
+        UserDefaults.standard.set(allergenList, forKey: "allergenList")
+    }
 }
