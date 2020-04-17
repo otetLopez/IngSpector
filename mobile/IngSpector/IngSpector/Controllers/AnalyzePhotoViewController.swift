@@ -29,6 +29,7 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        scanBtn.isEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,11 +53,14 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     @IBAction func ScanBtnPressed(_ sender: UIButton) {
+        showProgress(msg: "Scanning photo...")
+        resultLbl.text = ""
         if(scanEnabled == false) {
             showToastMsg(msg: "No Image To Scan.", seconds: 2)
+            SVProgressHUD.dismiss()
         } else {
-            let recogTxt : String = performImageRecognition(photoView.image!)
-            analyzeFoodLabel(foodLabel : recogTxt)
+           
+            analyzeFoodLabel(foodLabel : performImageRecognition(photoView.image!))
         }
     }
     
@@ -67,6 +71,7 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
             print("No image found")
             return
         }
+        print("DEBUG: imagePickerController  We have an image")
         photoView.image = image
         scanBtn.isEnabled = true
         scanEnabled = true
@@ -76,7 +81,7 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
         var txt : String = ""
         let scaledImage = image.scaledImage(1000) ?? image
         let preprocessedImage = scaledImage.preprocessedImage() ?? scaledImage
-      
+        
         if let tesseract = G8Tesseract(language: "eng+fra") {
             tesseract.engineMode = .tesseractCubeCombined
             tesseract.pageSegmentationMode = .auto
@@ -118,12 +123,14 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
         allergenList = defaultsAccess.getAllergenListFromDefaults()
         for allergen in allergenList {
             if foodLabel.lowercased().contains(allergen.lowercased()) {
+                SVProgressHUD.dismiss()
                 promptFoodName(allergen: allergen)
                 isAllergic = true
                 break
             }
         }
         if isAllergic == false {
+            SVProgressHUD.dismiss()
             resultLbl.text = "This is safe for you.  Bon Appétit!"
         }
     }
@@ -217,8 +224,6 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.titleView?.isHidden = true
         self.navigationController?.setToolbarHidden(true, animated: true)
-        scanBtn.isEnabled = true
-        scanEnabled = false
         resultLbl.text = ""
         
         cameraBtn.layer.cornerRadius = 10
