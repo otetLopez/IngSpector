@@ -24,6 +24,7 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
     var serverConnection : ServerConnection = ServerConnection()
     var defaultsAccess : DefaultsAccess = DefaultsAccess()
     var allergenList : [String] = [String]()
+    var scanEnabled : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,8 +52,12 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     @IBAction func ScanBtnPressed(_ sender: UIButton) {
-        let recogTxt : String = performImageRecognition(photoView.image!)
-        analyzeFoodLabel(foodLabel : recogTxt)
+        if(scanEnabled == false) {
+            showToastMsg(msg: "No Image To Scan.", seconds: 2)
+        } else {
+            let recogTxt : String = performImageRecognition(photoView.image!)
+            analyzeFoodLabel(foodLabel : recogTxt)
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -64,6 +69,7 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
         }
         photoView.image = image
         scanBtn.isEnabled = true
+        scanEnabled = true
     }
     
     func performImageRecognition(_ image: UIImage) -> String {
@@ -168,7 +174,7 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
                         case .success(_):
                             print("DEBUG: Added New Food")
                         case let .failure(error):
-                            self.showToastMsg(msg: "Cannot Connect To Server.  Please Try Again.", seconds: 2)
+                            //self.showToastMsg(msg: "Cannot Connect To Server.  Please Try Again.", seconds: 2)
                             print(error)
                     }
                 }
@@ -211,7 +217,8 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.titleView?.isHidden = true
         self.navigationController?.setToolbarHidden(true, animated: true)
-        scanBtn.isEnabled = false
+        scanBtn.isEnabled = true
+        scanEnabled = false
         resultLbl.text = ""
         
         cameraBtn.layer.cornerRadius = 10
