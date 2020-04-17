@@ -963,32 +963,48 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Weight of Food" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3z2-9j-b2q">
-                                <rect key="frame" x="30" y="106" width="354" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Weight of Food in Grams" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3z2-9j-b2q">
+                                <rect key="frame" x="30" y="106" width="354" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="GYK-1o-mnY"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jIV-K0-3Th">
-                                <rect key="frame" x="30" y="148" width="354" height="30"/>
+                                <rect key="frame" x="30" y="144" width="354" height="30"/>
                                 <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="xFP-DP-Iow"/>
+                                </constraints>
                                 <state key="normal" title="Check Percentage "/>
                                 <connections>
                                     <action selector="checkPercentageButton:" destination="XGO-cx-GYF" eventType="touchUpInside" id="1vH-4S-CmK"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9LQ-HV-xnx">
+                                <rect key="frame" x="30" y="182" width="354" height="609"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="34"/>
+                                <color key="textColor" red="0.79353058340000004" green="0.55388844010000005" blue="0.062349729239999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="3z2-9j-b2q" firstAttribute="top" secondItem="Fbs-MX-9cv" secondAttribute="bottom" constant="12" id="5ib-LB-biy"/>
                             <constraint firstItem="Fbs-MX-9cv" firstAttribute="top" secondItem="R5D-QL-eYU" secondAttribute="top" id="5sG-e1-3O3"/>
+                            <constraint firstItem="R5D-QL-eYU" firstAttribute="bottom" secondItem="9LQ-HV-xnx" secondAttribute="bottom" constant="22" id="86A-Lj-lyF"/>
+                            <constraint firstItem="9LQ-HV-xnx" firstAttribute="leading" secondItem="R5D-QL-eYU" secondAttribute="leading" constant="30" id="BI8-xq-vxk"/>
                             <constraint firstItem="Wqh-uu-NoG" firstAttribute="bottom" secondItem="R5D-QL-eYU" secondAttribute="bottom" id="DVU-en-eI3"/>
                             <constraint firstItem="Wqh-uu-NoG" firstAttribute="top" secondItem="Fh5-qX-rOo" secondAttribute="top" constant="-140" id="K56-h7-WFz"/>
                             <constraint firstItem="Fbs-MX-9cv" firstAttribute="centerX" secondItem="Fh5-qX-rOo" secondAttribute="centerX" id="MqV-XO-OnX"/>
                             <constraint firstItem="R5D-QL-eYU" firstAttribute="trailing" secondItem="3z2-9j-b2q" secondAttribute="trailing" constant="30" id="SAF-a3-dW4"/>
+                            <constraint firstItem="9LQ-HV-xnx" firstAttribute="top" secondItem="jIV-K0-3Th" secondAttribute="bottom" constant="8" id="VSJ-vY-otO"/>
                             <constraint firstItem="jIV-K0-3Th" firstAttribute="leading" secondItem="R5D-QL-eYU" secondAttribute="leading" constant="30" id="X98-3X-H8i"/>
                             <constraint firstItem="Fbs-MX-9cv" firstAttribute="leading" secondItem="Fh5-qX-rOo" secondAttribute="leading" constant="8" id="XgM-T3-VOY"/>
                             <constraint firstAttribute="trailing" secondItem="Fbs-MX-9cv" secondAttribute="trailing" constant="8" id="aLg-eG-7HG"/>
                             <constraint firstItem="Wqh-uu-NoG" firstAttribute="leading" secondItem="R5D-QL-eYU" secondAttribute="leading" id="e2O-Rc-axR"/>
+                            <constraint firstItem="R5D-QL-eYU" firstAttribute="trailing" secondItem="9LQ-HV-xnx" secondAttribute="trailing" constant="30" id="pOQ-Ka-cgp"/>
                             <constraint firstItem="3z2-9j-b2q" firstAttribute="leading" secondItem="R5D-QL-eYU" secondAttribute="leading" constant="30" id="qnV-7D-xdi"/>
                             <constraint firstItem="jIV-K0-3Th" firstAttribute="top" secondItem="3z2-9j-b2q" secondAttribute="bottom" constant="8" id="tHl-3E-Pa2"/>
                             <constraint firstItem="Wqh-uu-NoG" firstAttribute="trailing" secondItem="R5D-QL-eYU" secondAttribute="trailing" id="xmr-8V-RN1"/>
@@ -1021,12 +1037,13 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="infoLabel" destination="Fbs-MX-9cv" id="rta-69-ZCB"/>
+                        <outlet property="resultLabel" destination="9LQ-HV-xnx" id="PdD-tr-6qa"/>
                         <outlet property="weightOfFood" destination="3z2-9j-b2q" id="6wv-KA-TyK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VsH-yj-53Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1042" y="-967"/>
+            <point key="canvasLocation" x="-1042.0289855072465" y="-967.63392857142856"/>
         </scene>
     </scenes>
     <resources>
@@ -1042,9 +1059,9 @@
         <image name="search.png" width="409.60000610351562" height="409.60000610351562"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NR4-kB-ehi"/>
-        <segue reference="Sb3-8S-u4c"/>
-        <segue reference="zL8-ux-RgH"/>
+        <segue reference="5ly-oe-XUC"/>
+        <segue reference="X9i-Tk-5u9"/>
+        <segue reference="Mhn-ZJ-UGW"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

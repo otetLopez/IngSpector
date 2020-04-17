@@ -35,7 +35,7 @@ class SearchByProductNameViewController: UIViewController {
         allergicFoods = defaultsAccess.getFoodListFromDefaults()
         print(allergensOfUser);
     }
-//    http://www.recipepuppy.com/api/?q=gyro&p=1
+
 
     /*
     // MARK: - Navigation

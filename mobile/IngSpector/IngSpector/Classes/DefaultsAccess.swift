@@ -59,4 +59,12 @@ class DefaultsAccess {
     func setAllergenListToDefaults(allergenList: [String]) {
         UserDefaults.standard.set(allergenList, forKey: "allergenList")
     }
+
+    func getWeightFromDefaults() -> String {
+           return UserDefaults.standard.string(forKey: "weight") ?? ""
+       }
+    
+    func getHeightFromDefaults() -> String {
+        return UserDefaults.standard.string(forKey: "height") ?? ""
+    }
 }
