@@ -114,7 +114,8 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
                         let dataJSON : JSON = JSON(value)
                         self.parseUserInfo(dataJSON: dataJSON)
                     case let .failure(error):
-                        print(error)
+                        print("DEBUG: Retrieving User Data \(error)")
+                        self.showToastMsg(msg: "Cannot Connect To Server.  Please Try Again.", seconds: 3)
                 }
             }
         }

@@ -20,8 +20,14 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureView()
+        configureValues()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureView()
+        configureValues()
     }
     
     @IBAction func cameraBtnPressed(_ sender: UIButton) {
@@ -37,12 +43,9 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
         }
     }
     
-    
     @IBAction func ScanBtnPressed(_ sender: UIButton) {
         performImageRecognition(photoView.image!)
     }
-    
-    
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
@@ -52,6 +55,7 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
             return
         }
         photoView.image = image
+        scanBtn.isEnabled = true
     }
     
     func performImageRecognition(_ image: UIImage) {
@@ -89,10 +93,15 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
         SVProgressHUD.show(withStatus: msg)
     }
     
+    func configureValues() {
+        
+    }
+    
     func configureView() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.titleView?.isHidden = true
         self.navigationController?.setToolbarHidden(true, animated: true)
+        scanBtn.isEnabled = false
         
         cameraBtn.layer.cornerRadius = 10
         scanBtn.layer.cornerRadius = 10
