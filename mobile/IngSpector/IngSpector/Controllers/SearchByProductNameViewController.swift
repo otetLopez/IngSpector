@@ -12,7 +12,7 @@ import SwiftyJSON
 import SVProgressHUD
 
 
-class SearchByProductNameViewController: UIViewController {
+class SearchByProductNameViewController: UIViewController , UITextFieldDelegate{
 
     @IBOutlet weak var checkAllegensBtnOutlet: UIButton!
     @IBOutlet weak var searchText: UITextField!
@@ -24,6 +24,7 @@ class SearchByProductNameViewController: UIViewController {
     var allergicIngredients : [String] = [String]()
     var allergicFoods : [String] = [String]()
     
+    var internetConnection : InternetConnection = InternetConnection()
     
     
     override func viewDidLoad() {
@@ -34,6 +35,11 @@ class SearchByProductNameViewController: UIViewController {
         allergensOfUser = defaultsAccess.getAllergenListFromDefaults()
         allergicFoods = defaultsAccess.getFoodListFromDefaults()
         print(allergensOfUser);
+        
+        //Gesture recognizer
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(NutritionFactsViewController.viewTapped(gestureRecognnizer:))) ;
+        view.addGestureRecognizer(tapGesture);
+        self.searchText.delegate = self 
     }
 
 
@@ -57,8 +63,12 @@ class SearchByProductNameViewController: UIViewController {
     }
 
     @IBAction func checkAllergensButton(_ sender: Any) {
-        
-        if(searchText.text != ""){
+        if (!internetConnection.isConnected()) {
+            showToastMsg(msg: "Not connected to internet.  Try Again.", seconds: 3)
+        }
+        else {
+            
+            if(searchText.text != ""){
             
             SVProgressHUD.setDefaultStyle(.custom)
             SVProgressHUD.setDefaultMaskType(.custom)
@@ -77,25 +87,25 @@ class SearchByProductNameViewController: UIViewController {
                             // SVProgressHUD.dismiss()
                              switch response.result {
                                  case let .success(value):
-                                     let dataJSON : JSON = JSON(value)
+                                    let dataJSON : JSON = JSON(value)
                                      
-                                     if let ingredientsOfSearchedProduct = dataJSON["results"][0]["ingredients"].string{
-                                        let ingredientArray = ingredientsOfSearchedProduct.components(separatedBy: ",")
+                                    if let ingredientsOfSearchedProduct = dataJSON["results"][0]["ingredients"].string{
+                                    let ingredientArray = ingredientsOfSearchedProduct.components(separatedBy: ",")
                                         
-                                        print(ingredientArray);
+                                    print(ingredientArray);
                                        
-                                        for i in self.allergensOfUser{
+                                    for i in self.allergensOfUser{
 
-                                            let searchStr = i
-                                            let lowerCasedStr : String = searchStr.lowercased();
-                                                for x in 0...ingredientArray.count-1{
+                                    let searchStr = i
+                                    let lowerCasedStr : String = searchStr.lowercased();
+                                    for x in 0...ingredientArray.count-1{
   
-                                                    if(ingredientArray[x].contains(lowerCasedStr)){
-                                                        self.allergicIngredients.append(searchStr)
+                                        if(ingredientArray[x].contains(lowerCasedStr)){
+                                        self.allergicIngredients.append(searchStr)
                                                 
-                                            }
                                         }
                                     }
+                                }
                                         let when = DispatchTime.now() + 2
                                         DispatchQueue.main.asyncAfter(deadline: when){
                                         SVProgressHUD.dismiss()
@@ -196,19 +206,40 @@ class SearchByProductNameViewController: UIViewController {
                                      
                                  case let .failure(error):
                                      print(error)
-                                     SVProgressHUD.dismiss()
-                                let alertError = UIAlertController(title: "Unknown Error", message: "Please try again later", preferredStyle: .alert)
-                                let okActionnnn = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
-                                    alertError.dismiss(animated: true, completion: nil)
-                                    self.searchText.text=""
-
-                                                                }
-                                     alertError.addAction(okActionnnn)
-                                     self.present(alertError, animated: true, completion: nil)
+                                   self.showToastMsg(msg: "Cannot Connect To Server.  Please Try Again.", seconds: 3)
                                      
                              }
                          }
                 }
+        else{
+             showToastMsg(msg: "Please enter food name to search", seconds: 2)
+            }
         }
-        
+    }
+    
+    func showToastMsg(msg: String, seconds: Double) {
+         let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+         alertController.view.alpha = 0.5
+         alertController.view.layer.cornerRadius = 15
+         
+         self.present(alertController, animated: true)
+         
+         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+             alertController.dismiss(animated: true)
+         }
+     }
+    
+    //Gesture recognizer methods
+    
+    //When tapped rather than keyboard , keyboard will closed
+     @objc func viewTapped(gestureRecognnizer : UITapGestureRecognizer){
+
+    view.endEditing(true);
+     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
 }
+            

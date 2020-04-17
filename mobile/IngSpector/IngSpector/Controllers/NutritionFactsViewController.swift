@@ -11,7 +11,7 @@ import Alamofire
 import SVProgressHUD
 import SwiftyJSON
 
-class NutritionFactsViewController: UIViewController {
+class NutritionFactsViewController: UIViewController , UITextFieldDelegate{
 
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var weightOfFood: UITextField!
@@ -23,6 +23,7 @@ class NutritionFactsViewController: UIViewController {
     var height = 0.0
     var weight = 0.0
     
+    var internetConnection : InternetConnection = InternetConnection()
     
     var incomingFoodName = "";
     
@@ -33,11 +34,21 @@ class NutritionFactsViewController: UIViewController {
         infoLabel.text = "Just enter the weight of \(incomingFoodName) to learn percentage of daily needs"
         height = (defaultsAccess.getHeightFromDefaults() as NSString).doubleValue
         weight = (defaultsAccess.getWeightFromDefaults() as NSString).doubleValue
+        
+        
+        //Gesture recognizer
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(NutritionFactsViewController.viewTapped(gestureRecognnizer:))) ;
+        view.addGestureRecognizer(tapGesture);
+        self.weightOfFood.delegate = self 
     }
     
    // https://api.edamam.com/search?q=chicken%20enchilada&app_id=76aa016a&app_key=e8d45d0585903b93a99c367f41020243&from=0&to=1
     @IBAction func checkPercentageButton(_ sender: UIButton) {
+      if (!internetConnection.isConnected()) {
+                showToastMsg(msg: "Not connected to internet.  Try Again.", seconds: 3)
+            }
       
+      else {
         if(weightOfFood.text != ""){
             let  searchString = incomingFoodName.replacingOccurrences(of: " ", with: "%20")
              let apiUrl = "https://api.edamam.com/search?q=\(searchString)&app_id=76aa016a&app_key=e8d45d0585903b93a99c367f41020243&from=0&to=1"
@@ -84,13 +95,41 @@ class NutritionFactsViewController: UIViewController {
                         
                     case let .failure(error):
                         print(error)
+                        self.showToastMsg(msg: "Cannot Connect To Server.  Please Try Again.", seconds: 3)
                     }
                 }
                       
             }
-        }
-    
-       
         
+        else{
+             showToastMsg(msg: "Please enter the weight of food", seconds: 2)
+        }
+    }
+    
+}
+        
+    func showToastMsg(msg: String, seconds: Double) {
+        let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+        alertController.view.alpha = 0.5
+        alertController.view.layer.cornerRadius = 15
+                
+        self.present(alertController, animated: true)
+                
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+        alertController.dismiss(animated: true)
+        }
+    }
+    
+    //Gesture recognizer methods
+    
+    //When tapped rather than keyboard , keyboard will closed
+     @objc func viewTapped(gestureRecognnizer : UITapGestureRecognizer){
 
+         view.endEditing(true);
+     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
 }

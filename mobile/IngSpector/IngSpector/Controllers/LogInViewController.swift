@@ -13,7 +13,7 @@ import SwiftyJSON
 import SVProgressHUD
 import MessageUI
 
-class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate {
+class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate , UITextFieldDelegate{
 
     @IBOutlet weak var tf_uname: UITextField!
     @IBOutlet weak var tf_pwd: UITextField!
@@ -35,6 +35,9 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
         // Make sure keyboard hides after typing
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         self.view.addGestureRecognizer(tapGesture)
+        
+        self.tf_uname.delegate = self
+        self.tf_pwd.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -213,4 +216,9 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
             log_delegate.home_delegate = self
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+           self.view.endEditing(true)
+           return false
+       }
 }
