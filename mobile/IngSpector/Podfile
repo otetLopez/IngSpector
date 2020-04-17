@@ -11,5 +11,6 @@ target 'IngSpector' do
   pod 'SVProgressHUD'
   pod 'Reachability'
   pod 'TesseractOCRiOS'
+  pod 'GPUImage'
   
 end 

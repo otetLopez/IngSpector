@@ -8,6 +8,8 @@
 
 import UIKit
 import SVProgressHUD
+import TesseractOCR
+import GPUImage
 
 class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -37,7 +39,9 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
     
     
     @IBAction func ScanBtnPressed(_ sender: UIButton) {
+        performImageRecognition(photoView.image!)
     }
+    
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -48,6 +52,21 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
             return
         }
         photoView.image = image
+    }
+    
+    func performImageRecognition(_ image: UIImage) {
+      let scaledImage = image.scaledImage(1000) ?? image
+      let preprocessedImage = scaledImage.preprocessedImage() ?? scaledImage
+      
+      if let tesseract = G8Tesseract(language: "eng+fra") {
+        tesseract.engineMode = .tesseractCubeCombined
+        tesseract.pageSegmentationMode = .auto
+        
+        tesseract.image = preprocessedImage
+        tesseract.recognize()
+        let txt : String = tesseract.recognizedText ?? ""
+        print("DEBUG: Recognized Text --> \(txt)")
+      }
     }
     
     func showToastMsg(msg: String, seconds: Double) {
@@ -78,4 +97,31 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
         cameraBtn.layer.cornerRadius = 10
         scanBtn.layer.cornerRadius = 10
     }
+}
+
+// MARK: - UIImage extension
+extension UIImage {
+  func scaledImage(_ maxDimension: CGFloat) -> UIImage? {
+    var scaledSize = CGSize(width: maxDimension, height: maxDimension)
+
+    if size.width > size.height {
+      scaledSize.height = size.height / size.width * scaledSize.width
+    } else {
+      scaledSize.width = size.width / size.height * scaledSize.height
+    }
+
+    UIGraphicsBeginImageContext(scaledSize)
+    draw(in: CGRect(origin: .zero, size: scaledSize))
+    let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    
+    return scaledImage
+  }
+  
+  func preprocessedImage() -> UIImage? {
+    let stillImageFilter = GPUImageAdaptiveThresholdFilter()
+    stillImageFilter.blurRadiusInPixels = 15.0
+    let filteredImage = stillImageFilter.image(byFilteringImage: self)
+    return filteredImage
+  }
 }
