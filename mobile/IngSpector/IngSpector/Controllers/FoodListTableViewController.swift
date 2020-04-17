@@ -126,6 +126,7 @@ class FoodListTableViewController: UITableViewController {
                         self.foodList = user.getFoodList()
                         self.tableView.reloadData()
                     case let .failure(error):
+                        self.showToastMsg(msg: "Cannot Connect To Server.  Please Try Again.", seconds: 3)
                         print(error)
                 }
             }

@@ -242,6 +242,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
                         self.setUpdatesFromServer(refreshView: refreshView)
                         SVProgressHUD.dismiss()
                     case let .failure(error):
+                        self.showToastMsg(msg: "Cannot Connect To Server.  Please Try Again.", seconds: 3)
                         print(error)
                 }
             }

@@ -95,6 +95,7 @@ class LogInViewController: UIViewController, MFMailComposeViewControllerDelegate
                             self.showToastMsg(msg: "Email/Password Incorrect", seconds: 2)
                         }
                     case let .failure(error):
+                        self.showToastMsg(msg: "Cannot Connect To Server.  Please Try Again.", seconds: 3)
                         print(error)
                 }
             }

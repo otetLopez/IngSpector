@@ -137,6 +137,7 @@ class RegisterViewController: UIViewController, UITableViewDelegate, UITableView
                         self.notifyRegistrationError()
                     }
                 case let .failure(error):
+                    self.showToastMsg(msg: "Cannot Connect To Server.  Please Try Again.", done: false, seconds: 3)
                     print(error)
             }
         }
