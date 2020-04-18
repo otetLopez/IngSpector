@@ -94,7 +94,7 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
             txt =  tesseract.recognizedText ?? ""
             print("DEBUG: Recognized Text --> \(txt)")
         }
-        return "txt"
+        return txt
     }
     
     func retrieveAllergenList() {
@@ -123,23 +123,29 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
     
     func analyzeFoodLabel(foodLabel: String) {
         var isAllergic : Bool = false
+        var allergicItems = "";
         allergenList = defaultsAccess.getAllergenListFromDefaults()
         for allergen in allergenList {
             if foodLabel.lowercased().contains(allergen.lowercased()) {
+                
+                allergicItems += "\(allergen.uppercased())!\n"
                 SVProgressHUD.dismiss()
-                promptFoodName(allergen: allergen)
                 isAllergic = true
-                break
+                
             }
         }
         if isAllergic == false {
             SVProgressHUD.dismiss()
             resultLbl.text = "This is safe for you.  Bon Appétit!"
         }
+        
+        if (isAllergic){
+             promptFoodName(allergen: allergicItems)
+        }
     }
     
     func promptFoodName(allergen: String) {
-        let alertController = UIAlertController(title: "Contains \(allergen)!", message: "Save food to your list", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "CONTAINS\n \(allergen)", message: "Save food to your list", preferredStyle: .alert)
         
         alertController.addTextField { (nFoodName) in
             nFoodName.placeholder = "Food Name"

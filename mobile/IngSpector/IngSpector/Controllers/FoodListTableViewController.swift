@@ -11,7 +11,9 @@ import Alamofire
 import SwiftyJSON
 import SVProgressHUD
 
-class FoodListTableViewController: UITableViewController {
+class FoodListTableViewController: UITableViewController , UISearchResultsUpdating{
+  
+    
 
     @IBOutlet weak var homeBtn: UIBarButtonItem!
     @IBOutlet weak var listBtn: UIBarButtonItem!
@@ -22,6 +24,10 @@ class FoodListTableViewController: UITableViewController {
     var defaultsAccess : DefaultsAccess = DefaultsAccess()
     var internetConnection : InternetConnection = InternetConnection()
     
+    var filteredFoods : [String] = []
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
     var  refreshContinue = false
     var sender : UIRefreshControl? = nil;
     
@@ -30,6 +36,19 @@ class FoodListTableViewController: UITableViewController {
         
         configureView()
         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Allergic Foods"
+
+        definesPresentationContext = true
+              
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = true
+        
+        //White text color on searchbar...
+        let textFieldInsideSearchBar = searchController.searchBar.value(forKey:"searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = UIColor.white
     }
     
     @IBAction func refreshControl(_ sender: UIRefreshControl) {
@@ -39,7 +58,31 @@ class FoodListTableViewController: UITableViewController {
     
     }
     
-  
+    var isSearchBarEmpty: Bool {
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+
+    var isFiltering: Bool {
+        return searchController.isActive && !isSearchBarEmpty
+    }
+    
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+         self.tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        let searchBar = searchController.searchBar
+        filterContentSearchBar(searchText: searchBar.text!) ;
+    }
+    
+    func filterContentSearchBar(searchText : String ){
+
+        filteredFoods = foodList.filter{ (foods : String) -> Bool in
+        return foods.lowercased().contains(searchText.lowercased())
+        }
+            
+        self.tableView.reloadData();
+    }
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,12 +97,33 @@ class FoodListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("DEBUG: FoodList Count \(foodList.count)")
-        return foodList.count
+        
+        if(isFiltering){
+            return filteredFoods.count
+        }
+        
+        else{
+            return foodList.count
+        }
+        
+      
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "foodlist", for: indexPath)
-        cell.textLabel!.text = " \(indexPath.row + 1) \(foodList[indexPath.row])"
+        
+        var food : String ;
+        
+        if(isFiltering){
+            food = filteredFoods[indexPath.row]
+        }
+        
+        else{
+            food = foodList[indexPath.row]
+        }
+
+        
+        cell.textLabel!.text = " \(indexPath.row + 1) \(food)"
         cell.layer.cornerRadius = 10
         return cell
     }

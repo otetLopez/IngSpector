@@ -301,7 +301,7 @@
         <scene sceneID="4KN-Ug-lO2">
             <objects>
                 <tableViewController title="My Food List" id="yqG-An-MVN" customClass="FoodListTableViewController" customModule="IngSpector" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="MvK-Bs-l5Z">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="MvK-Bs-l5Z">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -473,11 +473,8 @@
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jaE-lq-4G2">
-                                <rect key="frame" x="50" y="299" width="314" height="150"/>
+                                <rect key="frame" x="50" y="299" width="314" height="414"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="u6Q-gu-Ozp"/>
-                                </constraints>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profile_cell" textLabel="ss5-79-5Fg" style="IBUITableViewCellStyleDefault" id="Sys-9h-I9e">
@@ -526,6 +523,7 @@
                             <constraint firstItem="gAD-MZ-wm5" firstAttribute="centerX" secondItem="zeC-q9-SGk" secondAttribute="centerX" constant="0.5" id="Sx7-L2-dH9"/>
                             <constraint firstItem="Vfk-HH-kEj" firstAttribute="centerX" secondItem="zeC-q9-SGk" secondAttribute="centerX" constant="0.5" id="UOq-QH-5mj"/>
                             <constraint firstItem="jaE-lq-4G2" firstAttribute="top" secondItem="gAD-MZ-wm5" secondAttribute="bottom" constant="15" id="WBM-JU-8J1"/>
+                            <constraint firstItem="Vfk-HH-kEj" firstAttribute="top" secondItem="jaE-lq-4G2" secondAttribute="bottom" constant="50" id="Wak-kg-U2q"/>
                             <constraint firstItem="tv7-l7-UD0" firstAttribute="leading" secondItem="y1M-d6-vsB" secondAttribute="leading" id="lqr-H1-XF5"/>
                             <constraint firstItem="gAD-MZ-wm5" firstAttribute="centerX" secondItem="zeC-q9-SGk" secondAttribute="centerX" constant="0.5" id="n2A-uT-lWW"/>
                             <constraint firstItem="y1M-d6-vsB" firstAttribute="bottom" secondItem="Vfk-HH-kEj" secondAttribute="bottom" constant="10" id="nBi-Pb-GKo"/>
@@ -906,7 +904,7 @@
                                     <action selector="cameraBtnPressed:" destination="6MM-uX-Y8i" eventType="touchUpInside" id="FOp-op-pvh"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3HX-YR-Awq">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3HX-YR-Awq">
                                 <rect key="frame" x="20" y="174" width="374" height="240"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1080,8 +1078,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="RFB-CK-OTd"/>
-        <segue reference="X9i-Tk-5u9"/>
-        <segue reference="pSU-NQ-PE0"/>
+        <segue reference="j9z-Q5-IpZ"/>
+        <segue reference="h8E-rO-4ox"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
