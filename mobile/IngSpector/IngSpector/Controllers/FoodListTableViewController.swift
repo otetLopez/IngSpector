@@ -22,12 +22,25 @@ class FoodListTableViewController: UITableViewController {
     var defaultsAccess : DefaultsAccess = DefaultsAccess()
     var internetConnection : InternetConnection = InternetConnection()
     
+    var  refreshContinue = false
+    var sender : UIRefreshControl? = nil;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureView()
         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    @IBAction func refreshControl(_ sender: UIRefreshControl) {
+        self.refreshContinue = true
+        self.sender = sender
+        retrieveFoodList()
+    
+    }
+    
+  
+    
     
     override func viewWillAppear(_ animated: Bool) {
         configureView()
@@ -130,6 +143,9 @@ class FoodListTableViewController: UITableViewController {
                         print(error)
                 }
             }
+        }
+        if(refreshContinue){
+            self.sender?.endRefreshing()
         }
     }
 }

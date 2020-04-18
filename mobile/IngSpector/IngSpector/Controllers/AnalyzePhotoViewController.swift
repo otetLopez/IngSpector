@@ -24,12 +24,13 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
     var serverConnection : ServerConnection = ServerConnection()
     var defaultsAccess : DefaultsAccess = DefaultsAccess()
     var allergenList : [String] = [String]()
-    var scanEnabled : Bool = false
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
         scanBtn.isEnabled = false
+        photoView.layer.cornerRadius=15;
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,13 +56,12 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
     @IBAction func ScanBtnPressed(_ sender: UIButton) {
         showProgress(msg: "Scanning photo...")
         resultLbl.text = ""
-        if(scanEnabled == false) {
-            showToastMsg(msg: "No Image To Scan.", seconds: 2)
-            SVProgressHUD.dismiss()
-        } else {
-           
-            analyzeFoodLabel(foodLabel : performImageRecognition(photoView.image!))
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.analyzeFoodLabel(foodLabel : self.performImageRecognition(self.photoView.image!))
         }
+       
+     
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -69,29 +69,32 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
 
         guard let image = info[.editedImage] as? UIImage else {
             print("No image found")
+            showToastMsg(msg: "No Image To Scan.", seconds: 2)
             return
         }
         print("DEBUG: imagePickerController  We have an image")
         photoView.image = image
         scanBtn.isEnabled = true
-        scanEnabled = true
+        
     }
     
     func performImageRecognition(_ image: UIImage) -> String {
+       
+        showProgress(msg: "Scanning photo...")
         var txt : String = ""
         let scaledImage = image.scaledImage(1000) ?? image
         let preprocessedImage = scaledImage.preprocessedImage() ?? scaledImage
-        
+
         if let tesseract = G8Tesseract(language: "eng+fra") {
             tesseract.engineMode = .tesseractCubeCombined
             tesseract.pageSegmentationMode = .auto
-            
+
             tesseract.image = preprocessedImage
             tesseract.recognize()
             txt =  tesseract.recognizedText ?? ""
             print("DEBUG: Recognized Text --> \(txt)")
         }
-        return txt
+        return "txt"
     }
     
     func retrieveAllergenList() {
@@ -169,7 +172,7 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
            
             /* Add to server */
             let email : String = defaultsAccess.getEmailFromDefaults()
-            let url : String = serverConnection.getURLAddFood() + "\(email)/\(newFood.replacingOccurrences(of: " ", with: "%20"))"
+            let url : String = serverConnection.getURLAddFood() + "\(email)/\(newFood.replacingOccurrences(of: " ", with: "%20").uppercased())"
             print("DEBUG: addFood food to user details \(url)")
 
             if (!internetConnection.isConnected()) {
