@@ -92,6 +92,8 @@ class AnalyzePhotoViewController: UIViewController, UIImagePickerControllerDeleg
             tesseract.image = preprocessedImage
             tesseract.recognize()
             txt =  tesseract.recognizedText ?? ""
+            print("Aaa")
+            print(txt)
             print("DEBUG: Recognized Text --> \(txt)")
         }
         return txt

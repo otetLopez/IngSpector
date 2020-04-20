@@ -91,7 +91,7 @@ class SearchByProductNameViewController: UIViewController , UITextFieldDelegate{
                                      
                                     if let ingredientsOfSearchedProduct = dataJSON["results"][0]["ingredients"].string{
                                     let ingredientArray = ingredientsOfSearchedProduct.components(separatedBy: ",")
-                                        
+                                        print("ingredientArray")
                                     print(ingredientArray);
                                        
                                     for i in self.allergensOfUser{

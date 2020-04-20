@@ -16,6 +16,7 @@ class NutritionFactsViewController: UIViewController , UITextFieldDelegate{
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var weightOfFood: UITextField!
     
+
     @IBOutlet weak var resultLabel: UILabel!
     
     var defaultsAccess = DefaultsAccess()
@@ -35,6 +36,7 @@ class NutritionFactsViewController: UIViewController , UITextFieldDelegate{
         height = (defaultsAccess.getHeightFromDefaults() as NSString).doubleValue
         weight = (defaultsAccess.getWeightFromDefaults() as NSString).doubleValue
         
+
         
         //Gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(NutritionFactsViewController.viewTapped(gestureRecognnizer:))) ;
@@ -42,7 +44,7 @@ class NutritionFactsViewController: UIViewController , UITextFieldDelegate{
         self.weightOfFood.delegate = self 
     }
     
-   // https://api.edamam.com/search?q=chicken%20enchilada&app_id=76aa016a&app_key=e8d45d0585903b93a99c367f41020243&from=0&to=1
+
     @IBAction func checkPercentageButton(_ sender: UIButton) {
       if (!internetConnection.isConnected()) {
                 showToastMsg(msg: "Not connected to internet.  Try Again.", seconds: 3)
@@ -51,7 +53,7 @@ class NutritionFactsViewController: UIViewController , UITextFieldDelegate{
       else {
         if(weightOfFood.text != ""){
             let  searchString = incomingFoodName.replacingOccurrences(of: " ", with: "%20")
-             let apiUrl = "https://api.edamam.com/search?q=\(searchString)&app_id=76aa016a&app_key=e8d45d0585903b93a99c367f41020243&from=0&to=1"
+             let apiUrl = "https://api.edamam.com/search?q=\(searchString)&app_id=b08257a1&app_key=98394a3aa4aa67613ded3d2f91f96e7c&from=0&to=1"
               
             AF.request(apiUrl, method: .get).responseJSON {
             response in
@@ -105,7 +107,7 @@ class NutritionFactsViewController: UIViewController , UITextFieldDelegate{
              showToastMsg(msg: "Please enter the weight of food", seconds: 2)
         }
     }
-    
+         view.endEditing(true);
 }
         
     func showToastMsg(msg: String, seconds: Double) {
